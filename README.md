@@ -129,11 +129,16 @@ Si rammenta, però, che il focus del laboratorio è l'implementazione di struttu
 
 Implementare una libreria che offre due algoritmi di ordinamento `Quick Sort` e `Binary Insertion Sort`. Con `Binary Insertion Sort` ci riferiamo a una versione dell'algoritmo `Insertion Sort` in cui la posizione all'interno della sezione ordinata del vettore in cui inserire l'elemento corrente è determinata tramite ricerca binaria. Nell'implementazione del `Quick Sort`, la scelta del `pivot` dovrà essere studiato e discusso nella relazione.
 
-Il codice che implementa `Quick Sort` e `Binary Insertion Sort` deve essere generico. Inoltre, la libreria deve permettere di specificare (cioè deve accettare in input) il criterio secondo cui ordinare i dati.
+//Analizzo le prestazioni in modo Incrementale. E faccio vedere come si comporta il QuickSort e l'InsertionSort sia scelta del PIVOT all'ultimo o scelto a caso. Posso anche provare con un array ordinato e analizzare le prestazioni.
+
+
+Il codice che implementa `Quick Sort` e `Binary Insertion Sort` deve essere generico sui tipi. Inoltre, la libreria deve permettere di specificare (cioè deve accettare in input) il criterio secondo cui ordinare i dati.
 
 ### Unit Testing
 
 Implementare gli unit-test per la libreria secondo le indicazioni suggerite nel documento Unit Testing.
+
+//2 algoritmi di sorting: almeno 6 test.
 
 ### Uso della libreria di ordinamento implementata
 
