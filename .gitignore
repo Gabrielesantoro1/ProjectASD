@@ -28,6 +28,6 @@
 
 #Others
 skiplist.png
-
-
+*.log
+*.json
 *.csv
