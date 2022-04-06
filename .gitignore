@@ -1,4 +1,3 @@
-
 # Default ignored files
 /shelf/
 /workspace.xml
@@ -23,11 +22,12 @@
 /Unity Test/
 /JUnit Test/
 
-#MD file
-*.MD
+#md file
+*.md
 
 #Others
 skiplist.png
 *.log
 *.json
 *.csv
+

@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "array.h"
+
+int INITIAL_CAPACITY = 5;
 
 struct Array_struct{
   void** array;
@@ -9,16 +12,16 @@ struct Array_struct{
   int (*precedes)(void*,void*);
 };
 
-INITIAL_CAPACITY 5
 
 int array_is_empty(Array_Struct *array_struct){
-  if(array_struct == NULL)
+  if(array_struct == NULL){
     fprintf(stderr,"array_is_empty: array_struct parameter cannot be NULL");
     exit(EXIT_FAILURE);
   }
-  if(array_struct->el_num == 0)
+  if(array_struct->el_num == 0){
     return(1);
   return(0);
+  }
 }
 
 Array_Struct *array_create(void){
@@ -55,7 +58,6 @@ int array_size(Array_Struct *array_struct){
   }else
     return array_struct->el_num;
 }
-
 
 void array_struct_add(Array_Struct *array_struct, void* element){
   if(array_struct == NULL){

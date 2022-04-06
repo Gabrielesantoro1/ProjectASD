@@ -8,7 +8,7 @@ struct record{
     char* string_field;
     int integer_field;
     float float_field;
-}
+};
 
 static int precedes_record_int_field(void* r1_p, void* r2_p){
     if(r1_p == NULL){
@@ -93,7 +93,7 @@ static void print_array(Array_Struct* array){
     }
 }
 
-static void load_array(const char* file_name, OrderedArray* array){
+static void load_array(const char* file_name, Array_Struct* array){
   char *read_line_p;
   char buffer[1024];
   int buf_size = 1024;
@@ -155,29 +155,29 @@ static void load_array(const char* file_name, OrderedArray* array){
   printf("\nData loaded\n");
 }
 
-static void test_quicksort_with_comparasion_function(const char* file_name, int (*compare)(void*,void*)){
+static void test_quicksort_with_comparison_function(const char* file_name, int (*compare)(void*,void*)){
     Array_Struct* array = array_create();
     clock_t before = clock();
     load_array(file_name, array);
 
     //quicksort();
     clock_t difference = clock() - before;
-    int msec = difference * 1000 / CLOCK_PER_SEC;
-    printf("Time taken: %d millisecods",msec%1000);
+    int msec = difference * 1000; // CLOCK_PER_SEC;
+    //printf("Time taken: %d millisecods",msec%1000);
 
     print_array(array);
     free_array(array);
 }
 
-static void test_insertionsort_with_comparasion_function(const char* file_name, int (*compare)(void*,void*)){
+static void test_insertionsort_with_comparison_function(const char* file_name, int (*compare)(void*,void*)){
     Array_Struct* array = array_create();
     clock_t before = clock();
     load_array(file_name, array);
 
     //b_insertionsort();
     clock_t difference = clock() - before;
-    int msec = difference * 1000 / CLOCK_PER_SEC;
-    printf("Time taken: %d millisecods",msec%1000);
+    int msec = difference * 1000; // CLOCK_PER_SEC;
+    //printf("Time taken: %d millisecods",msec%1000);
 
     print_array(array);
     free_array(array);
@@ -192,5 +192,4 @@ int main(int argc, char const *argv[]){
   test_insertionsort_comparison_function(argv[1], precedes_record_string_field);   
   
   return (EXIT_SUCCESS);
-}
 }
