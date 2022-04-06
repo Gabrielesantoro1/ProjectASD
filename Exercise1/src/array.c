@@ -3,8 +3,7 @@
 #include <string.h>
 #include "array.h"
 
-
-int INITIAL_CAPACITY = 5;
+int INITIAL_CAPACITY = 21;
 
 struct Array_struct{
   void** array;
@@ -12,7 +11,6 @@ struct Array_struct{
   unsigned long array_capacity;
   int (*precedes)(void*,void*);
 };
-
 
 int array_is_empty(Array_Struct *array_struct){
   if(array_struct == NULL){
@@ -25,7 +23,7 @@ int array_is_empty(Array_Struct *array_struct){
   }
 }
 
-Array_Struct *array_create(void){
+Array_Struct *array_create(){
   Array_Struct *array_struct = (Array_Struct *)malloc(sizeof(Array_Struct));
   if(array_struct == NULL){
     fprintf(stderr,"array_create: array_struct cannot be NULL");
@@ -69,7 +67,7 @@ void array_struct_add(Array_Struct *array_struct, void* element){
     fprintf(stderr,"add_ordered_array_element: element parameter cannot be NULL");
     exit(EXIT_FAILURE);
   }
-  
+     printf("array capacity: %d el num: %d\n", array_struct->array_capacity, array_struct->el_num);
   if(array_struct->el_num >= array_struct->array_capacity){
     array_struct->array = (void**)realloc(array_struct->array,2*(array_struct->array_capacity)*sizeof(void*));
     if(array_struct->array == NULL){
@@ -84,3 +82,14 @@ void array_struct_add(Array_Struct *array_struct, void* element){
   
 }
 
+void* array_get(Array_Struct *array_struct, unsigned long i){ 
+  if(array_struct == NULL){
+      fprintf(stderr,"array_get: array_struct cannot be NULL");
+      exit(EXIT_FAILURE);
+    }
+    if(i>=array_struct->el_num){
+      fprintf(stderr,"array_get: Index out of the array bounds",i);
+      exit(EXIT_FAILURE);
+    }
+    return(array_struct->array)[i];
+}

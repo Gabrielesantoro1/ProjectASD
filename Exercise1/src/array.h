@@ -10,5 +10,7 @@ int array_size(Array_Struct *array_struct);
 
 void array_struct_add(Array_Struct *array_struct, void* element);
 
+void* array_get(Array_Struct *array_struct, unsigned long i);
+
 
 

@@ -117,11 +117,12 @@ static void load_array(const char* file_name, Array_Struct* array){
     }
     
     strcpy(read_line_p,buffer);   
-    
-    char *string_field_in_read_line_p = strtok(read_line_p,",");
-    char *integer_field_in_read_line_p = strtok(read_line_p,",");
+    char *id_field_in_read_line_p = strtok(read_line_p,",");
+    char *string_field_in_read_line_p = strtok(NULL,",");
+    char *integer_field_in_read_line_p = strtok(NULL,",");
     char *float_field_in_read_line_p = strtok(NULL,"\n");
 
+    printf("linep : %s - %s - %S\n", string_field_in_read_line_p, integer_field_in_read_line_p,float_field_in_read_line_p);
     char *string_field = malloc((strlen(string_field_in_read_line_p)+1)*sizeof(char));
 
     //case: if the malloc goes wrong
@@ -131,6 +132,7 @@ static void load_array(const char* file_name, Array_Struct* array){
     }  
 
     strcpy(string_field,string_field_in_read_line_p);
+
     int integer_field = atoi(integer_field_in_read_line_p);
    
     //cast from double returned by atof to float.
@@ -147,8 +149,10 @@ static void load_array(const char* file_name, Array_Struct* array){
     record_p->string_field = string_field;
     record_p->integer_field = integer_field;
     record_p->float_field = float_field;
+    printf("Fields: %d - %f - %s\n", integer_field ,float_field, string_field);
+
     
-    ordered_array_add(array, (void*)record_p);
+    array_struct_add(array, (void*)record_p);
     free(read_line_p);
   }
   fclose(fp);
@@ -157,13 +161,14 @@ static void load_array(const char* file_name, Array_Struct* array){
 
 static void test_quicksort_with_comparison_function(const char* file_name, int (*compare)(void*,void*)){
     Array_Struct* array = array_create();
+    printf("Array created");
     clock_t before = clock();
     load_array(file_name, array);
 
     //quicksort();
     clock_t difference = clock() - before;
     int msec = difference * 1000; // CLOCK_PER_SEC;
-    //printf("Time taken: %d millisecods",msec%1000);
+    printf("Time taken: %d millisecods",msec%1000);
 
     print_array(array);
     free_array(array);
@@ -171,16 +176,17 @@ static void test_quicksort_with_comparison_function(const char* file_name, int (
 
 static void test_insertionsort_with_comparison_function(const char* file_name, int (*compare)(void*,void*)){
     Array_Struct* array = array_create();
+    printf("Array created");
     clock_t before = clock();
     load_array(file_name, array);
 
     //b_insertionsort();
     clock_t difference = clock() - before;
     int msec = difference * 1000; // CLOCK_PER_SEC;
-    //printf("Time taken: %d millisecods",msec%1000);
-
+    printf("Time taken: %d millisecods",msec%1000);
     print_array(array);
     free_array(array);
+    printf("FINITO");
 }
 
 int main(int argc, char const *argv[]){
@@ -189,7 +195,7 @@ int main(int argc, char const *argv[]){
     exit(EXIT_FAILURE);
   }
   test_quicksort_with_comparison_function(argv[1], precedes_record_int_field);
-  test_insertionsort_comparison_function(argv[1], precedes_record_string_field);   
+  test_insertionsort_with_comparison_function(argv[1], precedes_record_string_field);   
   
   return (EXIT_SUCCESS);
 }
