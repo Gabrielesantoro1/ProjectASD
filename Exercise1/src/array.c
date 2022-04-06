@@ -3,6 +3,7 @@
 #include <string.h>
 #include "array.h"
 
+
 int INITIAL_CAPACITY = 5;
 
 struct Array_struct{
