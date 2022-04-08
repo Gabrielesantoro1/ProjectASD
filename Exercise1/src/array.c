@@ -3,7 +3,7 @@
 #include <string.h>
 #include "array.h"
 
-int INITIAL_CAPACITY = 21;
+#define INITIAL_CAPACITY 1000
 
 struct Array_struct{
   void** array;
@@ -36,7 +36,6 @@ Array_Struct *array_create(){
   }
   array_struct->el_num=0;
   array_struct->array_capacity = INITIAL_CAPACITY;
-
   return array_struct;
 }
 
@@ -67,17 +66,15 @@ void array_struct_add(Array_Struct *array_struct, void* element){
     fprintf(stderr,"add_ordered_array_element: element parameter cannot be NULL");
     exit(EXIT_FAILURE);
   }
-     printf("array capacity: %d el num: %d\n", array_struct->array_capacity, array_struct->el_num);
   if(array_struct->el_num >= array_struct->array_capacity){
     array_struct->array = (void**)realloc(array_struct->array,2*(array_struct->array_capacity)*sizeof(void*));
     if(array_struct->array == NULL){
       fprintf(stderr,"array_struct_add: unable to reallocate memory to host the new element");
       exit(EXIT_FAILURE);
     }
-    array_struct->array_capacity = 2*array_struct->array_capacity;
+    array_struct->array_capacity = 2*(array_struct->array_capacity);
   }  
   (array_struct->el_num)++;
-
   (array_struct->array)[array_struct->el_num] = element;
   
 }

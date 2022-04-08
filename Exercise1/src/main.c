@@ -3,6 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include "array.h"
+#include "b_insertionsort.h"
 
 struct record{
     char* string_field;
@@ -81,6 +82,7 @@ static void free_array(Array_Struct* array){
         free(array_element);
     }
     array_free_memory(array);
+    printf("Memory cleaned.\n");
 }
 
 static void print_array(Array_Struct* array){
@@ -91,6 +93,7 @@ static void print_array(Array_Struct* array){
         array_element = (struct record*)array_get(array,i);
         printf("< %s , %d , %f >\n", array_element->string_field,array_element->integer_field,array_element->float_field);
     }
+    printf("Array prited.\n");
 }
 
 static void load_array(const char* file_name, Array_Struct* array){
@@ -122,7 +125,6 @@ static void load_array(const char* file_name, Array_Struct* array){
     char *integer_field_in_read_line_p = strtok(NULL,",");
     char *float_field_in_read_line_p = strtok(NULL,"\n");
 
-    printf("linep : %s - %s - %S\n", string_field_in_read_line_p, integer_field_in_read_line_p,float_field_in_read_line_p);
     char *string_field = malloc((strlen(string_field_in_read_line_p)+1)*sizeof(char));
 
     //case: if the malloc goes wrong
@@ -149,8 +151,6 @@ static void load_array(const char* file_name, Array_Struct* array){
     record_p->string_field = string_field;
     record_p->integer_field = integer_field;
     record_p->float_field = float_field;
-    printf("Fields: %d - %f - %s\n", integer_field ,float_field, string_field);
-
     
     array_struct_add(array, (void*)record_p);
     free(read_line_p);
@@ -161,14 +161,14 @@ static void load_array(const char* file_name, Array_Struct* array){
 
 static void test_quicksort_with_comparison_function(const char* file_name, int (*compare)(void*,void*)){
     Array_Struct* array = array_create();
-    printf("Array created");
+    printf("\nArray created\n");
     clock_t before = clock();
     load_array(file_name, array);
 
     //quicksort();
     clock_t difference = clock() - before;
     int msec = difference * 1000; // CLOCK_PER_SEC;
-    printf("Time taken: %d millisecods",msec%1000);
+    printf("\nTime taken: %d millisecods\n",msec%1000);
 
     print_array(array);
     free_array(array);
@@ -176,26 +176,81 @@ static void test_quicksort_with_comparison_function(const char* file_name, int (
 
 static void test_insertionsort_with_comparison_function(const char* file_name, int (*compare)(void*,void*)){
     Array_Struct* array = array_create();
-    printf("Array created");
-    clock_t before = clock();
-    load_array(file_name, array);
+    printf("\nArray created\n");
 
-    //b_insertionsort();
+    load_array(file_name, array);
+    
+    clock_t before = clock();
+    array = b_insertionsort(array);
     clock_t difference = clock() - before;
-    int msec = difference * 1000; // CLOCK_PER_SEC;
-    printf("Time taken: %d millisecods",msec%1000);
-    print_array(array);
+    int msec = difference ; // CLOCK_PER_SEC;
+    printf("\nTime taken: %d millisecods\n",msec%1000);
+    
+    //print_array(array);
+    
     free_array(array);
-    printf("FINITO");
 }
 
-int main(int argc, char const *argv[]){
-    if(argc < 2) {
-    printf("Usage: ordered_array_main <file_name>\n");
-    exit(EXIT_FAILURE);
-  }
-  test_quicksort_with_comparison_function(argv[1], precedes_record_int_field);
-  test_insertionsort_with_comparison_function(argv[1], precedes_record_string_field);   
-  
-  return (EXIT_SUCCESS);
+int main(int argc){
+    char* record;
+    printf("Insert the reocord path to order:");
+    scanf("%s", record);
+    printf("\nChoose the algorithm you want to use:\n 1 - QuickSort\n 2 - BinaryInsertionSort\n");
+    int algo;
+    scanf("%d",&algo);
+    int crit;
+    switch (algo)
+    {
+    //QUICKSORT
+    case 1:
+        printf("Select the sorting criterion:\n 1 - Integer\n 2 - Float\n 3 - String\n");
+        scanf("%d",&crit);
+        switch (crit)
+        {
+        case 1:
+            /* code */
+            break;
+        case 2:
+            /* code */
+            break;
+        case 3:
+            /* code */
+            break;
+        default:
+            fprintf(stderr,"main_quicksort: select the right number of the criterion");
+            exit(EXIT_FAILURE);
+            break;
+        }
+        break;
+
+    //INSERTIONSORT
+    case 2:
+        printf("Select the sorting criterion:\n 1 - Integer\n 2 - Float\n 3 - String\n");
+        scanf("%d",&crit);
+        switch (crit)
+        {
+        case 1:
+            test_insertionsort_with_comparison_function(record, precedes_record_int_field);
+            break;
+        case 2:
+            test_insertionsort_with_comparison_function(record, precedes_record_float_field);
+            break;
+        case 3:
+            test_insertionsort_with_comparison_function(record, precedes_record_string_field);
+            break;
+        default:
+            fprintf(stderr,"main_insertionsort: select the right number of the criterion");
+            exit(EXIT_FAILURE);
+            break;
+        }
+        break;
+
+    //ERROR
+    default:
+        fprintf(stderr,"main: select the right number of the algorithm");
+        exit(EXIT_FAILURE);
+        break;
+    }
+    printf("Fine");
+    return (EXIT_SUCCESS);
 }
