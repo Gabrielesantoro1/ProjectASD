@@ -49,7 +49,7 @@ void array_free_memory(Array_Struct *array_struct){
   }
 }
 
-int array_size(Array_Struct *array_struct){
+unsigned long array_size(Array_Struct *array_struct){
   if(array_struct == NULL){
     fprintf(stderr, "The array cannot be null, array_size");
     exit(EXIT_FAILURE);

@@ -162,9 +162,9 @@ static void load_array(const char* file_name, Array_Struct* array){
 static void test_quicksort_with_comparison_function(const char* file_name, int (*compare)(void*,void*)){
     Array_Struct* array = array_create();
     printf("\nArray created\n");
-    clock_t before = clock();
     load_array(file_name, array);
 
+    clock_t before = clock();
     //quicksort();
     clock_t difference = clock() - before;
     int msec = difference * 1000; // CLOCK_PER_SEC;
@@ -179,25 +179,28 @@ static void test_insertionsort_with_comparison_function(const char* file_name, i
     printf("\nArray created\n");
 
     load_array(file_name, array);
-    
+
     clock_t before = clock();
-    array = b_insertionsort(array);
+    array = b_insertionsort(array, compare);
     clock_t difference = clock() - before;
     int msec = difference ; // CLOCK_PER_SEC;
     printf("\nTime taken: %d millisecods\n",msec%1000);
     
-    //print_array(array);
-    
+    printf("\nORDERED ARRAY:\n");
+    print_array(array);
     free_array(array);
 }
 
 int main(int argc){
     char* record;
-    printf("Insert the reocord path to order:");
+    printf("Insert the reocord path to order: ");
     scanf("%s", record);
+
     printf("\nChoose the algorithm you want to use:\n 1 - QuickSort\n 2 - BinaryInsertionSort\n");
+    
     int algo;
     scanf("%d",&algo);
+
     int crit;
     switch (algo)
     {
@@ -251,6 +254,5 @@ int main(int argc){
         exit(EXIT_FAILURE);
         break;
     }
-    printf("Fine");
     return (EXIT_SUCCESS);
 }

@@ -3,43 +3,43 @@
 #include <string.h>
 #include "array.h"
 
-int b_search(Array_Struct *array, struct record *item, unsigned long low, unsigned long high){
+unsigned long b_search(Array_Struct *array_struct, void *item, unsigned long low, unsigned long high, int (*precedes)(void*, void*)){
     if (high <= low) {
-    /*
-        return (item > a[low]) ?
+        return ((*(precedes)(item, (array_struct->array)[low]))) ?
                 (low + 1) : low;
-    */
     }
     unsigned long mid = (low + high) / 2;
  
-    if (item == a[mid]){
+    /*
+    if (item == array[mid]){
         return mid + 1;
     }
+    */
  
-    if (item > a[mid]){
-        return binarySearch(a, item, mid + 1, high);
-        return binarySearch(a, item, low, mid - 1);
+    if ((*(precedes)(item, (array_struct->array)[mid]))){
+        return b_search(array_struct, item, mid + 1, high, precedes);
+        return b_search(array_struct, item, low, mid - 1, precedes);
     }
 }
  
 // Function to sort an array a[] of size 'n'
-void insertionSort(Array_Struct *array, unsigned long n){
+Array_Struct* b_insertionsort(Array_Struct *array_struct, int (*precedes)(void*, void*)){
     unsigned long i, loc, j, k;
-    struct record *selected;
-    for (i = 1; i < n; ++i)
-    {
+
+    unsigned long lenght = array_size(array_struct);
+    void *selected;
+    for (i = 1; i < lenght; ++i){
         j = i - 1;
-        selected = array_get(array,i);
+        selected = (array_struct->array)[i] ;
  
-        loc = binarySearch(array, selected, 0, j);
+        loc = b_search(array_struct, selected, 0, j, precedes);
  
-        /* Move all elements after location to create space
+        //Move all elements after location to create space
         while (j >= loc)
         {
-            a[j + 1] = a[j];
+            (array_struct->array)[j + 1] = (array_struct->array)[j];
             j--;
         }
-        a[j + 1] = selected;
-        */
+        (array_struct->array)[j + 1] = selected;
     }
 }
