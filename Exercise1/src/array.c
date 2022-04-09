@@ -3,7 +3,7 @@
 #include <string.h>
 #include "array.h"
 
-#define INITIAL_CAPACITY 1000
+#define INITIAL_CAPACITY 20000000
 
 struct Array_struct{
   void** array;
