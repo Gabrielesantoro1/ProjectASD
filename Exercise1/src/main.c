@@ -93,7 +93,7 @@ static void print_array(Array_Struct* array){
         array_element = (struct record*)array_get(array,i);
         printf("< %s , %d , %f >\n", array_element->string_field,array_element->integer_field,array_element->float_field);
     }
-    printf("Array prited.\n");
+    printf("Array printed.\n");
 }
 
 static void load_array(const char* file_name, Array_Struct* array){
