@@ -2,10 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include "array.h"
+#include "array.c"
 
 unsigned long b_search(Array_Struct *array_struct, void *item, unsigned long low, unsigned long high, int (*precedes)(void*, void*)){
     if (high <= low) {
-        return ((*(precedes)(item, (array_struct->array)[low]))) ?
+        return (((precedes)(item, (array_struct->array)[low]))) ?
                 (low + 1) : low;
     }
     unsigned long mid = (low + high) / 2;
@@ -16,7 +17,7 @@ unsigned long b_search(Array_Struct *array_struct, void *item, unsigned long low
     }
     */
  
-    if ((*(precedes)(item, (array_struct->array)[mid]))){
+    if (((precedes)(item, (array_struct->array)[mid]))){
         return b_search(array_struct, item, mid + 1, high, precedes);
         return b_search(array_struct, item, low, mid - 1, precedes);
     }
