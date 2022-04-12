@@ -22,12 +22,14 @@ static int precedes_record_int_field(void* r1_p, void* r2_p){
     }
     struct record *rec1_p = (struct record*)r1_p;
     struct record *rec2_p = (struct record*)r2_p;
-    if(rec1_p->integer_field == rec2_p->integer_field){
-        if(strcmp(rec1_p->string_field,rec2_p->string_field)<0){
+    if(rec1_p->integer_field < rec2_p->integer_field){
+        return(1);
+    }else if(rec1_p->integer_field == rec2_p->integer_field){
+        if(strcmp(rec1_p->string_field,rec2_p->string_field)==0){
+            return(2);
+        }else if(strcmp(rec1_p->string_field,rec2_p->string_field) < 0){
             return(1);
         }
-    }else if(rec1_p->integer_field < rec2_p->integer_field){
-        return(1);
     }
     return(0);
 }
@@ -179,15 +181,14 @@ static void test_insertionsort_with_comparison_function(const char* file_name, i
     printf("\nArray created\n");
 
     load_array(file_name, array);
-
     clock_t before = clock();
     array = b_insertionsort(array, compare);
     clock_t difference = clock() - before;
-    int msec = difference ; // CLOCK_PER_SEC;
-    printf("\nTime taken: %d millisecods\n",msec%1000);
+    int msec = difference*1000 ; // CLOCK_PER_SEC;
     
     printf("\nORDERED ARRAY:\n");
     print_array(array);
+    printf("\nTime taken: %d millisecods\n",msec%1000);
     free_array(array);
 }
 

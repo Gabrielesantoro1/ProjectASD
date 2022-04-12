@@ -1,4 +1,9 @@
-typedef struct Array_struct Array_Struct;
+typedef struct Array_struct{
+  void** array;
+  unsigned long el_num;
+  unsigned long array_capacity;
+  int (*precedes)(void*,void*);
+} Array_Struct;
 
 int array_is_empty(Array_Struct *array_struct);
 

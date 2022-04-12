@@ -5,12 +5,7 @@
 
 #define INITIAL_CAPACITY 20000000
 
-struct Array_struct{
-  void** array;
-  unsigned long el_num;
-  unsigned long array_capacity;
-  int (*precedes)(void*,void*);
-};
+
 
 int array_is_empty(Array_Struct *array_struct){
   if(array_struct == NULL){
@@ -68,7 +63,6 @@ void array_struct_add(Array_Struct *array_struct, void* element){
   }
   (array_struct->array)[array_struct->el_num] = element;
   (array_struct->el_num)++;
-  
 }
 
 void* array_get(Array_Struct *array_struct, unsigned long i){ 
