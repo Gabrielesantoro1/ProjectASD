@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <dirent.h>
+#include <limits.h>
 #include "array.h"
 #include "b_insertionsort.h"
 
@@ -163,22 +165,20 @@ static void load_array(const char* file_name, Array_Struct* array){
 
 static void test_quicksort_with_comparison_function(const char* file_name, int (*compare)(void*,void*)){
     Array_Struct* array = array_create();
-    printf("\nArray created\n");
     load_array(file_name, array);
 
     clock_t before = clock();
-    //quicksort();
+    //array = quicksort(array, compare, pivot);
     clock_t difference = clock() - before;
     double sec = ((double)difference) / CLOCKS_PER_SEC;
 
     print_array(array);
-    printf("\nTime taken: %f sec \n",sec);
+    printf("\nTime taken fom %s : %f sec \n",file_name,sec);
     free_array(array);
 }
 
 static void test_insertionsort_with_comparison_function(const char* file_name, int (*compare)(void*,void*)){
     Array_Struct* array = array_create();
-    printf("\nArray created\n");
     load_array(file_name, array);
     
     clock_t before = clock();
@@ -186,11 +186,13 @@ static void test_insertionsort_with_comparison_function(const char* file_name, i
     clock_t difference = clock() - before;
     double sec = ((double)difference) / CLOCKS_PER_SEC;
     
-    print_array(array);
-    printf("\nTime taken: %f sec \n",sec);
+    //print_array(array);
+    printf("\nTime taken fom %s : %f sec \n",file_name,sec);
     free_array(array);
 }
-
+ 
+ //REAL MAIN
+/*
 int main(int argc){
     char* record;
     printf("Insert the reocord path to order: ");
@@ -211,13 +213,10 @@ int main(int argc){
         switch (crit)
         {
         case 1:
-            /* code */
             break;
         case 2:
-            /* code */
             break;
         case 3:
-            /* code */
             break;
         default:
             fprintf(stderr,"main_quicksort: select the right number of the criterion");
@@ -226,7 +225,6 @@ int main(int argc){
         }
         break;
 
-    //INSERTIONSORT
     case 2:
         printf("Select the sorting criterion:\n 1 - Integer\n 2 - Float\n 3 - String\n");
         scanf("%d",&crit);
@@ -248,11 +246,32 @@ int main(int argc){
         }
         break;
 
-    //ERROR
     default:
         fprintf(stderr,"main: select the right number of the algorithm");
         exit(EXIT_FAILURE);
         break;
     }
     return (EXIT_SUCCESS);
+}
+*/
+
+
+//TEST MAIN
+int main(int argc){
+    DIR *d;
+    struct dirent *dir;
+    d = opendir("records");
+    if(d){
+        while((dir = readdir(d)) != NULL){
+            if(dir->d_type == DT_REG){
+                char path[] = "record/";
+                strcpy(path,dir->d_name);
+                printf("%s", path);
+                //IL PATH DA RITORNARE DOVREBBE ESSERE "record/NOME.CSV"
+                test_insertionsort_with_comparison_function(path,precedes_record_int_field);
+            }
+        }   
+        closedir(d);
+    }
+    return(0);
 }
