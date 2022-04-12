@@ -86,7 +86,7 @@ static void free_array(Array_Struct* array){
         free(array_element);
     }
     array_free_memory(array);
-    printf("Memory cleaned.\n");
+    //printf("Memory cleaned.\n");
 }
 
 static void print_array(Array_Struct* array){
@@ -105,7 +105,7 @@ static void load_array(const char* file_name, Array_Struct* array){
   char buffer[1024];
   int buf_size = 1024;
   FILE *fp;
-  printf("\nLoading data from file...\n");
+  //printf("\nLoading data from file...\n");
   fp = fopen(file_name,"r");
   
   //case: if the fopen does not return the pointer to the file
@@ -160,7 +160,7 @@ static void load_array(const char* file_name, Array_Struct* array){
     free(read_line_p);
   }
   fclose(fp);
-  printf("\nData loaded\n");
+  //printf("\nData loaded\n");
 }
 
 static void test_quicksort_with_comparison_function(const char* file_name, int (*compare)(void*,void*)){
@@ -260,15 +260,11 @@ int main(int argc){
 int main(int argc){
     DIR *d;
     struct dirent *dir;
-    d = opendir("records");
+    d = opendir(".");
     if(d){
         while((dir = readdir(d)) != NULL){
-            if(dir->d_type == DT_REG){
-                char path[] = "record/";
-                strcpy(path,dir->d_name);
-                printf("%s", path);
-                //IL PATH DA RITORNARE DOVREBBE ESSERE "record/NOME.CSV"
-                test_insertionsort_with_comparison_function(path,precedes_record_int_field);
+            if(dir->d_type == DT_REG && dir->d_name[0] != 'M'){
+                test_insertionsort_with_comparison_function(dir->d_name,precedes_record_float_field);
             }
         }   
         closedir(d);
