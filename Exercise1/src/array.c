@@ -5,8 +5,6 @@
 
 #define INITIAL_CAPACITY 20000000
 
-
-
 int array_is_empty(Array_Struct *array_struct){
   if(array_struct == NULL){
     fprintf(stderr,"array_is_empty: array_struct parameter cannot be NULL");

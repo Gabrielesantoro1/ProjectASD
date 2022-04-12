@@ -169,26 +169,25 @@ static void test_quicksort_with_comparison_function(const char* file_name, int (
     clock_t before = clock();
     //quicksort();
     clock_t difference = clock() - before;
-    int msec = difference * 1000; // CLOCK_PER_SEC;
-    printf("\nTime taken: %d millisecods\n",msec%1000);
+    double sec = ((double)difference) / CLOCKS_PER_SEC;
 
     print_array(array);
+    printf("\nTime taken: %f sec \n",sec);
     free_array(array);
 }
 
 static void test_insertionsort_with_comparison_function(const char* file_name, int (*compare)(void*,void*)){
     Array_Struct* array = array_create();
     printf("\nArray created\n");
-
     load_array(file_name, array);
+    
     clock_t before = clock();
     array = b_insertionsort(array, compare);
     clock_t difference = clock() - before;
-    int msec = difference*1000 ; // CLOCK_PER_SEC;
+    double sec = ((double)difference) / CLOCKS_PER_SEC;
     
-    printf("\nORDERED ARRAY:\n");
     print_array(array);
-    printf("\nTime taken: %d millisecods\n",msec%1000);
+    printf("\nTime taken: %f sec \n",sec);
     free_array(array);
 }
 
