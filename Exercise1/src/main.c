@@ -6,6 +6,7 @@
 #include <limits.h>
 #include "array.h"
 #include "b_insertionsort.h"
+#include "quicksort.h"
 
 struct record{
     char* string_field;
@@ -105,7 +106,7 @@ static void load_array(const char* file_name, Array_Struct* array){
   char buffer[1024];
   int buf_size = 1024;
   FILE *fp;
-  //printf("\nLoading data from file...\n");
+  printf("\nLoading data from file...\n");
   fp = fopen(file_name,"r");
   
   //case: if the fopen does not return the pointer to the file
@@ -160,20 +161,37 @@ static void load_array(const char* file_name, Array_Struct* array){
     free(read_line_p);
   }
   fclose(fp);
-  //printf("\nData loaded\n");
+  printf("\nData loaded\n");
 }
 
-static void test_quicksort_with_comparison_function(const char* file_name, int (*compare)(void*,void*)){
+static void test_quicksort_with_comparison_function(const char* file_name, int (*compare)(void*,void*), long crit){
     Array_Struct* array = array_create();
     load_array(file_name, array);
-
+    srand(time(NULL));
     clock_t before = clock();
-    //array = quicksort(array, compare, pivot);
+    printf("GRANDEZZA %d\n",array_size(array)-1);
+    long pivot;
+    switch (crit)
+    {
+    case 0:
+        pivot = 0;
+        break;
+    case 1:
+        pivot = (array_size(array)-1);
+        break;
+    case 2:
+        pivot = (rand()%(array_size(array)-1))+1;
+        break;
+    default:
+        break;
+    }
+    printf("PIVOT : %d\n",pivot);
+    quick_sort(array, compare, 0 ,(array_size(array)-1),crit,pivot);
     clock_t difference = clock() - before;
     double sec = ((double)difference) / CLOCKS_PER_SEC;
 
     print_array(array);
-    printf("\nTime taken fom %s : %f sec \n",file_name,sec);
+    printf("\nQuickSort ALGO takes from %s : %f sec \n",file_name,sec);
     free_array(array);
 }
 
@@ -186,8 +204,8 @@ static void test_insertionsort_with_comparison_function(const char* file_name, i
     clock_t difference = clock() - before;
     double sec = ((double)difference) / CLOCKS_PER_SEC;
     
-    //print_array(array);
-    printf("\nTime taken fom %s : %f sec \n",file_name,sec);
+    print_array(array);
+    printf("\nInsertionSort ALGO takes from %s : %f sec \n",file_name,sec);
     free_array(array);
 }
  
@@ -264,7 +282,8 @@ int main(int argc){
     if(d){
         while((dir = readdir(d)) != NULL){
             if(dir->d_type == DT_REG && dir->d_name[0] != 'M'){
-                test_insertionsort_with_comparison_function(dir->d_name,precedes_record_float_field);
+                //printf("%s\n",dir->d_name);
+                test_quicksort_with_comparison_function(dir->d_name,precedes_record_string_field,2);
             }
         }   
         closedir(d);
