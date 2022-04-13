@@ -5,14 +5,14 @@
 
 long b_search(Array_Struct *array_struct, void *item, long low, long max, int (*precedes)(void*, void*)){        
     if(low == max){
-        if((precedes(item, array_struct->array[low])==1 || precedes(item, array_struct->array[low])==2)){
+        if((precedes(item, array_struct->array[low])==1)){
             return low;
         }else{
             return max+1;
         }
     }else{
         long mid = (low + max)/2;
-        if((precedes(item, array_struct->array[mid])==1 || precedes(item, array_struct->array[mid])==2)){
+        if((precedes(item, array_struct->array[mid])==1)){
             b_search(array_struct, item, low, mid, precedes);
         }else if((precedes(item, array_struct->array[mid]))==0){
             b_search(array_struct, item, mid+1, max, precedes);
