@@ -25,11 +25,11 @@ static int precedes_record_int_field(void* r1_p, void* r2_p){
     }
     struct record *rec1_p = (struct record*)r1_p;
     struct record *rec2_p = (struct record*)r2_p;
-    if(strcmp(rec1_p->integer_field,rec2_p->integer_field)==0){
-      if(rec1_p->string_field < rec2_p->string_field){
+    if(rec1_p->integer_field == rec2_p->integer_field){
+      if(strcmp(rec1_p->string_field,rec2_p->string_field) < 0){
           return(1);
       }
-    }else if(strcmp(rec1_p->integer_field,rec2_p->integer_field)<0){
+    }else if(rec1_p->integer_field < rec2_p->integer_field){
       return(1);
     }
   return(0);
@@ -104,7 +104,7 @@ static void load_array(const char* file_name, Array_Struct* array){
   char buffer[1024];
   int buf_size = 1024;
   FILE *fp;
-  printf("\nLoading data from file...\n");
+  //printf("\nLoading data from file...\n");
   fp = fopen(file_name,"r");
   
   //case: if the fopen does not return the pointer to the file
@@ -159,7 +159,7 @@ static void load_array(const char* file_name, Array_Struct* array){
     free(read_line_p);
   }
   fclose(fp);
-  printf("\nData loaded\n");
+  //printf("\nData loaded\n");
 }
 
 static void test_quicksort_with_comparison_function(const char* file_name, int (*compare)(void*,void*), long crit){
@@ -167,7 +167,6 @@ static void test_quicksort_with_comparison_function(const char* file_name, int (
     load_array(file_name, array);
     srand(time(NULL));
     clock_t before = clock();
-    printf("GRANDEZZA %d\n",array_size(array)-1);
     long pivot;
     switch (crit)
     {
@@ -183,12 +182,12 @@ static void test_quicksort_with_comparison_function(const char* file_name, int (
     default:
         break;
     }
-    printf("PIVOT : %d\n",pivot);
+    printf("Sorting %s\n",file_name);
     quick_sort(array, compare, 0 ,(array_size(array)-1),crit,pivot);
     clock_t difference = clock() - before;
     double sec = ((double)difference) / CLOCKS_PER_SEC;
 
-    print_array(array);
+    //print_array(array);
     printf("\nQuickSort ALGO takes from %s : %f sec \n",file_name,sec);
     free_array(array);
 }
@@ -281,7 +280,7 @@ int main(int argc){
         while((dir = readdir(d)) != NULL){
             if(dir->d_type == DT_REG && dir->d_name[0] != 'M'){
                 //printf("%s\n",dir->d_name);
-                test_quicksort_with_comparison_function(dir->d_name,precedes_record_string_field,2);
+                test_quicksort_with_comparison_function(dir->d_name,precedes_record_int_field,0);
             }
         }   
         closedir(d);
