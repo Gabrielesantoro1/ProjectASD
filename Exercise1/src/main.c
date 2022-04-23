@@ -207,7 +207,7 @@ static void test_insertionsort_with_comparison_function(const char* file_name, i
 }
  
  //REAL MAIN
-/*
+
 int main(int argc){
     char* record;
     printf("Insert the reocord path to order: ");
@@ -268,10 +268,11 @@ int main(int argc){
     }
     return (EXIT_SUCCESS);
 }
-*/
+
 
 
 //TEST MAIN
+/*
 int main(int argc){
     DIR *d;
     struct dirent *dir;
@@ -287,3 +288,4 @@ int main(int argc){
     }
     return(0);
 }
+*/

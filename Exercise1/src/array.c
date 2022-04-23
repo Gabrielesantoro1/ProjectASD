@@ -10,10 +10,11 @@ int array_is_empty(Array_Struct *array_struct){
     fprintf(stderr,"array_is_empty: array_struct parameter cannot be NULL");
     exit(EXIT_FAILURE);
   }
-  if(array_struct->el_num == 0){
-    return(1);
-  return(0);
-  }
+    if(array_struct->el_num == 0){
+      return(1);
+    }else{
+      return(0);
+    }
 }
 
 Array_Struct *array_create(){
@@ -27,7 +28,7 @@ Array_Struct *array_create(){
     fprintf(stderr,"array_create: array cannot be NULL");
     exit(EXIT_FAILURE);
   }
-  array_struct->el_num=0;
+  array_struct->el_num = 0;
   array_struct->array_capacity = INITIAL_CAPACITY;
   return array_struct;
 }
@@ -46,8 +47,9 @@ unsigned long array_size(Array_Struct *array_struct){
   if(array_struct == NULL){
     fprintf(stderr, "The array cannot be null, array_size");
     exit(EXIT_FAILURE);
-  }else
+  }else{
     return array_struct->el_num;
+  }
 }
 
 void array_struct_add(Array_Struct *array_struct, void* element){
