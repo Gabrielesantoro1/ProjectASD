@@ -162,6 +162,7 @@ static void load_array(const char* file_name, Array_Struct* array){
   //printf("\nData loaded\n");
 }
 
+
 static void test_quicksort_with_comparison_function(const char* file_name, int (*compare)(void*,void*), long crit){
     Array_Struct* array = array_create();
     load_array(file_name, array);
