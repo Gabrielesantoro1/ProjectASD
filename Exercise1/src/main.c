@@ -208,7 +208,7 @@ static void test_insertionsort_with_comparison_function(const char* file_name, i
 }
  
  //REAL MAIN
-
+/*
 int main(int argc){
     char* record;
     printf("Insert the reocord path to order: ");
@@ -269,11 +269,11 @@ int main(int argc){
     }
     return (EXIT_SUCCESS);
 }
-
+*/
 
 
 //TEST MAIN
-/*
+
 int main(int argc){
     DIR *d;
     struct dirent *dir;
@@ -282,11 +282,10 @@ int main(int argc){
         while((dir = readdir(d)) != NULL){
             if(dir->d_type == DT_REG && dir->d_name[0] != 'M'){
                 //printf("%s\n",dir->d_name);
-                test_quicksort_with_comparison_function(dir->d_name,precedes_record_int_field,0);
+                test_insertionsort_with_comparison_function(dir->d_name,precedes_record_int_field);
             }
         }   
         closedir(d);
     }
     return(0);
 }
-*/
