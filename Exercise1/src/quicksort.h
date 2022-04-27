@@ -1,1 +1,1 @@
-Array_Struct* quick_sort(Array_Struct *array_struct, int (*precedes)(void*,void*), long p, long r,long crit,long pivot);
+Array_Struct* quick_sort(Array_Struct *array_struct, int (*precedes)(void*,void*), long p, long r,long crit);

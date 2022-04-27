@@ -104,7 +104,7 @@ static void load_array(const char* file_name, Array_Struct* array){
   char buffer[1024];
   int buf_size = 1024;
   FILE *fp;
-  //printf("\nLoading data from file...\n");
+  printf("\nLoading data from file...\n");
   fp = fopen(file_name,"r");
   
   //case: if the fopen does not return the pointer to the file
@@ -159,36 +159,20 @@ static void load_array(const char* file_name, Array_Struct* array){
     free(read_line_p);
   }
   fclose(fp);
-  //printf("\nData loaded\n");
+  printf("\nData loaded\n");
 }
 
 
 static void test_quicksort_with_comparison_function(const char* file_name, int (*compare)(void*,void*), long crit){
     Array_Struct* array = array_create();
     load_array(file_name, array);
-    srand(time(NULL));
     clock_t before = clock();
-    long pivot;
-    switch (crit)
-    {
-    case 0:
-        pivot = 0;
-        break;
-    case 1:
-        pivot = (array_size(array)-1);
-        break;
-    case 2:
-        pivot = (rand()%(array_size(array)-1))+1;
-        break;
-    default:
-        break;
-    }
     printf("Sorting %s\n",file_name);
-    quick_sort(array, compare, 0 ,(array_size(array)-1),crit,pivot);
+    quick_sort(array, compare, 0 ,(array_size(array)-1),crit);
     clock_t difference = clock() - before;
     double sec = ((double)difference) / CLOCKS_PER_SEC;
 
-    //print_array(array);
+    print_array(array);
     printf("\nQuickSort ALGO takes from %s : %f sec \n",file_name,sec);
     free_array(array);
 }
@@ -196,7 +180,6 @@ static void test_quicksort_with_comparison_function(const char* file_name, int (
 static void test_insertionsort_with_comparison_function(const char* file_name, int (*compare)(void*,void*)){
     Array_Struct* array = array_create();
     load_array(file_name, array);
-    
     clock_t before = clock();
     array = b_insertionsort(array, compare);
     clock_t difference = clock() - before;
@@ -208,7 +191,6 @@ static void test_insertionsort_with_comparison_function(const char* file_name, i
 }
  
  //REAL MAIN
-/*
 int main(int argc){
     char* record;
     printf("Insert the reocord path to order: ");
@@ -220,19 +202,25 @@ int main(int argc){
     scanf("%d",&algo);
 
     int crit;
+    int pivot;
     switch (algo)
     {
     //QUICKSORT
     case 1:
         printf("Select the sorting criterion:\n 1 - Integer\n 2 - Float\n 3 - String\n");
         scanf("%d",&crit);
+        printf("Select the pivot criterion:\n 0 - First Element\n 1 - Last Element\n 2 - Random Element\n");
+        scanf("%d", &pivot);
         switch (crit)
         {
         case 1:
+            test_quicksort_with_comparison_function(record,precedes_record_int_field,pivot);
             break;
         case 2:
+            test_quicksort_with_comparison_function(record,precedes_record_float_field,pivot);
             break;
         case 3:
+            test_quicksort_with_comparison_function(record,precedes_record_string_field,pivot);
             break;
         default:
             fprintf(stderr,"main_quicksort: select the right number of the criterion");
@@ -269,11 +257,11 @@ int main(int argc){
     }
     return (EXIT_SUCCESS);
 }
-*/
+
 
 
 //TEST MAIN
-
+/*
 int main(int argc){
     DIR *d;
     struct dirent *dir;
@@ -289,3 +277,4 @@ int main(int argc){
     }
     return(0);
 }
+*/
