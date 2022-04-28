@@ -104,7 +104,7 @@ static void load_array(const char* file_name, Array_Struct* array){
   char buffer[1024];
   int buf_size = 1024;
   FILE *fp;
-  printf("\nLoading data from file...\n");
+  //printf("\nLoading data from file...\n");
   fp = fopen(file_name,"r");
   
   //case: if the fopen does not return the pointer to the file
@@ -159,21 +159,22 @@ static void load_array(const char* file_name, Array_Struct* array){
     free(read_line_p);
   }
   fclose(fp);
-  printf("\nData loaded\n");
+  //printf("\nData loaded\n");
 }
 
 
 static void test_quicksort_with_comparison_function(const char* file_name, int (*compare)(void*,void*), long crit){
     Array_Struct* array = array_create();
     load_array(file_name, array);
+    
     clock_t before = clock();
-    printf("Sorting %s\n",file_name);
+    //printf("Sorting %s\n",file_name);
     quick_sort(array, compare, 0 ,(array_size(array)-1),crit);
     clock_t difference = clock() - before;
     double sec = ((double)difference) / CLOCKS_PER_SEC;
 
-    print_array(array);
-    printf("\nQuickSort ALGO takes from %s : %f sec \n",file_name,sec);
+    //print_array(array);
+    printf("QuickSort ALGO takes from %s : %f sec \n",file_name,sec);
     free_array(array);
 }
 
@@ -186,11 +187,12 @@ static void test_insertionsort_with_comparison_function(const char* file_name, i
     double sec = ((double)difference) / CLOCKS_PER_SEC;
     
     print_array(array);
-    printf("\nInsertionSort ALGO takes from %s : %f sec \n",file_name,sec);
+    printf("InsertionSort ALGO takes from %s : %f sec \n",file_name,sec);
     free_array(array);
 }
  
  //REAL MAIN
+ /*
 int main(int argc){
     char* record;
     printf("Insert the reocord path to order: ");
@@ -257,11 +259,11 @@ int main(int argc){
     }
     return (EXIT_SUCCESS);
 }
+*/
 
 
 
 //TEST MAIN
-/*
 int main(int argc){
     DIR *d;
     struct dirent *dir;
@@ -270,11 +272,11 @@ int main(int argc){
         while((dir = readdir(d)) != NULL){
             if(dir->d_type == DT_REG && dir->d_name[0] != 'M'){
                 //printf("%s\n",dir->d_name);
-                test_insertionsort_with_comparison_function(dir->d_name,precedes_record_int_field);
+                test_quicksort_with_comparison_function(dir->d_name,precedes_record_int_field,2);
             }
         }   
         closedir(d);
     }
     return(0);
 }
-*/
+
