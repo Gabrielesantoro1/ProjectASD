@@ -162,6 +162,19 @@ static void load_array(const char* file_name, Array_Struct* array){
   //printf("\nData loaded\n");
 }
 
+void writeinfile(double sec){
+    int i;
+    char output[50];
+    snprintf(output, 50, "%f", sec);
+        FILE * fptr;        
+        fptr = fopen("fputc_test.txt", "a");
+        for (i = 0; i < strlen(output); i++) {
+            fputc(output[i], fptr);
+        }
+        fputc('\n',fptr);
+        fclose(fptr);
+}
+
 
 static void test_quicksort_with_comparison_function(const char* file_name, int (*compare)(void*,void*), long crit){
     Array_Struct* array = array_create();
@@ -175,6 +188,7 @@ static void test_quicksort_with_comparison_function(const char* file_name, int (
 
     //print_array(array);
     printf("QuickSort ALGO takes from %s : %f sec \n",file_name,sec);
+    writeinfile(sec);
     free_array(array);
 }
 
