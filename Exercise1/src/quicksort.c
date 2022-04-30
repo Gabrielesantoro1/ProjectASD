@@ -54,16 +54,19 @@ void quick_sort(Array_Struct *array_struct, int (*precedes)(void*,void*), long p
         {
         case 0:
             q = FirstPartition(array_struct, precedes, p, r);
+            printf("First %d - Last %d - Q %d\n",p,r,q);
             quick_sort(array_struct, precedes, p, q-1, crit);
             quick_sort(array_struct, precedes, q+1, r, crit);
             break;
         case 1:
             q = LastPartition(array_struct, precedes, p, r);
+            printf("First %d - Last %d - Q %d\n",p,r,q);
             quick_sort(array_struct, precedes, p, q-1, crit);
             quick_sort(array_struct, precedes, q+1, r, crit);
             break;
         case 2:
             q = RandomizedPartition(array_struct, precedes, p, r);
+            printf("First %d - Last %d - Q %d\n",p,r,q);
             quick_sort(array_struct, precedes, p, q-1, crit);
             quick_sort(array_struct, precedes, q+1, r, crit);
             break;

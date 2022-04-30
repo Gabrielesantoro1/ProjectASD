@@ -3,7 +3,7 @@
 #include <string.h>
 #include "array.h"
 
-#define INITIAL_CAPACITY 100
+#define INITIAL_CAPACITY 2
 
 int array_is_empty(Array_Struct *array_struct){
   if(array_struct == NULL){
