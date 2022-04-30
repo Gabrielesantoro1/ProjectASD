@@ -13,10 +13,14 @@ struct _SkipList {
   int (*compare)(void*, void*);
 };
 
+unsigned int randomLevel();
+
 void insertSkipList(SkipList *list, void* I);
 
-void searchSkipList(SkipList *list, void* I);
+void* searchSkipList(SkipList *list, void* I);
 
 void eraseSkipList(SkipList *list);
+
+void skipList_print(SkipList *list);
 
 SkipList* emptySkipList();
