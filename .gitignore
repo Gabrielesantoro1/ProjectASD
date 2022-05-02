@@ -34,3 +34,4 @@ skiplist.png
 *.o
 *.exe
 Exercise1/fputc_test.txt
+*.txt
