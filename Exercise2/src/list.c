@@ -8,10 +8,12 @@ List* empytList(){
     return list;
 }
 
-
-List* list_insert_head(List *list, void *item){
-	List* new_el = empytList();
-	new_el = malloc(sizeof(*new_el));
+/*Function to insert a new element
+ *as head of the list given as parameter.
+ *It creates a new List with the item as key.
+ */ 
+List* list_insert(List *list, void *item){
+	List* new_el = malloc(sizeof(List));
 	new_el->item = item;
 	new_el->next = list;
 	
@@ -23,9 +25,9 @@ void list_print(List *list){
 		printf("Empty list\n");
 		return;
 	}
-	printf("[%i]", list->item);
-	for(; list->next!=NULL; list = list->next) {
-		printf(" -> [%i]", list->next->item);
+	printf("[%s]", list->item);
+	for(list = list->next; list->next!=NULL; list = list->next) {
+		printf(" -> [%s]", list->next->item);
 	}
 	printf("\n");
 }

@@ -7,7 +7,6 @@
 
 unsigned int randomLevel(){
     unsigned int lvl = 1;
-    // random() returns a random value in [0...1)
     while(((rand()%(MAX_HEIGHT-1+1)+1) < 0.5) && (lvl < MAX_HEIGHT)){
         lvl = lvl + 1;
     }
@@ -16,9 +15,7 @@ unsigned int randomLevel(){
 
 Node* createNode(void* I, int level){
     Node *new = malloc(sizeof(Node));
-
     Node **arrayNode = malloc(sizeof(Node)*level);
-    
     new->next = arrayNode;
     new->size = level;
     new->item = I;
@@ -40,7 +37,7 @@ void insertSkipList(SkipList *list, void* I){
             }
         }else{
             x = x->next[k];
-            k++;
+            k--;
         }
     }
 }
@@ -64,6 +61,13 @@ void* searchSkipList(SkipList *list, void* I){
 
 SkipList* emptySkipList(){
     SkipList *new = malloc(sizeof(SkipList));
+    new->max_level = MAX_HEIGHT;
+    Node *hn = malloc(sizeof(Node));
+    hn->next = malloc(sizeof(Node)*new->max_level);
+    for(int k = new->max_level; k > 0; k--){
+        hn->next[k] = NULL;
+    }
+    new->head = hn;
     return new;
 }
 

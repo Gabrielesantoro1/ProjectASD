@@ -39,14 +39,14 @@ static SkipList* load_dictionary(const char* file_name, int (*compare)(void*,voi
         exit(EXIT_FAILURE);
     }
     
-    SkipList* list = emptySkipList();
+    SkipList *list = emptySkipList();
     list->compare = compare;
 
-    while(fgets(buffer, buf_size,fp) != NULL){
+    while(fgets(buffer,buf_size,fp) != NULL){
         read_line = malloc((strlen(buffer)+1)*sizeof(char));
         
         if(read_line == NULL){
-            fprintf(stderr, "load_dictionary: unable to allocate memory for the read line");
+            fprintf(stderr, "\nload_dictionary: unable to allocate memory for the read line");
             exit(EXIT_FAILURE);
         }
 
@@ -61,6 +61,7 @@ static SkipList* load_dictionary(const char* file_name, int (*compare)(void*,voi
         }
 
         strcpy(string_field,string_field_in_read_line);
+        printf("\nString line read: %s", string_field);
         insertSkipList(list,string_field);
         free(read_line);
     }
@@ -83,7 +84,7 @@ static List* load_correctme(const char* file_name){
     }
 
     List* list = empytList();    
-    
+
     while(fgets(buffer, buf_size, fp)!= NULL){  
         read_word = malloc((strlen(buffer)+1)*sizeof(char)); 
 
@@ -94,16 +95,17 @@ static List* load_correctme(const char* file_name){
 
         strcpy(read_word, buffer);
         char *read_word_field = strtok(read_word, " ");
-        list_insert_head(list, read_word_field);
+        list_insert(list, read_word_field);
     }
     fclose(fp);
+    printf("Correctme loaded.\n");
     return list;
 }
 
 static void test_with_comparison_function(const char* dictionary_file_name, const char* correctme_file_name, int (*compare)(void*,void*)){
     printf("Testing...\n");
-    SkipList* dictionary = load_dictionary(dictionary_file_name,compare);
-    skipList_print(dictionary);
+    //SkipList* dictionary = load_dictionary(dictionary_file_name,compare);
+    //skipList_print(dictionary);
 
     List* correctme = load_correctme(correctme_file_name);
     list_print(correctme);
