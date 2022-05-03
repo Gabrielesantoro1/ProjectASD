@@ -2,7 +2,7 @@ typedef struct _List List;
 
 struct _List{   
     List *next;
-    void* item;
+    char* item;
 };
 
 List* list_insert(List *list, void *item);

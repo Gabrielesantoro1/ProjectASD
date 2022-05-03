@@ -6,6 +6,7 @@
 #include <limits.h>
 #include "skip_list.h"
 #include "list.h"
+#include <ctype.h>
 
 static int precedes_string(void* r1_p,void* r2_p){
   if(r1_p == NULL){
@@ -85,7 +86,7 @@ static List* load_correctme(const char* file_name){
 
     List* list = empytList();    
 
-    while(fgets(buffer, buf_size, fp)!= NULL){  
+    while(fgets(buffer,buf_size,fp) != NULL){  
         read_word = malloc((strlen(buffer)+1)*sizeof(char)); 
 
         if(read_word == NULL){
@@ -94,8 +95,27 @@ static List* load_correctme(const char* file_name){
         }
 
         strcpy(read_word, buffer);
-        char *read_word_field = strtok(read_word, " ");
-        list_insert(list, read_word_field);
+    
+        char *read_word_field = strtok(read_word, " "); 
+        char *src;
+        char *dst;
+
+        while(read_word_field != NULL){
+            //printf("\n%s", read_word_field);
+            read_word_field = strtok(NULL, " ");
+            
+            src = read_word_field;
+            
+            for (int i = 0; i < strlen(src); i++){
+                if (!ispunct((unsigned char) src[i])){
+                    printf("%c\n", src[i]);   
+                    dst[i] = src[i];
+                }
+            }
+            printf("dst:%s\n", dst);
+            list_insert(list, dst);
+
+        }
     }
     fclose(fp);
     printf("Correctme loaded.\n");
@@ -108,7 +128,7 @@ static void test_with_comparison_function(const char* dictionary_file_name, cons
     //skipList_print(dictionary);
 
     List* correctme = load_correctme(correctme_file_name);
-    list_print(correctme);
+    //list_print(correctme);
     list_free(correctme);
 }
 
@@ -117,15 +137,10 @@ void main(int argc){
     char* dictionary;
     printf("Insert the dictionary path to order: ");
     scanf("%s", dictionary);
-    printf("%s , %s\n",dictionary);
     
     char* correctme;
     printf("Insert the correctme path to order: ");
     scanf("%s", correctme);
-    printf("%s , %s",dictionary,correctme);
-
-    printf("PROVFA1");*/
+    */
     test_with_comparison_function("dictionary.txt", "correctme.txt", precedes_string);
-    printf("PROVFA2");
-
 }

@@ -25,9 +25,12 @@ void list_print(List *list){
 		printf("Empty list\n");
 		return;
 	}
-	printf("[%s]", list->item);
-	for(list = list->next; list->next!=NULL; list = list->next) {
-		printf(" -> [%s]", list->next->item);
+	List *Lpointer= list->next;
+	//printf("[%s]", list->item);
+	while(Lpointer != NULL) {
+		printf("\nAA");
+		printf(" -> [%s]", (char *)list->next->item);
+		Lpointer = Lpointer->next;
 	}
 	printf("\n");
 }
