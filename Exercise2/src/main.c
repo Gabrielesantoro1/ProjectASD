@@ -7,6 +7,7 @@
 #include "skip_list.h"
 #include "list.h"
 #include <ctype.h>
+#include <string.h>
 
 static int precedes_string(void* r1_p,void* r2_p){
   if(r1_p == NULL){
@@ -71,6 +72,16 @@ static SkipList* load_dictionary(const char* file_name, int (*compare)(void*,voi
     return list;
 }
 
+static char* cleaning_word(char *word){
+    for(int i = 0; i < strlen(word); i++){
+        if(!ispunct((unsigned int)word[i])){
+        }else{
+            word[i] = '\t';
+        }
+    }
+    return word;
+}
+
 static List* load_correctme(const char* file_name){
     char *read_word;
     char buffer[1024];
@@ -98,27 +109,15 @@ static List* load_correctme(const char* file_name){
     
         char *read_word_field = strtok(read_word, " "); 
         char *src;
-        char *dst;
 
         while(read_word_field != NULL){
-            //printf("\n%s", read_word_field);
-            read_word_field = strtok(NULL, " ");
-            
-            src = read_word_field;
-            
-            for (int i = 0; i < strlen(src); i++){
-                if (!ispunct((unsigned char) src[i])){
-                    printf("%c\n", src[i]);   
-                    dst[i] = src[i];
-                }
-            }
-            printf("dst:%s\n", dst);
-            list_insert(list, dst);
-
+            src = cleaning_word(read_word_field);
+            list = list_insert(list, read_word_field);
+            read_word_field = strtok(NULL, " ");      
         }
     }
     fclose(fp);
-    printf("Correctme loaded.\n");
+    printf("\nCorrectme loaded.\n");
     return list;
 }
 
@@ -127,8 +126,11 @@ static void test_with_comparison_function(const char* dictionary_file_name, cons
     //SkipList* dictionary = load_dictionary(dictionary_file_name,compare);
     //skipList_print(dictionary);
 
-    List* correctme = load_correctme(correctme_file_name);
-    //list_print(correctme);
+    List *correctme = load_correctme(correctme_file_name);
+    if(correctme == NULL){
+        fprintf(stderr, "The correctme file is NULL\n");
+    }
+    list_print(correctme);
     list_free(correctme);
 }
 
