@@ -13,7 +13,7 @@ List* list_insert(List *list, void *item){
 	List *new_list = malloc(sizeof(List));
 	new_list->item = item;
 	new_list->next = list;
-
+	
 	return new_list;
 }
 
@@ -22,7 +22,7 @@ void list_print(List *list){
 		printf("Empty list\n");
 		return;
 	}
-	while(list != NULL) {
+	while(list->next != NULL) {
 		printf("%s\n", list->item);
 		list = list->next;
 	}
