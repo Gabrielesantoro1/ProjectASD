@@ -6,6 +6,8 @@
 #include <limits.h>
 #include "skip_list.h"
 #include "list.h"
+#include <ctype.h>
+#include <string.h>
 
 static int precedes_string(void* r1_p,void* r2_p){
   if(r1_p == NULL){
@@ -70,6 +72,18 @@ static SkipList* load_dictionary(const char* file_name, int (*compare)(void*,voi
     return list;
 }
 
+static char* cleaning_word(char *word){
+    char *dst = word;
+    for(int i = 0; i < strlen(word); i++){
+        if(!ispunct((unsigned int)word[i])){
+            dst[i] = word[i];
+        }else{
+            dst[i] = '\0';
+        }
+    }
+    return dst;
+}
+
 static List* load_correctme(const char* file_name){
     char *read_word;
     char buffer[1024];
@@ -85,20 +99,22 @@ static List* load_correctme(const char* file_name){
 
     List* list = empytList();    
 
-    while(fgets(buffer, buf_size, fp)!= NULL){  
+    while(fgets(buffer,buf_size,fp) != NULL){
         read_word = malloc((strlen(buffer)+1)*sizeof(char)); 
-
         if(read_word == NULL){
             fprintf(stderr, "read_word: unable to load thw current word");
             exit(EXIT_FAILURE);
         }
-
         strcpy(read_word, buffer);
-        char *read_word_field = strtok(read_word, " ");
-        list_insert(list, read_word_field);
+        char *read_word_field = strtok(read_word, " "); 
+        while(read_word_field != NULL){
+            read_word_field = cleaning_word(read_word_field);
+            list_insert(list, read_word_field);
+            read_word_field = strtok(NULL, " ");      
+        }
     }
     fclose(fp);
-    printf("Correctme loaded.\n");
+    printf("\nCorrectme loaded.\n");
     return list;
 }
 
@@ -107,7 +123,10 @@ static void test_with_comparison_function(const char* dictionary_file_name, cons
     //SkipList* dictionary = load_dictionary(dictionary_file_name,compare);
     //skipList_print(dictionary);
 
-    List* correctme = load_correctme(correctme_file_name);
+    List *correctme = load_correctme(correctme_file_name);
+    if(correctme == NULL){
+        fprintf(stderr, "The correctme file is NULL\n");
+    }
     list_print(correctme);
     list_free(correctme);
 }
@@ -117,15 +136,10 @@ void main(int argc){
     char* dictionary;
     printf("Insert the dictionary path to order: ");
     scanf("%s", dictionary);
-    printf("%s , %s\n",dictionary);
     
     char* correctme;
     printf("Insert the correctme path to order: ");
     scanf("%s", correctme);
-    printf("%s , %s",dictionary,correctme);
-
-    printf("PROVFA1");*/
+    */
     test_with_comparison_function("dictionary.txt", "correctme.txt", precedes_string);
-    printf("PROVFA2");
-
 }

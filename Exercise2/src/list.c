@@ -4,20 +4,21 @@
 #include "list.h"
 
 List* empytList(){
-    List* list;
+	List *list = malloc(sizeof(List));
+	list->item = 0;
+	list->next = NULL;
     return list;
 }
 
-/*Function to insert a new element
- *as head of the list given as parameter.
- *It creates a new List with the item as key.
- */ 
 List* list_insert(List *list, void *item){
-	List* new_el = malloc(sizeof(List));
-	new_el->item = item;
-	new_el->next = list;
-	
-	return new_el;
+	while(list->next!=NULL){
+    	list = list->next;
+	}
+  	list->next=malloc(sizeof(List));
+	list = list->next;
+	list->item = item;
+	list->next = NULL;
+	return list;
 }
 
 void list_print(List *list){
@@ -25,11 +26,10 @@ void list_print(List *list){
 		printf("Empty list\n");
 		return;
 	}
-	printf("[%s]", list->item);
-	for(list = list->next; list->next!=NULL; list = list->next) {
-		printf(" -> [%s]", list->next->item);
+	while(list != NULL) {
+		printf("%s\n", list->item);
+		list = list->next;
 	}
-	printf("\n");
 }
 
 void list_free(List *list){
@@ -38,4 +38,24 @@ void list_free(List *list){
 	}
 	list_free(list->next);
 	free(list);
+}
+
+int list_is_empty(List *list){
+	return list->next == NULL;
+} 
+
+List* list_tail(List *list){
+	return list->next;
+}
+
+void* list_head(List *list){
+	return list->item;
+}
+
+int list_size(List *list){
+	if(list_is_empty(list)){
+		return 0;
+	}else{
+		return 1 + list_size(list->next);
+	}
 }

@@ -52,10 +52,9 @@ static int precedes_record_float_field(void* r1_p, void* r2_p){
     return(0);
 }
 
+struct record r1, r2, r3;
 static int i1,i2,i3;
 static Array_Struct *array_struct;
-static record r1, r2, r3;
-
 
 void setUp(void){
     i1 = -12;

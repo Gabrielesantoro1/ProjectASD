@@ -106,22 +106,18 @@ static void load_array(const char* file_name, Array_Struct* array){
   FILE *fp;
   //printf("\nLoading data from file...\n");
   fp = fopen(file_name,"r");
-  
   //case: if the fopen does not return the pointer to the file
   if(fp == NULL){
     fprintf(stderr,"main: unable to open the file");
     exit(EXIT_FAILURE);
   }
-  
   while(fgets(buffer,buf_size,fp) != NULL){  
     read_line_p = malloc((strlen(buffer)+1)*sizeof(char));
-
     //case: if the malloc goes wrong 
     if(read_line_p == NULL){
       fprintf(stderr,"main: unable to allocate memory for the read line");
       exit(EXIT_FAILURE);
     }
-    
     strcpy(read_line_p,buffer);   
     char *id_field_in_read_line_p = strtok(read_line_p,",");
     char *string_field_in_read_line_p = strtok(NULL,",");
@@ -129,32 +125,25 @@ static void load_array(const char* file_name, Array_Struct* array){
     char *float_field_in_read_line_p = strtok(NULL,"\n");
 
     char *string_field = malloc((strlen(string_field_in_read_line_p)+1)*sizeof(char));
-
     //case: if the malloc goes wrong
     if(string_field == NULL){
       fprintf(stderr,"main: unable to allocate memory for the string field of the read record");
       exit(EXIT_FAILURE);
     }  
-
     strcpy(string_field,string_field_in_read_line_p);
-
     int integer_field = atoi(integer_field_in_read_line_p);
-   
     //cast from double returned by atof to float.
     float float_field = (float)atof(float_field_in_read_line_p);
 
     struct record *record_p = malloc(sizeof(struct record));
-    
     //case: if the malloc goes wrong
     if(record_p == NULL){
       fprintf(stderr,"main: unable to allocate memory for the read record");
       exit(EXIT_FAILURE);
     }
-
     record_p->string_field = string_field;
     record_p->integer_field = integer_field;
     record_p->float_field = float_field;
-    
     array_struct_add(array, (void*)record_p);
     free(read_line_p);
   }
@@ -187,7 +176,7 @@ static void test_quicksort_with_comparison_function(const char* file_name, int (
     double sec = ((double)difference) / CLOCKS_PER_SEC;
 
     //print_array(array);
-    printf("QuickSort ALGO takes from %s : %f sec \n",file_name,sec);
+    printf("QuickSort ALGO takes for %s : %f sec \n",file_name,sec);
     writeinfile(sec);
     free_array(array);
 }
