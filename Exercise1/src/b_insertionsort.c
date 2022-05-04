@@ -1,3 +1,5 @@
+#define UNITY_INCLUDE_DOUBLE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
