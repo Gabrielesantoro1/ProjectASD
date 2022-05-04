@@ -5,16 +5,20 @@
 
 List* empytList(){
 	List *list = malloc(sizeof(List));
+	list->item = 0;
 	list->next = NULL;
     return list;
 }
 
 List* list_insert(List *list, void *item){
-	List *new_list = malloc(sizeof(List));
-	new_list->item = item;
-	new_list->next = list;
-	
-	return new_list;
+	while(list->next!=NULL){
+    	list = list->next;
+	}
+  	list->next=malloc(sizeof(List));
+	list = list->next;
+	list->item = item;
+	list->next = NULL;
+	return list;
 }
 
 void list_print(List *list){
@@ -22,7 +26,7 @@ void list_print(List *list){
 		printf("Empty list\n");
 		return;
 	}
-	while(list->next != NULL) {
+	while(list != NULL) {
 		printf("%s\n", list->item);
 		list = list->next;
 	}

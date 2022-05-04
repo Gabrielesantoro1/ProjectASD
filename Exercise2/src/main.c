@@ -101,20 +101,15 @@ static List* load_correctme(const char* file_name){
 
     while(fgets(buffer,buf_size,fp) != NULL){
         read_word = malloc((strlen(buffer)+1)*sizeof(char)); 
-
         if(read_word == NULL){
             fprintf(stderr, "read_word: unable to load thw current word");
             exit(EXIT_FAILURE);
         }
-
         strcpy(read_word, buffer);
         char *read_word_field = strtok(read_word, " "); 
-
         while(read_word_field != NULL){
             read_word_field = cleaning_word(read_word_field);
-            //printf("\n%s",read_word_field);
-            list = list_insert(list, read_word_field);
-            //printf("\n%s", list->item);
+            list_insert(list, read_word_field);
             read_word_field = strtok(NULL, " ");      
         }
     }
