@@ -33,7 +33,6 @@ static SkipList* load_dictionary(const char* file_name, int (*compare)(void*,voi
     char buffer[1024];
     int buf_size = 1024;
     FILE *fp;
-    printf("Loading Dictionary from file...\n");
     fp = fopen(file_name, "r");
 
     if(fp == NULL){
@@ -41,8 +40,8 @@ static SkipList* load_dictionary(const char* file_name, int (*compare)(void*,voi
         exit(EXIT_FAILURE);
     }
     
-    SkipList *list = emptySkipList();
-    list->compare = compare;
+    SkipList *skiplist = emptySkipList();
+    skiplist->compare = compare;
 
     while(fgets(buffer,buf_size,fp) != NULL){
         read_line = malloc((strlen(buffer)+1)*sizeof(char));
@@ -54,22 +53,19 @@ static SkipList* load_dictionary(const char* file_name, int (*compare)(void*,voi
 
         strcpy(read_line,buffer);
         char *string_field_in_read_line = strtok(read_line, "\n");
-
         char *string_field = malloc((strlen(string_field_in_read_line)+1)*sizeof(char));
-
         if(string_field == NULL){
             fprintf(stderr, "load_dictionary: unable to allocate memory for the string field");
             exit(EXIT_FAILURE);
         }
 
         strcpy(string_field,string_field_in_read_line);
-        printf("\nString line read: %s", string_field);
-        insertSkipList(list,string_field);
+        skiplist = insertSkipList(skiplist,string_field);
         free(read_line);
     }
     fclose(fp);
     printf("Dictionary loaded.\n");
-    return list;
+    return skiplist;
 }
 
 static char* cleaning_word(char *word){
@@ -90,7 +86,6 @@ static List* load_correctme(const char* file_name){
     int buf_size = 1024;
     FILE *fp;
     fp = fopen(file_name, "r");
-    printf("Loading correctme from file...\n");
     
     if(fp == NULL){
         fprintf(stderr, "load_correctme: unnable to load the file");
@@ -114,20 +109,36 @@ static List* load_correctme(const char* file_name){
         }
     }
     fclose(fp);
-    printf("\nCorrectme loaded.\n");
+    printf("Correctme loaded.\n");
     return list;
 }
 
+void check_correctme(SkipList *skiplist, List *list){
+    for(List *tmp = list; tmp != NULL; tmp = tmp->next){
+        if(searchSkipList(skiplist,tmp->item) == NULL){
+            printf("\n%s",tmp->item);
+        }else{
+            printf("\n%s is not a word to correct",tmp->item);
+        }
+    }
+}
+
 static void test_with_comparison_function(const char* dictionary_file_name, const char* correctme_file_name, int (*compare)(void*,void*)){
-    printf("Testing...\n");
-    //SkipList* dictionary = load_dictionary(dictionary_file_name,compare);
-    //skipList_print(dictionary);
+    SkipList* dictionary = load_dictionary(dictionary_file_name,compare);
+    if(dictionary == NULL){
+        fprintf(stderr, "The dictionary file is NULL\n");
+    }
+    //printSkipList(dictionary);
 
     List *correctme = load_correctme(correctme_file_name);
     if(correctme == NULL){
         fprintf(stderr, "The correctme file is NULL\n");
     }
-    list_print(correctme);
+    //list_print(correctme);
+    
+    check_correctme(dictionary,correctme);
+
+    //freeSkipList(dictionary);
     list_free(correctme);
 }
 

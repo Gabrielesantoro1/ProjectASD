@@ -15,12 +15,12 @@ struct _SkipList {
 
 unsigned int randomLevel();
 
-void insertSkipList(SkipList *list, void* I);
+SkipList* insertSkipList(SkipList *list, void* I);
 
 void* searchSkipList(SkipList *list, void* I);
 
-void eraseSkipList(SkipList *list);
+void freeSkipList(SkipList *list);
 
-void skipList_print(SkipList *list);
+void printSkipList(SkipList *list);
 
 SkipList* emptySkipList();
