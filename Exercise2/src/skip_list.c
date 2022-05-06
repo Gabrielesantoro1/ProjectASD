@@ -72,6 +72,10 @@ SkipList* emptySkipList(){
     return new;
 }
 
-void freeSkipList(SkipList *list){}
+int isemptySkipList(SkipList *skiplist){}
 
-void printSkipList(SkipList *list){}
+int sizeSkipList(SkipList *skiplist){}
+
+void freeSkipList(SkipList *skiplist){}
+
+void printSkipList(SkipList *skiplist){}
