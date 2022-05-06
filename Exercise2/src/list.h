@@ -20,3 +20,5 @@ int list_size(List *list);
 int list_is_empty(List *list);
 
 List* empytList();
+
+List* list_reverse(List *list);

@@ -4,21 +4,15 @@
 #include "list.h"
 
 List* empytList(){
-	List *list = malloc(sizeof(List));
-	list->item = 0;
-	list->next = NULL;
-    return list;
+    return NULL;
 }
 
 List* list_insert(List *list, void *item){
-	while(list->next!=NULL){
-    	list = list->next;
-	}
-  	list->next=malloc(sizeof(List));
-	list = list->next;
-	list->item = item;
-	list->next = NULL;
-	return list;
+	List *new_list = malloc(sizeof(List));
+	new_list->item = item;
+	new_list->next = list;
+
+	return new_list;
 }
 
 void list_print(List *list){
@@ -36,12 +30,12 @@ void list_free(List *list){
 	if (list == NULL) {
 		return;
 	}
-	list_free(list->next);
+	list_free(list_tail(list));
 	free(list);
 }
 
 int list_is_empty(List *list){
-	return list->next == NULL;
+	return list == NULL;
 } 
 
 List* list_tail(List *list){
@@ -56,6 +50,18 @@ int list_size(List *list){
 	if(list_is_empty(list)){
 		return 0;
 	}else{
-		return 1 + list_size(list->next);
+		return 1 + list_size(list_tail(list));
 	}
+}
+
+List* list_reverse(List *list){
+	List *m = NULL;
+	List *t = NULL;
+	while(!list_is_empty(list)){
+		t = list_tail(list);
+		list->next = m;
+		m = list;
+		list = t;
+	}
+	return m;
 }

@@ -101,16 +101,17 @@ static List* load_correctme(const char* file_name){
             exit(EXIT_FAILURE);
         }
         strcpy(read_word, buffer);
+
         char *read_word_field = strtok(read_word, " "); 
         while(read_word_field != NULL){
             read_word_field = cleaning_word(read_word_field);
-            list_insert(list, read_word_field);
+            list = list_insert(list, read_word_field);
             read_word_field = strtok(NULL, " ");      
         }
     }
     fclose(fp);
     printf("Correctme loaded.\n");
-    return list;
+    return list_reverse(list);
 }
 
 void check_correctme(SkipList *skiplist, List *list){
@@ -134,9 +135,9 @@ static void test_with_comparison_function(const char* dictionary_file_name, cons
     if(correctme == NULL){
         fprintf(stderr, "The correctme file is NULL\n");
     }
-    //list_print(correctme);
+    list_print(correctme);
     
-    check_correctme(dictionary,correctme);
+    //check_correctme(dictionary,correctme);
 
     //freeSkipList(dictionary);
     list_free(correctme);
