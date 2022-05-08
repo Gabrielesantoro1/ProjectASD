@@ -15,7 +15,7 @@ struct _SkipList {
 
 unsigned int randomLevel();
 
-SkipList* insertSkipList(SkipList *skiplist, void* I);
+void* insertSkipList(SkipList *skiplist, void* I);
 
 void* searchSkipList(SkipList *skiplist, void* I);
 
