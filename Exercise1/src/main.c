@@ -111,14 +111,14 @@ static void load_array(const char* file_name, Array_Struct* array){
     fprintf(stderr,"main: unable to open the file");
     exit(EXIT_FAILURE);
   }
-  while(fgets(buffer,buf_size,fp) != NULL){  
+  while(fgets(buffer,buf_size,fp) != NULL){
     read_line_p = malloc((strlen(buffer)+1)*sizeof(char));
-    //case: if the malloc goes wrong 
+    //case: if the malloc goes wrong
     if(read_line_p == NULL){
       fprintf(stderr,"main: unable to allocate memory for the read line");
       exit(EXIT_FAILURE);
     }
-    strcpy(read_line_p,buffer);   
+    strcpy(read_line_p,buffer);
     char *id_field_in_read_line_p = strtok(read_line_p,",");
     char *string_field_in_read_line_p = strtok(NULL,",");
     char *integer_field_in_read_line_p = strtok(NULL,",");
@@ -129,7 +129,7 @@ static void load_array(const char* file_name, Array_Struct* array){
     if(string_field == NULL){
       fprintf(stderr,"main: unable to allocate memory for the string field of the read record");
       exit(EXIT_FAILURE);
-    }  
+    }
     strcpy(string_field,string_field_in_read_line_p);
     int integer_field = atoi(integer_field_in_read_line_p);
     //cast from double returned by atof to float.
@@ -155,7 +155,7 @@ void writeinfile(double sec){
     int i;
     char output[50];
     snprintf(output, 50, "%f", sec);
-        FILE * fptr;        
+        FILE * fptr;
         fptr = fopen("fputc_test.txt", "a");
         for (i = 0; i < strlen(output); i++) {
             fputc(output[i], fptr);
@@ -164,11 +164,32 @@ void writeinfile(double sec){
         fclose(fptr);
 }
 
+/*
+void array_infile(Array_Struct* array){
+    unsigned long el_num = array_size(array);
+    struct record *array_element;
+    char output[50];
+    FILE * fptr;
+    fptr = fopen("Ordered_array.txt","a");
+    printf("\nARRAY OF RECORDS\n");
+    for(unsigned long i=0;i<el_num;i++){
+        array_element = (struct record*)array_get(array,i);
+        snprintf(output,50,"%f",i);
+        for (unsigned long j = 0; j < strlen(output); j++) {
+            fputc(output[i], fptr);
+        }
+        fputc('\n', fptr);
+    }
+    fclose(fptr);
+}
+*/
+
+
 
 static void test_quicksort_with_comparison_function(const char* file_name, int (*compare)(void*,void*), long crit){
     Array_Struct* array = array_create();
     load_array(file_name, array);
-    
+
     clock_t before = clock();
     //printf("Sorting %s\n",file_name);
     quick_sort(array, compare, 0 ,(array_size(array)-1),crit);
@@ -176,6 +197,7 @@ static void test_quicksort_with_comparison_function(const char* file_name, int (
     double sec = ((double)difference) / CLOCKS_PER_SEC;
 
     //print_array(array);
+    //array_infile(array);
     printf("QuickSort ALGO takes for %s : %f sec \n",file_name,sec);
     writeinfile(sec);
     free_array(array);
@@ -188,12 +210,12 @@ static void test_insertionsort_with_comparison_function(const char* file_name, i
     array = b_insertionsort(array, compare);
     clock_t difference = clock() - before;
     double sec = ((double)difference) / CLOCKS_PER_SEC;
-    
+
     print_array(array);
     printf("InsertionSort ALGO takes from %s : %f sec \n",file_name,sec);
     free_array(array);
 }
- 
+
  //REAL MAIN
  /*
 int main(int argc){
@@ -202,7 +224,7 @@ int main(int argc){
     scanf("%s", record);
 
     printf("\nChoose the algorithm you want to use:\n 1 - QuickSort\n 2 - BinaryInsertionSort\n");
-    
+
     int algo;
     scanf("%d",&algo);
 
@@ -277,9 +299,8 @@ int main(int argc){
                 //printf("%s\n",dir->d_name);
                 test_quicksort_with_comparison_function(dir->d_name,precedes_record_int_field,0);
             }
-        }   
+        }
         closedir(d);
     }
     return(0);
 }
-
