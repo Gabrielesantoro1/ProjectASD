@@ -29,13 +29,14 @@ Node* createNode(void* I, int level){
 }
 
 void* insertSkipList(SkipList *skiplist, void* I){
+    //printf("\nInsert skiplist");
     Node *new = createNode(I, randomLevel());
     if (new->size > skiplist->max_level){
         skiplist->max_level = new->size;
     }
     Node *x = skiplist->head;
     for (int k = skiplist->max_level; k > 0; k--){
-        if ((x->next[k] == NULL) || (skiplist->compare(I,x->next[k]->item)==1)){
+        if ((x->next[k] == NULL) || (skiplist->compare(I,x->next[k]->item) == 1)){
             if(k <= new->size){
               new->next[k] = x->next[k];
               x->next[k] = new;
@@ -51,14 +52,23 @@ void* searchSkipList(SkipList *skiplist, void* I){
     Node *x = skiplist->head;
     // loop invariant: x->item < I
     for(unsigned int i = skiplist->max_level;i > 0;i--){
-        while ((skiplist->compare(I, x->next[i]->item))==1){
-            x = x->next[i];
+        if(x->next[i] == NULL){ //Puntatore di livello i è uguale a NULL
+            //printf("\nNULL ITEM");
+        }else{ 
+            while((x->next[i] != NULL) && (skiplist->compare(x->next[i]->item, I)) == 1){
+                //printf("\n%d:Inside while",i);
+                x = x->next[i];   
+            }
         }
     }
+    if(x->next[1] != NULL){
     // x->item < I <= x->next[1]->item
-    x = x->next[1];
-    if (skiplist->compare(I, x->item)==0){
-        return x->item;
+        x = x->next[1];
+        if ((skiplist->compare(I, x->item)) == 0){
+            return x->item;
+        }else{
+            return NULL;
+        }
     }else{
         return NULL;
     }
@@ -97,15 +107,27 @@ int sizeSkipList(SkipList *skiplist){
         return size;
     }
 }
-
-void freeSkipList(SkipList *skiplist){}
+/*
+Da rivedere
+void freeSkipList(SkipList *skiplist){
+    Node *head = skiplist->head;
+    for(unsigned int i = skiplist->max_level; i > 0; i--){
+        while(head->next[i] != NULL){
+            free(head->next[i]);
+            head = head->next[i];
+        }
+    }
+}
+*/
 
 void printSkipList(SkipList *skiplist){
     Node *tmp = skiplist->head;
     tmp = tmp->next[1];
     int count = 1;
     for(;tmp != NULL; tmp = tmp->next[1]){
+        printf("\n");
         printf("\nElem[%i]:%s",count,tmp->item);
+        printf("\nSize:%i",tmp->size);
         count++;
     }
 }

@@ -18,11 +18,9 @@ static int precedes_string(void* r1_p,void* r2_p){
     fprintf(stderr,"precedes_string: the second parameter is a null pointer");
     exit(EXIT_FAILURE);
   }
-  Node *rec1_p = (Node*)r1_p;
-  Node *rec2_p = (Node*)r2_p;
-  if(strcmp(rec1_p->item, rec2_p->item)==0){
+  if(strcmp((void*)r1_p,(void*)r2_p) == 0){
       return(0);
-  }else if(strcmp(rec1_p->item,rec2_p->item)<0){
+  }else if(strcmp((void*)r1_p,(void*)r2_p) < 0){
       return(1);
   }
   return(2);
@@ -42,7 +40,6 @@ static SkipList* load_dictionary(const char* file_name, int (*compare)(void*,voi
     
     SkipList *skiplist = emptySkipList();
     skiplist->compare = compare;
-
     while(fgets(buffer,buf_size,fp) != NULL){
         read_line = malloc((strlen(buffer)+1)*sizeof(char));
         
@@ -60,19 +57,23 @@ static SkipList* load_dictionary(const char* file_name, int (*compare)(void*,voi
         }
 
         strcpy(string_field,string_field_in_read_line);
-        skiplist = insertSkipList(skiplist,string_field);
+        insertSkipList(skiplist,string_field);
         free(read_line);
     }
     fclose(fp);
-    printf("Dictionary loaded.\n");
     return skiplist;
 }
 
+//Aggiungere anche cambimaneto caps lock word
 static char* cleaning_word(char *word){
     char *dst = word;
     for(int i = 0; i < strlen(word); i++){
         if(!ispunct((unsigned int)word[i])){
-            dst[i] = word[i];
+            if(!isalpha((unsigned int)word[i])){
+                dst[i] = word[i];    
+            }else{
+                dst[i] = tolower(word[i]);
+            }
         }else{
             dst[i] = '\0';
         }
@@ -110,37 +111,40 @@ static List* load_correctme(const char* file_name){
         }
     }
     fclose(fp);
-    printf("Correctme loaded.\n");
     return list_reverse(list);
 }
 
 void check_correctme(SkipList *skiplist, List *list){
     for(List *tmp = list; tmp != NULL; tmp = tmp->next){
-        if(searchSkipList(skiplist,tmp->item) == NULL){
+        //printf("\n");
+        //printf("\nWord to search:%s",tmp->item);
+        if((searchSkipList(skiplist,tmp->item)) == NULL){
             printf("\n%s",tmp->item);
-        }else{
-            printf("\n%s is not a word to correct",tmp->item);
         }
     }
 }
 
 static void test_with_comparison_function(const char* dictionary_file_name, const char* correctme_file_name, int (*compare)(void*,void*)){
-    SkipList* dictionary = load_dictionary(dictionary_file_name,compare);
+    SkipList *dictionary = load_dictionary(dictionary_file_name,compare);
     if(dictionary == NULL){
         fprintf(stderr, "The dictionary file is NULL\n");
     }
+    printf("\nDictionary loaded.\n");
     //printSkipList(dictionary);
 
     List *correctme = load_correctme(correctme_file_name);
     if(correctme == NULL){
         fprintf(stderr, "The correctme file is NULL\n");
     }
-    list_print(correctme);
+    printf("\nCorrectme loaded.\n");
+    //list_print(correctme);
     
-    //check_correctme(dictionary,correctme);
+    check_correctme(dictionary,correctme);
 
-    //freeSkipList(dictionary);
     list_free(correctme);
+    //freeSkipList(dictionary);
+
+    printf("\nCorrectme have been free.");
 }
 
 void main(int argc){
@@ -153,5 +157,6 @@ void main(int argc){
     printf("Insert the correctme path to order: ");
     scanf("%s", correctme);
     */
+    srand(time(0));
     test_with_comparison_function("dictionary.txt", "correctme.txt", precedes_string);
 }
