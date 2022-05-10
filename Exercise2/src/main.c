@@ -126,6 +126,7 @@ void check_correctme(SkipList *skiplist, List *list){
 
 static void test_with_comparison_function(const char* dictionary_file_name, const char* correctme_file_name, int (*compare)(void*,void*)){
     srand(time(0));
+    printf("\nLoading data...\n");
 
     SkipList *dictionary = load_dictionary(dictionary_file_name,compare);
     if(dictionary == NULL){
@@ -139,22 +140,17 @@ static void test_with_comparison_function(const char* dictionary_file_name, cons
     }
     //list_print(correctme);
     
+    printf("\nChecking the correctme file...\n");
     check_correctme(dictionary,correctme);
+    printf("\n");
 
     //Free of the memory section
     list_free(correctme);
     freeSkipList(dictionary);
 }
 
-void main(int argc){
-    /*
-    char* dictionary;
-    printf("Insert the dictionary path to order: ");
-    scanf("%s", dictionary);
-    
-    char* correctme;
-    printf("Insert the correctme path to order: ");
-    scanf("%s", correctme);
-    */
-    test_with_comparison_function("dictionary.txt", "correctme.txt", precedes_string);
+void main(int argc, char *argv[]){
+    char* dictionary = argv[1];
+    char* correctme = argv[2];
+    test_with_comparison_function(dictionary, correctme, precedes_string);
 }

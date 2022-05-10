@@ -121,7 +121,7 @@ void freeSkipList(SkipList *skiplist){
                 }
             }
         }
-        printf("\nSkiplist has been free");
+        //printf("\nSkiplist has been free\n");
     }
 }
 
