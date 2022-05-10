@@ -61,6 +61,7 @@ static SkipList* load_dictionary(const char* file_name, int (*compare)(void*,voi
         free(read_line);
     }
     fclose(fp);
+    printf("\nDictionary loaded.\n");
     return skiplist;
 }
 
@@ -111,13 +112,12 @@ static List* load_correctme(const char* file_name){
         }
     }
     fclose(fp);
+    printf("\nCorrectme loaded.\n");
     return list_reverse(list);
 }
 
 void check_correctme(SkipList *skiplist, List *list){
     for(List *tmp = list; tmp != NULL; tmp = tmp->next){
-        //printf("\n");
-        //printf("\nWord to search:%s",tmp->item);
         if((searchSkipList(skiplist,tmp->item)) == NULL){
             printf("\n%s",tmp->item);
         }
@@ -125,26 +125,25 @@ void check_correctme(SkipList *skiplist, List *list){
 }
 
 static void test_with_comparison_function(const char* dictionary_file_name, const char* correctme_file_name, int (*compare)(void*,void*)){
+    srand(time(0));
+
     SkipList *dictionary = load_dictionary(dictionary_file_name,compare);
     if(dictionary == NULL){
         fprintf(stderr, "The dictionary file is NULL\n");
     }
-    printf("\nDictionary loaded.\n");
     //printSkipList(dictionary);
 
     List *correctme = load_correctme(correctme_file_name);
     if(correctme == NULL){
         fprintf(stderr, "The correctme file is NULL\n");
     }
-    printf("\nCorrectme loaded.\n");
     //list_print(correctme);
     
     check_correctme(dictionary,correctme);
 
+    //Free of the memory section
     list_free(correctme);
-    //freeSkipList(dictionary);
-
-    printf("\nCorrectme have been free.");
+    freeSkipList(dictionary);
 }
 
 void main(int argc){
@@ -157,6 +156,5 @@ void main(int argc){
     printf("Insert the correctme path to order: ");
     scanf("%s", correctme);
     */
-    srand(time(0));
     test_with_comparison_function("dictionary.txt", "correctme.txt", precedes_string);
 }

@@ -29,7 +29,6 @@ Node* createNode(void* I, int level){
 }
 
 void* insertSkipList(SkipList *skiplist, void* I){
-    //printf("\nInsert skiplist");
     Node *new = createNode(I, randomLevel());
     if (new->size > skiplist->max_level){
         skiplist->max_level = new->size;
@@ -52,11 +51,10 @@ void* searchSkipList(SkipList *skiplist, void* I){
     Node *x = skiplist->head;
     // loop invariant: x->item < I
     for(unsigned int i = skiplist->max_level;i > 0;i--){
-        if(x->next[i] == NULL){ //Puntatore di livello i è uguale a NULL
-            //printf("\nNULL ITEM");
+        if(x->next[i] == NULL){
+             //Puntatore di livello i è uguale a NULL
         }else{ 
             while((x->next[i] != NULL) && (skiplist->compare(x->next[i]->item, I)) == 1){
-                //printf("\n%d:Inside while",i);
                 x = x->next[i];   
             }
         }
@@ -107,18 +105,25 @@ int sizeSkipList(SkipList *skiplist){
         return size;
     }
 }
-/*
-Da rivedere
+
 void freeSkipList(SkipList *skiplist){
-    Node *head = skiplist->head;
-    for(unsigned int i = skiplist->max_level; i > 0; i--){
-        while(head->next[i] != NULL){
-            free(head->next[i]);
-            head = head->next[i];
+    if(isemptySkipList(skiplist)){
+        return;
+    }else{
+        Node *head = skiplist->head;
+        for(unsigned int i = skiplist->max_level; i > 0; i--){
+            if(head->next[i] != NULL){
+                Node *tmp = head->next[i];
+                while(tmp->next[i] != NULL){
+                    free(head);
+                    tmp = tmp->next[i];
+                    head = tmp;
+                }
+            }
         }
+        printf("\nSkiplist has been free");
     }
 }
-*/
 
 void printSkipList(SkipList *skiplist){
     Node *tmp = skiplist->head;

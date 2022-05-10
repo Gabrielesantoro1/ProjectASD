@@ -28,6 +28,7 @@ void list_print(List *list){
 
 void list_free(List *list){
 	if (list == NULL) {
+		printf("\nCorrectme has been free.");
 		return;
 	}
 	list_free(list_tail(list));

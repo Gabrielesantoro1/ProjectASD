@@ -85,7 +85,7 @@ static void free_array(Array_Struct* array){
         free(array_element);
     }
     array_free_memory(array);
-    //printf("Memory cleaned.\n");
+    printf("Memory free.\n");
 }
 
 static void print_array(Array_Struct* array){
@@ -148,7 +148,7 @@ static void load_array(const char* file_name, Array_Struct* array){
     free(read_line_p);
   }
   fclose(fp);
-  //printf("\nData loaded\n");
+  printf("\nData loaded\n");
 }
 
 void writeinfile(double sec){
