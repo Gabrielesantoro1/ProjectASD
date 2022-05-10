@@ -65,7 +65,6 @@ static SkipList* load_dictionary(const char* file_name, int (*compare)(void*,voi
     return skiplist;
 }
 
-//Aggiungere anche cambimaneto caps lock word
 static char* cleaning_word(char *word){
     char *dst = word;
     for(int i = 0; i < strlen(word); i++){
@@ -141,9 +140,15 @@ static void test_with_comparison_function(const char* dictionary_file_name, cons
     //list_print(correctme);
     
     printf("\nChecking the correctme file...\n");
-    check_correctme(dictionary,correctme);
-    printf("\n");
 
+    clock_t before = clock();
+    check_correctme(dictionary,correctme);
+    clock_t difference = clock() - before;
+    double sec = ((double)difference) / CLOCKS_PER_SEC;
+
+    printf("\n");
+    printf("Time take to check the correctme file was: %f;\nThe value of max height was: %d",sec, dictionary->max_level);
+    printf("\n");
     //Free of the memory section
     list_free(correctme);
     freeSkipList(dictionary);
