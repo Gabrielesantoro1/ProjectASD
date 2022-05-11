@@ -149,6 +149,7 @@ static void test_with_comparison_function(const char* dictionary_file_name, cons
     printf("\n");
     printf("Time take to check the correctme file was: %f;\nThe value of max height was: %d",sec, dictionary->max_level);
     printf("\n");
+    
     //Free of the memory section
     list_free(correctme);
     freeSkipList(dictionary);

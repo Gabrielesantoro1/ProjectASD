@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_HEIGHT 10
+#define MAX_HEIGHT 24
 
 unsigned int randomLevel(){
     unsigned int lvl = 1;
@@ -16,11 +16,9 @@ unsigned int randomLevel(){
 Node* createNode(void* I, int level){
     Node *new = malloc(sizeof(Node));
     Node **arrayNode = malloc(sizeof(Node)*level);
-
     for(unsigned int i = 1; i <= level;i++){
         arrayNode[i] = NULL;
     }
-
     new->next = arrayNode;
     new->size = level;
     new->item = I;
