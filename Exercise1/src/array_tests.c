@@ -132,26 +132,24 @@ static void test_insertsort_with_array_string(void){
   TEST_ASSERT_EQUAL_PTR_ARRAY(exp_arr,act_arr,3);
 }
 
-//Da rivedere
 static void test_quicksort_with_array_int(void){
   int* exp_arr[] = {&i1,&i2,&i3};
   array_struct_add(array_struct,&i2);
   array_struct_add(array_struct,&i1);
   array_struct_add(array_struct,&i3);
-  array_struct = quick_sort(array_struct,precedes_int,0,2,0);
+  quick_sort(array_struct,precedes_int,0,2,0);
   int** act_arr = malloc(3*sizeof(int*));
   for(unsigned long i=0;i<3;i++)
     act_arr[i] = (int*)array_get(array_struct,i);
   TEST_ASSERT_EQUAL_PTR_ARRAY(exp_arr,act_arr,3);
 }
 
-//Da rivedere
 static void test_quicksort_with_array_float(void){
   float* exp_arr[] = {&f1,&f2,&f3};
   array_struct_add(array_struct,&f1);
   array_struct_add(array_struct,&f3);
   array_struct_add(array_struct,&f2);
-  array_struct = quick_sort(array_struct,precedes_float,0,2,0);
+  quick_sort(array_struct,precedes_float,0,2,0);
   float** act_arr = malloc(3*sizeof(float*));
   for(unsigned long i=0;i<3;i++)
     act_arr[i] = (float*)array_get(array_struct,i);
@@ -164,7 +162,7 @@ static void test_quicksort_with_array_string(void){
   array_struct_add(array_struct,&s1);
   array_struct_add(array_struct,&s2);
   array_struct_add(array_struct,&s3);
-  array_struct = quick_sort(array_struct,precedes_string,0,2,0);
+  quick_sort(array_struct,precedes_string,0,2,0);
   char** act_arr = malloc(3*sizeof(char*));
   for(unsigned long i=0;i<3;i++)
     act_arr[i] = (char*)array_get(array_struct,i);
@@ -182,13 +180,15 @@ RUN_TEST(test_array_struct_size_one_el);
 RUN_TEST(test_array_struct_size_zero_el);
 RUN_TEST(test_array_struct_add_get_el);
 
+//Test for InsertionSort
 RUN_TEST(test_insertsort_with_array_int);
 RUN_TEST(test_insertsort_with_array_float);
-//RUN_TEST(test_insertsort_with_array_string);
+RUN_TEST(test_insertsort_with_array_string);
 
-//RUN_TEST(test_quicksort_with_array_int);
-//RUN_TEST(test_quicksort_with_array_float);
-//RUN_TEST(test_quicksort_with_array_string);
+//Test for QuickSort
+RUN_TEST(test_quicksort_with_array_int);
+RUN_TEST(test_quicksort_with_array_float);
+RUN_TEST(test_quicksort_with_array_string);
 
 UNITY_END();
 }
