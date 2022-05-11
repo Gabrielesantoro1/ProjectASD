@@ -48,7 +48,7 @@ void* insertSkipList(SkipList *skiplist, void* I){
 void* searchSkipList(SkipList *skiplist, void* I){
     Node *x = skiplist->head;
     // loop invariant: x->item < I
-    for(int i = (skiplist->max_level)-1;i > -1;i--){
+    for(int i = (skiplist->max_level)-1; i > -1; i--){
         if(x->next[i] == NULL){
              //Puntatore di livello i è uguale a NULL
         }else{ 
