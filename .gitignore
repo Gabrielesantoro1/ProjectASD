@@ -35,6 +35,6 @@ skiplist.png
 *.exe
 Exercise1/fputc_test.txt
 *.txt
-array.exe
 Exercise1/build/main.o
-*.o
+Exercise1/*.o
+Execrice1/*.exe
