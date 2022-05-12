@@ -25,6 +25,7 @@ static int precedes_string(void* r1_p,void* r2_p){
     }
     return 0;
 }
+
 static int precedes_float(void* r1_p, void* r2_p){
     if((float*)r1_p == (float*)r2_p){
         return 1;
@@ -49,8 +50,8 @@ void setUp(void){
     f3 = 5.0;
 
     s1 = 'a';
-    s2 = 'C';
-    s3 = 'z';
+    s2 = 'b';
+    s3 = 'c';
     
     array_struct = array_create();
 }
@@ -122,8 +123,8 @@ static void test_insertsort_with_array_float(void){
 //Da rivedere
 static void test_insertsort_with_array_string(void){
   char* exp_arr[] = {&s1,&s2,&s3};
-  array_struct_add(array_struct,&s1);
   array_struct_add(array_struct,&s2);
+  array_struct_add(array_struct,&s1);
   array_struct_add(array_struct,&s3);
   array_struct = b_insertionsort(array_struct,precedes_string);
   char** act_arr = malloc(3*sizeof(char*));
