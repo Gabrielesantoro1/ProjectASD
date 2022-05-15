@@ -1,11 +1,9 @@
-#define UNITY_INCLUDE_DOUBLE
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "array.h"
 
-#define INITIAL_CAPACITY 2
+#define INITIAL_CAPACITY 10
 
 int array_is_empty(Array_Struct *array_struct){
   if(array_struct == NULL){
