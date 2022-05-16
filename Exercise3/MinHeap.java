@@ -15,9 +15,9 @@ public class MinHeap<T>{
     }
 
     public MinHeap(ArrayMinHeap<T> array) {
-        this.heap_size = 0;
+        this.array = array;
         this.length = array.size();
-        this.array = array; 
+        this.heap_size = 0; 
     }
 
     private int parent(int i){
@@ -25,19 +25,17 @@ public class MinHeap<T>{
     }
 
     private int left(int i){
-        if(2*i+1 <= heap_size){
-            return 2*i+1;
-        }else{
-            return i;
+        if(2*i+1 <= this.getHeap_size()){
+        return (2*i)+1;
         }
+        return i;
     }
 
     private int right(int i){
-        if((2*i+2) <= heap_size){
-            return 2*i+2;
-        }else{
-            return i;
+        if(2*i+2 <= this.getHeap_size()){
+        return (2*i)+2;
         }
+        return i;
     }
 
     private void minHeapify(ArrayMinHeap<T> array, int i){
@@ -45,42 +43,43 @@ public class MinHeap<T>{
         int l = left(i);
         int r = right(i);
 
-        System.out.println("minHeapify Minimum INDEX: "+ minimum+ " Left: "+l+" Right: "+r);
-        if(l < getLength() && array.compare(array.get(l), array.get(i)) < 0)
+        //System.out.println("minHeapify Minimum: "+ minimum+ " Left: "+l+" Right: "+r);
+        if(l < getHeap_size() && array.compare(array.get(l), array.get(minimum)) < 0){
             minimum = l;
-
-        if(r < getLength() && array.compare(array.get(r), array.get(minimum)) < 0)
+            //System.out.println("minimum"+array.get(minimum));
+        }
+        if(r < getHeap_size() && array.compare(array.get(r), array.get(minimum)) < 0){
             minimum = r;
-    
-        if(minimum != i ){
-            T tmp = array.get(i);
-            array.set(i,array.get(minimum));
-            array.set(minimum, tmp);
-
+            //System.out.println("minimum"+array.get(minimum));
+        }
+        if(minimum != i){
+            swap(array, i, minimum);
             minHeapify(array, minimum);
         }
-        this.increHeapSize();
     }
 
     public void buildMinHeap(){
-        int start_index = this.getLength()/2 - 1 ;
-        System.out.println("BuildMinHeap Start INDEX: "+start_index);
-        for(int i = start_index; i >= 0; i--){
+        setHeap_size(this.getLength());
+        for(int i = this.getLength()/2-1; i >= 0; i--){
             minHeapify(this.array,i);
         }
     }
 
     public void minHeapInsert(T x){
         array.add(x);
-        int i=array.size();
+        setHeap_size(this.getHeap_size()+1);
+        int i = getHeap_size();
     
-        while(i > 1 && array.compare(array.get(i), array.get(parent(i))) == -1){
-            T tmp = array.get(i);
-            array.set(i, array.get(parent(i)));
-            array.set(parent(i), tmp);
-
-            i=parent(i);
+        while(i > 0 && array.compare(array.get(i), array.get(parent(i))) < 0){
+            swap(array, i, parent(i));
+            i = parent(i);
         }
+    }
+
+    public void swap(ArrayMinHeap<T> array, int i, int y){
+        T tmp = array.get(i);
+        array.set(i, array.get(y));
+        array.set(y, tmp);
     }
 
     @Override
