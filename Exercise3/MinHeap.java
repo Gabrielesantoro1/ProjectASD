@@ -1,21 +1,28 @@
 package Exercise3;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+
 public class MinHeap<T>{
     private int length;
     private int heap_size;
-    private ArrayMinHeap<T> array;
+    private ArrayList<T> array;
+    private Comparator<? super T> comparator;
 
     /**
      * Empty constructor
      */
-    public MinHeap(){
-        array = new ArrayMinHeap<>();
+    public MinHeap(Comparator<? super T> comparator){
+        array = new ArrayList<>();
+        this.comparator = comparator;
         length = array.size();
         heap_size = 0;
+
     }
 
-    public MinHeap(ArrayMinHeap<T> array) {
+    public MinHeap(ArrayList<T> array, Comparator<? super T> comparator) {
         this.array = array;
+        this.comparator = comparator;
         this.length = array.size();
         this.heap_size = 0; 
     }
@@ -25,30 +32,30 @@ public class MinHeap<T>{
     }
 
     private int left(int i){
-        if(2*i+1 <= this.getHeap_size()){
+        if(2*i+1 <= this.getHeapSize()){
         return (2*i)+1;
         }
         return i;
     }
 
     private int right(int i){
-        if(2*i+2 <= this.getHeap_size()){
+        if(2*i+2 <= this.getHeapSize()){
         return (2*i)+2;
         }
         return i;
     }
 
-    private void minHeapify(ArrayMinHeap<T> array, int i){
+    private void minHeapify(ArrayList<T> array, int i){
         int minimum = i;
         int l = left(i);
         int r = right(i);
 
         //System.out.println("minHeapify Minimum: "+ minimum+ " Left: "+l+" Right: "+r);
-        if(l < getHeap_size() && array.compare(array.get(l), array.get(minimum)) < 0){
+        if(l < getHeapSize() && comparator.compare(array.get(l), array.get(minimum)) < 0){
             minimum = l;
             //System.out.println("minimum"+array.get(minimum));
         }
-        if(r < getHeap_size() && array.compare(array.get(r), array.get(minimum)) < 0){
+        if(r < getHeapSize() && comparator.compare(array.get(r), array.get(minimum)) < 0){
             minimum = r;
             //System.out.println("minimum"+array.get(minimum));
         }
@@ -59,42 +66,63 @@ public class MinHeap<T>{
     }
 
     public void buildMinHeap(){
-        setHeap_size(this.getLength());
+        setHeapSize(this.getLength());
         for(int i = this.getLength()/2-1; i >= 0; i--){
             minHeapify(this.array,i);
         }
     }
 
-    public void minHeapInsert(T x){
-        array.add(x);
-        setHeap_size(this.getHeap_size()+1);
-        int i = getHeap_size();
-    
-        while(i > 0 && array.compare(array.get(i), array.get(parent(i))) < 0){
+    public void minHeapInsert(T key){
+        setHeapSize(this.getHeapSize()+1);
+        int i = getHeapSize();
+        array.add(key);        
+
+        heapDecreaseKey(i-1, key);
+    }
+
+    //Da rivedere per caso di inserimento
+    public void heapDecreaseKey(int i, T key) {
+        if(comparator.compare(key, array.get(i)) > 0){
+            System.out.println("Key value is bigger then the old one");
+            return;
+        }
+        array.set(i, key);
+        while(i > 0 && comparator.compare(array.get(i), array.get(parent(i))) < 0){
             swap(array, i, parent(i));
             i = parent(i);
         }
     }
 
-    public void swap(ArrayMinHeap<T> array, int i, int y){
+    //Da rivedere
+    public T heapExtractMin(){
+        T min;
+        if(getHeapSize() < 0){
+            System.out.println("Underflow of heap");
+        }
+        min = array.get(0);
+        array.set(0, array.get(getHeapSize()-1));
+        array.remove(array.get(getHeapSize()-1));
+        setHeapSize(getHeapSize()-1);
+        minHeapify(array, 0);
+
+        return min;
+    }
+
+    private void swap(ArrayList<T> array, int i, int y){
         T tmp = array.get(i);
         array.set(i, array.get(y));
         array.set(y, tmp);
     }
 
     @Override
-    public String toString() {
-        return this.array.toString();
-    }
+    public String toString() {return this.array.toString();}
 
     public int getLength() {return length;}
 
     public void setLength(Integer length) {this.length = length;}
 
-    public int getHeap_size() {return heap_size;}
+    public int getHeapSize() {return heap_size;}
 
-    public void setHeap_size(Integer heap_size) {this.heap_size = heap_size;}
-
-    public void increHeapSize(){this.heap_size++;}
+    public void setHeapSize(Integer heap_size) {this.heap_size = heap_size;}
 
 }
