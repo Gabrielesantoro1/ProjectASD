@@ -69,19 +69,19 @@ public class Application {
         System.out.println(heap2.toString());
         System.out.println("Heap size:"+heap.getHeapSize());
 
+        System.out.println("");
+
         /**
-         * MinHeap for String data
-         * 
+         * MinHeap for String data 
          */
-        
         ComparatorString compStr = new ComparatorString();
         ArrayList<String> array_str = new ArrayList<>();
 
-        array_str.add("Ciao");
-        array_str.add("Come");
-        array_str.add("Stai");
-        array_str.add("?");
         array_str.add("a");
+        array_str.add("b");
+        array_str.add("c");
+        array_str.add("d");
+        array_str.add("h");
 
         System.out.println("Before build min heap:");
         System.out.println(array_str.toString());
@@ -97,7 +97,7 @@ public class Application {
         
         System.out.println("");
 
-        String s = "Daniele";
+        String s = "z";
         System.out.println("After insert new element:"+s);
         heap_str.minHeapInsert(s);
         System.out.println(heap_str.toString());
@@ -106,7 +106,7 @@ public class Application {
         System.out.println("\n");
 
         System.out.println("After decreased element in index:"+1);
-        heap_str.heapDecreaseKey(1, "bb");
+        heap_str.heapDecreaseKey(1, "f");
         System.out.println(heap_str.toString());
         System.out.println("Heap size:"+heap_str.getHeapSize());
 
