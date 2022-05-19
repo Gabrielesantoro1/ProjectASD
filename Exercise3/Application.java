@@ -10,6 +10,11 @@ import java.util.Random;
 public class Application {
     
     public static void main(String[] args) {
+        /**
+         * MinHeap for Integer data
+         * 
+         */
+        
         ComparatorInteger compInt = new ComparatorInteger();
         ArrayList<Integer> array = new ArrayList<>();
         
@@ -19,6 +24,7 @@ public class Application {
         }
         System.out.println("Before build min heap:");
         System.out.println(array.toString());
+        System.out.println("Array size:"+array.size());
         
         System.out.println("\n");
 
@@ -26,7 +32,7 @@ public class Application {
         heap.buildMinHeap();
         System.out.println("After build min heap:");
         System.out.println(heap.toString());
-        System.out.println(heap.getHeapSize());
+        System.out.println("Heap size:"+heap.getHeapSize());
 
         System.out.println("\n");
 
@@ -34,25 +40,25 @@ public class Application {
         System.out.println("After insert new element:"+x);
         heap.minHeapInsert(x);
         System.out.println(heap.toString());
-        System.out.println(heap.getHeapSize());
+        System.out.println("Heap size:"+heap.getHeapSize());
 
         System.out.println("\n");
 
         System.out.println("After decreased element in index:"+1);
         heap.heapDecreaseKey(1, -1);
         System.out.println(heap.toString());
-        System.out.println(heap.getHeapSize());
+        System.out.println("Heap size:"+heap.getHeapSize());
 
         System.out.println("\n");
 
-        System.out.println("Extraction of the min value of the heap");
+        System.out.println("Extraction of the min value of the heap:");
         System.out.println(heap.heapExtractMin());
         System.out.println(heap.toString());
-        System.out.println(heap.getHeapSize());
+        System.out.println("Heap size:"+heap.getHeapSize());
 
         System.out.println("");
 
-        System.out.println("Creation and adding of an minHeap empty");
+        System.out.println("Creation and adding of an minHeap empty:");
         MinHeap<Integer> heap2 = new MinHeap<>(compInt);
         System.out.println(heap2.toString());
         heap2.minHeapInsert(3);
@@ -61,6 +67,58 @@ public class Application {
         heap2.minHeapInsert(-3);
         heap2.minHeapInsert(6);
         System.out.println(heap2.toString());
+        System.out.println("Heap size:"+heap.getHeapSize());
+
+        /**
+         * MinHeap for String data
+         * 
+         */
+        
+        ComparatorString compStr = new ComparatorString();
+        ArrayList<String> array_str = new ArrayList<>();
+
+        array_str.add("Ciao");
+        array_str.add("Come");
+        array_str.add("Stai");
+        array_str.add("?");
+        array_str.add("a");
+
+        System.out.println("Before build min heap:");
+        System.out.println(array_str.toString());
+        System.out.println("Array size:"+array_str.size());
+
+        System.out.println("");
+
+        MinHeap<String> heap_str = new MinHeap<>(array_str, compStr);
+        heap_str.buildMinHeap();
+        System.out.println("After build min heap:");
+        System.out.println(heap_str.toString());
+        System.out.println("Heap size:"+heap_str.getHeapSize());
+        
+        System.out.println("");
+
+        String s = "Daniele";
+        System.out.println("After insert new element:"+s);
+        heap_str.minHeapInsert(s);
+        System.out.println(heap_str.toString());
+        System.out.println("Heap size:"+heap_str.getHeapSize());
+
+        System.out.println("\n");
+
+        System.out.println("After decreased element in index:"+1);
+        heap_str.heapDecreaseKey(1, "bb");
+        System.out.println(heap_str.toString());
+        System.out.println("Heap size:"+heap_str.getHeapSize());
+
+        System.out.println("\n");
+
+        System.out.println("Extraction of the min value of the heap:");
+        System.out.println(heap_str.heapExtractMin());
+        System.out.println(heap_str.toString());
+        System.out.println("Heap size:"+heap_str.getHeapSize());
+
+        System.out.println("");
+
     }
     
 }

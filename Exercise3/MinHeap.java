@@ -125,4 +125,7 @@ public class MinHeap<T>{
 
     public void setHeapSize(Integer heap_size) {this.heap_size = heap_size;}
 
+    public ArrayList<T> getArray() {return array;}
+
+    public void setArray(ArrayList<T> array) {this.array = array;}
 }
