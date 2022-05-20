@@ -28,7 +28,12 @@ public class MinHeap<T>{
     }
 
     private int parent(int i){
-        return i/2;
+        if((i/2) > 0 && i%2 == 0)
+            return (i/2 - 1);
+        else if((i/2) > 0 && i%2 != 0)
+            return (int)((double)i/2 - 0.5);
+        else
+            return 0;
     }
 
     private int left(int i){
@@ -112,6 +117,26 @@ public class MinHeap<T>{
         T tmp = array.get(i);
         array.set(i, array.get(y));
         array.set(y, tmp);
+    }
+
+    public T getFather(ArrayList<T> array, int i){
+        return array.get(parent(i));
+    }
+
+    public T getRightSon(ArrayList<T> array, int i){
+        int rightSonIndx = right(i);
+        if(rightSonIndx<getHeapSize() && rightSonIndx != i)
+            return array.get(rightSonIndx);
+        else
+            return null;
+    }
+
+    public T getLeftSon(ArrayList<T> array, int i){
+        int leftSonIndx=left(i);
+        if(leftSonIndx<getHeapSize() && leftSonIndx != i)
+            return array.get(leftSonIndx);
+        else
+            return null;
     }
 
     @Override

@@ -33,7 +33,16 @@ public class Application {
         System.out.println("After build min heap:");
         System.out.println(heap.toString());
         System.out.println("Heap size:"+heap.getHeapSize());
-
+        System.out.println("Father of the " +array.get(0)+": " +heap.getFather(array, 0));
+        System.out.println("Son Left of the "+array.get(0)+": "+heap.getLeftSon(array, 0));
+        System.out.println("Son right of the "+array.get(0)+": "+heap.getRightSon(array, 0));
+        System.out.println("Father of the "+array.get(1)+": "+heap.getFather(array, 1));
+        System.out.println("Son left of the "+array.get(1)+": "+heap.getLeftSon(array, 1));
+        System.out.println("Son right of the "+array.get(1)+": "+heap.getRightSon(array, 1));
+        System.out.println("Father of the "+array.get(2)+": "+heap.getFather(array, 2));
+        System.out.println("Son Left of the "+array.get(2)+": "+heap.getLeftSon(array, 2));
+        System.out.println("Son right of the "+array.get(2)+": "+heap.getRightSon(array, 2));
+        
         System.out.println("\n");
 
         int x = -1;
