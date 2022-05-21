@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_HEIGHT 8
+#define MAX_HEIGHT 6
 
 unsigned int randomLevel(){
     unsigned int lvl = 1;

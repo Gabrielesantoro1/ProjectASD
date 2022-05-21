@@ -142,19 +142,17 @@ static void load_array(const char* file_name, Array_Struct* array){
   fclose(fp);
 }
 
-void writeinfile(Array_Struct *array){
-    FILE *file = NULL;
-    file = fopen("records-ordered.csv", "w");
-    if(file == NULL){
-        fprintf(stderr,"File pointer to records-ordered.csv is NULL");
-        exit(EXIT_FAILURE);
-    }
-    for(int i = 0; i < array->el_num; i++){
-        struct record *elem = (struct record*)array_get(array,i);
-        fputc(elem->integer_field,file);
-    }
-    fclose(file);
-    printf("Elements wrote on file");
+void writeinfile(double sec){
+    int i;
+    char output[50];
+    snprintf(output, 50, "%f", sec);
+        FILE * fptr;        
+        fptr = fopen("fputc_test.txt", "a");
+        for (i = 0; i < strlen(output); i++) {
+            fputc(output[i], fptr);
+        }
+        fputc('\n',fptr);
+        fclose(fptr);
 }
 
 /*

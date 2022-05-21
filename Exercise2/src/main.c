@@ -65,6 +65,19 @@ static SkipList* load_dictionary(const char* file_name, int (*compare)(void*,voi
     return skiplist;
 }
 
+void writeinfile(double sec, char* filename){
+    int i;
+    char output[50];
+    snprintf(output, 50, "%f", sec);
+        FILE * fptr;        
+        fptr = fopen(filename, "a");
+        for (i = 0; i < strlen(output); i++) {
+            fputc(output[i], fptr);
+        }
+        fputc('\n',fptr);
+        fclose(fptr);
+}
+
 static char* cleaning_word(char *word){
     char *dst = word;
     for(int i = 0; i < strlen(word); i++){
@@ -116,9 +129,9 @@ static List* load_correctme(const char* file_name){
 }
 
 void check_correctme(SkipList *skiplist, List *list){
-    for(List *tmp = list; tmp != NULL; tmp = tmp->next){
-        if((searchSkipList(skiplist,tmp->item)) == NULL){
-            //printf("\n%s",tmp->item);
+    for(list; list != NULL; list = list->next){
+        if((searchSkipList(skiplist,list->item)) == NULL){
+            printf("\n%s",list->item);
         }
     }
 }
@@ -126,11 +139,14 @@ void check_correctme(SkipList *skiplist, List *list){
 static void test_with_comparison_function(const char* dictionary_file_name, const char* correctme_file_name, int (*compare)(void*,void*)){
     srand(time(0));
     //printf("\nLoading data...\n");
-
+    clock_t befor_loading = clock();
     SkipList *dictionary = load_dictionary(dictionary_file_name,compare);
     if(dictionary == NULL){
         fprintf(stderr, "The dictionary file is NULL\n");
     }
+    clock_t after_loading = clock();
+    double sec_loading = (double)(after_loading-befor_loading) / CLOCKS_PER_SEC;
+    writeinfile(sec_loading, "loading.txt");
     //printSkipList(dictionary);
 
     List *correctme = load_correctme(correctme_file_name);
@@ -143,10 +159,11 @@ static void test_with_comparison_function(const char* dictionary_file_name, cons
 
     clock_t before = clock();
     check_correctme(dictionary,correctme);
-    clock_t difference = clock() - before;
-    double sec = ((double)difference) / CLOCKS_PER_SEC;
+    clock_t after = clock();
+    double sec = (double)(after-before) / CLOCKS_PER_SEC;
 
     printf("\n");
+    writeinfile(sec, "correction.txt");
     printf("Time take to check the correctme file was: %f;\nThe value of max height was: %d",sec, dictionary->max_level);
     printf("\n");
     
@@ -158,6 +175,6 @@ static void test_with_comparison_function(const char* dictionary_file_name, cons
 void main(int argc, char *argv[]){
     char* dictionary = argv[1];
     char* correctme = argv[2];
-    for(int i = 0; i<15; i++)
+    for(int i = 0; i<25; i++)
         test_with_comparison_function(dictionary, correctme, precedes_string);
 }
