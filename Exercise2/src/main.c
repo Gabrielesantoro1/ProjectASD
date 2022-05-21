@@ -61,7 +61,7 @@ static SkipList* load_dictionary(const char* file_name, int (*compare)(void*,voi
         free(read_line);
     }
     fclose(fp);
-    printf("\nDictionary loaded.\n");
+    //printf("\nDictionary loaded.\n");
     return skiplist;
 }
 
@@ -111,21 +111,21 @@ static List* load_correctme(const char* file_name){
         }
     }
     fclose(fp);
-    printf("\nCorrectme loaded.\n");
+    //printf("\nCorrectme loaded.\n");
     return list_reverse(list);
 }
 
 void check_correctme(SkipList *skiplist, List *list){
     for(List *tmp = list; tmp != NULL; tmp = tmp->next){
         if((searchSkipList(skiplist,tmp->item)) == NULL){
-            printf("\n%s",tmp->item);
+            //printf("\n%s",tmp->item);
         }
     }
 }
 
 static void test_with_comparison_function(const char* dictionary_file_name, const char* correctme_file_name, int (*compare)(void*,void*)){
     srand(time(0));
-    printf("\nLoading data...\n");
+    //printf("\nLoading data...\n");
 
     SkipList *dictionary = load_dictionary(dictionary_file_name,compare);
     if(dictionary == NULL){
@@ -139,7 +139,7 @@ static void test_with_comparison_function(const char* dictionary_file_name, cons
     }
     //list_print(correctme);
     
-    printf("\nChecking the correctme file...\n");
+    //printf("\nChecking the correctme file...\n");
 
     clock_t before = clock();
     check_correctme(dictionary,correctme);
@@ -158,5 +158,6 @@ static void test_with_comparison_function(const char* dictionary_file_name, cons
 void main(int argc, char *argv[]){
     char* dictionary = argv[1];
     char* correctme = argv[2];
-    test_with_comparison_function(dictionary, correctme, precedes_string);
+    for(int i = 0; i<15; i++)
+        test_with_comparison_function(dictionary, correctme, precedes_string);
 }

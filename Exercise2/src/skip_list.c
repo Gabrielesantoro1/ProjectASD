@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_HEIGHT 24
+#define MAX_HEIGHT 8
 
 unsigned int randomLevel(){
     unsigned int lvl = 1;
@@ -129,7 +129,7 @@ void printSkipList(SkipList *skiplist){
     int count = 1;
     for(;tmp != NULL; tmp = tmp->next[0]){
         printf("\n");
-        printf("\nElem[%i]:%s",count,tmp->item);
+        //printf("\nElem[%i]:%s",count,tmp->item);
         printf("\nSize:%i",tmp->size);
         count++;
     }
