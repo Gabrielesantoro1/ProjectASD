@@ -85,7 +85,6 @@ static void free_array(Array_Struct* array){
         free(array_element);
     }
     array_free_memory(array);
-    printf("Memory free.\n");
 }
 
 static void print_array(Array_Struct* array){
@@ -96,7 +95,6 @@ static void print_array(Array_Struct* array){
         array_element = (struct record*)array_get(array,i);
         printf("< %s , %d , %f >\n", array_element->string_field,array_element->integer_field,array_element->float_field);
     }
-    printf("Array printed.\n");
 }
 
 static void load_array(const char* file_name, Array_Struct* array){
@@ -142,20 +140,21 @@ static void load_array(const char* file_name, Array_Struct* array){
     free(read_line_p);
   }
   fclose(fp);
-  printf("\nData loaded\n");
 }
 
-void writeinfile(double sec){
-    int i;
-    char output[50];
-    snprintf(output, 50, "%f", sec);
-        FILE * fptr;
-        fptr = fopen("fputc_test.txt", "a");
-        for (i = 0; i < strlen(output); i++) {
-            fputc(output[i], fptr);
-        }
-        fputc('\n',fptr);
-        fclose(fptr);
+void writeinfile(Array_Struct *array){
+    FILE *file = NULL;
+    file = fopen("records-ordered.csv", "w");
+    if(file == NULL){
+        fprintf(stderr,"File pointer to records-ordered.csv is NULL");
+        exit(EXIT_FAILURE);
+    }
+    for(int i = 0; i < array->el_num; i++){
+        struct record *elem = (struct record*)array_get(array,i);
+        fputc(elem->integer_field,file);
+    }
+    fclose(file);
+    printf("Elements wrote on file");
 }
 
 /*
@@ -178,8 +177,6 @@ void array_infile(Array_Struct* array){
 }
 */
 
-
-
 static void test_quicksort_with_comparison_function(const char* file_name, int (*compare)(void*,void*), long crit){
     Array_Struct* array = array_create();
     load_array(file_name, array);
@@ -188,10 +185,9 @@ static void test_quicksort_with_comparison_function(const char* file_name, int (
     clock_t difference = clock() - before;
     double sec = ((double)difference) / CLOCKS_PER_SEC;
     
+    //writeinfile(array);
     print_array(array);
-    array_infile(array);
-    printf("QuickSort ALGO takes for %s : %f sec \n",file_name,sec);
-    writeinfile(sec);
+    printf("QuickSort took for %s : %f sec \n",file_name,sec);
     free_array(array);
 }
 
@@ -204,7 +200,7 @@ static void test_insertionsort_with_comparison_function(const char* file_name, i
     double sec = ((double)difference) / CLOCKS_PER_SEC;
 
     print_array(array);
-    printf("InsertionSort ALGO takes from %s : %f sec \n",file_name,sec);
+    printf("InsertionSort took from %s : %f sec \n",file_name,sec);
     free_array(array);
 }
 

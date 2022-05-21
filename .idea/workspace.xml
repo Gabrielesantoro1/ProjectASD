@@ -7,7 +7,12 @@
     <configurations />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="40fbe32c-65f3-49a3-a21d-caf228c2dd72" name="Changes" comment="" />
+    <list default="true" id="40fbe32c-65f3-49a3-a21d-caf228c2dd72" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exercise1/src/array.c" beforeDir="false" afterPath="$PROJECT_DIR$/Exercise1/src/array.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exercise1/src/b_insertionsort.c" beforeDir="false" afterPath="$PROJECT_DIR$/Exercise1/src/b_insertionsort.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exercise1/src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/Exercise1/src/main.c" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,14 +32,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "nodejs_package_manager_path": "npm"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -56,6 +61,8 @@
       <workItem from="1647936008007" duration="2856000" />
       <workItem from="1649056951081" duration="2000" />
       <workItem from="1650611980605" duration="37000" />
+      <workItem from="1652606196734" duration="207000" />
+      <workItem from="1652606622112" duration="21000" />
     </task>
     <servers />
   </component>
