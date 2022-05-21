@@ -1,5 +1,7 @@
 package Exercise3;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -15,6 +17,36 @@ public class Application {
          * 
          */
         
+         /* TESTING */
+        // int j = 500000;
+        // ComparatorInteger compInt = new ComparatorInteger();
+        
+        // Random r = new Random(); 
+        // for(int k = 0; k<80; k++){
+        // ArrayList<Integer> array = new ArrayList<>();
+        // j = j + 500000;
+        // for(int i = 0; i < j; i++){
+        //     array.add(r.nextInt());
+        // }
+        // System.out.println("Array size:" + array.size());
+        // MinHeap<Integer> heap = new MinHeap<Integer>(array, compInt);
+        // heap.buildMinHeap();
+        // long start = System.currentTimeMillis();
+        // // heap.heapExtractMin();
+        // long end = System.currentTimeMillis();
+        // double msec = (end-start)/1000.0;
+        // System.out.println("Time execution: "+ msec);
+        // System.out.println();
+        // try{
+        //     FileWriter out = new FileWriter("testing.txt",true);
+        //     out.write(msec+"\n");
+        //     out.close();
+        // }catch(Exception e){
+        //     e.getStackTrace();
+        // }
+        // }   
+        /* END TESTING */
+
         ComparatorInteger compInt = new ComparatorInteger();
         ArrayList<Integer> array = new ArrayList<>();
         
@@ -22,6 +54,7 @@ public class Application {
         for(int i = 0; i < 10; i++){
             array.add(r.nextInt(10));
         }
+
         System.out.println("Before build min heap:");
         System.out.println(array.toString());
         System.out.println("Array size:"+array.size());
