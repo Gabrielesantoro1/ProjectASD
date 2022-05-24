@@ -19,6 +19,8 @@ void* insertSkipList(SkipList *skiplist, void* I);
 
 void* searchSkipList(SkipList *skiplist, void* I);
 
+void* searchSkipList_modified(SkipList *skiplist, void* I);
+
 void freeSkipList(SkipList *skiplist);
 
 void printSkipList(SkipList *skiplist);

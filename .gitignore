@@ -38,3 +38,6 @@ Exercise1/fputc_test.txt
 Exercise1/build/main.o
 Exercise1/*.o
 Execrice1/*.exe
+Exercise2/.DS_Store
+.DS_Store
+Exercise2/bin/list

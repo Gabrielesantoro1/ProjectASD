@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_HEIGHT 6
+#define MAX_HEIGHT 50
 
 unsigned int randomLevel(){
     unsigned int lvl = 1;
@@ -42,6 +42,36 @@ void* insertSkipList(SkipList *skiplist, void* I){
             x = x->next[k];
             k++;
         }
+    }
+}
+
+void* searchSkipList_modified(SkipList *skiplist, void* I){
+    Node *x = skiplist->head;
+    // loop invariant: x->item < I
+    for(int i = (skiplist->max_level)-1; i > -1; i--){
+        if(x->next[i] == NULL){
+             //Puntatore di livello i è uguale a NULL
+        }else{ 
+            while((x->next[i] != NULL) && (skiplist->compare(x->next[i]->item, I)) == 1){
+                x = x->next[i];   
+            }
+            if((x->next[i] != NULL)){
+                if((skiplist->compare(x->next[i]->item, I)) == 0){
+                    return x->next[i]->item;
+                }
+            }
+        }
+    }
+    if(x->next[0] != NULL){
+    // x->item < I <= x->next[1]->item
+        x = x->next[0];
+        if ((skiplist->compare(I, x->item)) == 0){
+            return x->item;
+        }else{
+            return NULL;
+        }
+    }else{
+        return NULL;
     }
 }
 
