@@ -138,7 +138,7 @@ void check_correctme(SkipList *skiplist, List *list){
 
 void check_correctme_modified(SkipList *skiplist, List *list){
     for(list; list != NULL; list = list->next){
-        if((searchSkipList(skiplist,list->item)) == NULL){
+        if((searchSkipList_modified(skiplist,list->item)) == NULL){
             printf("\n%s",list->item);
         }
     }
