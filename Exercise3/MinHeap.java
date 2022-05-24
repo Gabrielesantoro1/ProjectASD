@@ -28,26 +28,23 @@ public class MinHeap<T>{
     }
 
     private int parent(int i){
-        if((i/2) > 0 && i%2 == 0)
-            return (i/2 - 1);
-        else if((i/2) > 0 && i%2 != 0)
-            return (int)((double)i/2 - 0.5);
-        else
-            return 0;
+        return i/2;
     }
 
     private int left(int i){
-        if(2*i+1 <= this.getHeapSize()){
-        return (2*i)+1;
+        if(2*i+1 < this.getHeapSize()){
+            return 2*i+1;
+        }else{
+            return i;
         }
-        return i;
     }
 
     private int right(int i){
-        if(2*i+2 <= this.getHeapSize()){
-        return (2*i)+2;
+        if(2*i+2 < this.getHeapSize()){
+            return 2*i+2;
+        }else{
+            return i;
         }
-        return i;
     }
 
     private void minHeapify(ArrayList<T> array, int i){
@@ -85,7 +82,6 @@ public class MinHeap<T>{
         heapDecreaseKey(i-1, key);
     }
 
-    //Da rivedere per caso di inserimento
     public void heapDecreaseKey(int i, T key) {
         if(comparator.compare(key, array.get(i)) > 0){
             System.out.println("Key value is bigger then the old one");
@@ -98,7 +94,6 @@ public class MinHeap<T>{
         }
     }
 
-    //Da rivedere
     public T heapExtractMin(){
         T min;
         if(getHeapSize() < 0){
