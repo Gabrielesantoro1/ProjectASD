@@ -15,36 +15,6 @@ public class Application {
          * 
          */
         
-         /* TESTING */
-        // int j = 500000;
-        // ComparatorInteger compInt = new ComparatorInteger();
-        
-        // Random r = new Random(); 
-        // for(int k = 0; k<80; k++){
-        // ArrayList<Integer> array = new ArrayList<>();
-        // j = j + 500000;
-        // for(int i = 0; i < j; i++){
-        //     array.add(r.nextInt());
-        // }
-        // System.out.println("Array size:" + array.size());
-        // MinHeap<Integer> heap = new MinHeap<Integer>(array, compInt);
-        // heap.buildMinHeap();
-        // long start = System.currentTimeMillis();
-        // // heap.heapExtractMin();
-        // long end = System.currentTimeMillis();
-        // double msec = (end-start)/1000.0;
-        // System.out.println("Time execution: "+ msec);
-        // System.out.println();
-        // try{
-        //     FileWriter out = new FileWriter("testing.txt",true);
-        //     out.write(msec+"\n");
-        //     out.close();
-        // }catch(Exception e){
-        //     e.getStackTrace();
-        // }
-        // }   
-        /* END TESTING */
-
         ComparatorInteger compInt = new ComparatorInteger();
         ArrayList<Integer> array = new ArrayList<>();
         
@@ -62,18 +32,6 @@ public class Application {
         MinHeap<Integer> heap = new MinHeap<Integer>(array, compInt);
         heap.buildMinHeap();
         System.out.println("After build min heap:");
-        System.out.println(heap.toString());
-        System.out.println("Heap size:"+heap.getHeapSize());
-        System.out.println("Father of the " +array.get(0)+": " +heap.getFather(array, 0));
-        System.out.println("Son Left of the "+array.get(0)+": "+heap.getLeftSon(array, 0));
-        System.out.println("Son right of the "+array.get(0)+": "+heap.getRightSon(array, 0));
-        System.out.println("Father of the "+array.get(1)+": "+heap.getFather(array, 1));
-        System.out.println("Son left of the "+array.get(1)+": "+heap.getLeftSon(array, 1));
-        System.out.println("Son right of the "+array.get(1)+": "+heap.getRightSon(array, 1));
-        System.out.println("Father of the "+array.get(2)+": "+heap.getFather(array, 2));
-        System.out.println("Son Left of the "+array.get(2)+": "+heap.getLeftSon(array, 2));
-        System.out.println("Son right of the "+array.get(2)+": "+heap.getRightSon(array, 2));
-        
         System.out.println("\n");
 
         int x = -1;
