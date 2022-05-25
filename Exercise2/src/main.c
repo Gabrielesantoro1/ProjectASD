@@ -136,6 +136,14 @@ void check_correctme(SkipList *skiplist, List *list){
     }
 }
 
+void check_correctme_modified(SkipList *skiplist, List *list){
+    for(list; list != NULL; list = list->next){
+        if((searchSkipList_modified(skiplist,list->item)) == NULL){
+            printf("\n%s",list->item);
+        }
+    }
+}
+
 static void test_with_comparison_function(const char* dictionary_file_name, const char* correctme_file_name, int (*compare)(void*,void*)){
     srand(time(0));
     //printf("\nLoading data...\n");
@@ -153,6 +161,7 @@ static void test_with_comparison_function(const char* dictionary_file_name, cons
     if(correctme == NULL){
         fprintf(stderr, "The correctme file is NULL\n");
     }
+
     //list_print(correctme);
     
     //printf("\nChecking the correctme file...\n");
@@ -170,6 +179,7 @@ static void test_with_comparison_function(const char* dictionary_file_name, cons
     //Free of the memory section
     list_free(correctme);
     freeSkipList(dictionary);
+    printf("Memories free\n");
 }
 
 void main(int argc, char *argv[]){
