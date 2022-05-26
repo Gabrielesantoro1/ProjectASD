@@ -58,7 +58,11 @@ void* searchSkipList_modified(SkipList *skiplist, void* I){
             if((x->next[i] != NULL)){
                 if((skiplist->compare(x->next[i]->item, I)) == 0){
                     return x->next[i]->item;
+                }else{
+                    return NULL;
                 }
+            }else{
+                return NULL;
             }
         }
     }

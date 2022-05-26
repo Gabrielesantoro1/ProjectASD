@@ -21,7 +21,7 @@ public class Application {
         ComparatorInteger compInt = new ComparatorInteger();
         
         Random r = new Random(); 
-        for(int k = 0; k<80; k++){
+        for(int k = 0; k<135; k++){
         ArrayList<Integer> array = new ArrayList<>();
         j = j + 500000;
         for(int i = 0; i < j; i++){
@@ -29,19 +29,30 @@ public class Application {
         }
         System.out.println("Array size:" + array.size());
         MinHeap<Integer> heap = new MinHeap<Integer>(array, compInt);
+
+        //CREATION HEAP
+        long start_creation = System.currentTimeMillis();
         heap.buildMinHeap();
-        long start = System.currentTimeMillis();
-        // heap.heapExtractMin();
-        // heap.minHeapInsert(r.nextInt());
-        System.out.println("Array size after: " + array.size());
-        long end = System.currentTimeMillis();
-        double msec = (end-start)/1000.0;
-        System.out.println("Time execution: "+ msec);
-        System.out.println();
+        long end_creation = System.currentTimeMillis();
+        double sec_creation = (end_creation-start_creation)/1000.0;
+
+        //EXTRACT MIN
+        long start_extract = System.currentTimeMillis();
+        heap.heapExtractMin();
+        long end_extract = System.currentTimeMillis();
+        double sec_extract = (end_extract-start_extract)/1000.0;
+
+
+        //WRITING RESULT IN FILE 
         try{
-            FileWriter out = new FileWriter("testing.txt",true);
-            out.write(msec+"\n");
-            out.close();
+            FileWriter out_creation = new FileWriter("creation.txt", true);
+            FileWriter out_extract = new FileWriter("extract.txt",true);
+            
+            out_extract.write(sec_extract+"\n");
+            out_creation.write(sec_creation+"\n");
+            
+            out_creation.close();
+            out_extract.close();
         }catch(Exception e){
             e.getStackTrace();
         }
