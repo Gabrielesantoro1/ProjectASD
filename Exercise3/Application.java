@@ -1,6 +1,5 @@
 package Exercise3;
 
-import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -16,10 +15,8 @@ public class Application {
          * 
          */
         
-         /* TESTING */
-        int j = 500000;
         ComparatorInteger compInt = new ComparatorInteger();
-        
+        int j = 0;
         Random r = new Random(); 
         for(int k = 0; k<135; k++){
         ArrayList<Integer> array = new ArrayList<>();
@@ -56,16 +53,6 @@ public class Application {
         }catch(Exception e){
             e.getStackTrace();
         }
-        }   
-        /* END TESTING */
-
-        // ComparatorInteger compInt = new ComparatorInteger();
-        // ArrayList<Integer> array = new ArrayList<>();
-        
-        // Random r = new Random();
-        // for(int i = 0; i < 10; i++){
-        //     array.add(r.nextInt(10));
-        // }
 
         // System.out.println("Before build min heap:");
         // System.out.println(array.toString());
@@ -174,5 +161,4 @@ public class Application {
         // System.out.println("");
 
     }
-    
 }

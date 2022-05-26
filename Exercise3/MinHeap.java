@@ -32,7 +32,7 @@ public class MinHeap<T>{
     }
 
     private int left(int i){
-        if(2*i+1 < this.getHeapSize()){
+        if(2*i+1 <= this.getHeapSize()){
             return 2*i+1;
         }else{
             return i;
@@ -40,7 +40,7 @@ public class MinHeap<T>{
     }
 
     private int right(int i){
-        if(2*i+2 < this.getHeapSize()){
+        if(2*i+2 <= this.getHeapSize()){
             return 2*i+2;
         }else{
             return i;
