@@ -14,67 +14,19 @@ public class Application {
          * MinHeap for Integer data
          * 
          */
-        
         ComparatorInteger compInt = new ComparatorInteger();
         int j = 0;
         Random r = new Random(); 
         for(int k = 0; k<135; k++){
-        ArrayList<Integer> array = new ArrayList<>();
-        j = j + 500000;
-        for(int i = 0; i < j; i++){
-            array.add(r.nextInt());
-        }
-        System.out.println("Array size:" + array.size());
-        MinHeap<Integer> heap = new MinHeap<Integer>(array, compInt);
-
-        //CREATION HEAP
-        long start_creation = System.currentTimeMillis();
-        heap.buildMinHeap();
-        long end_creation = System.currentTimeMillis();
-        double sec_creation = (end_creation-start_creation)/1000.0;
-
-        //EXTRACT MIN
-        long start_extract = System.currentTimeMillis();
-        heap.heapExtractMin();
-        long end_extract = System.currentTimeMillis();
-        double sec_extract = (end_extract-start_extract)/1000.0;
-
-
-        //WRITING RESULT IN FILE 
-        try{
-            FileWriter out_creation = new FileWriter("creation.txt", true);
-            FileWriter out_extract = new FileWriter("extract.txt",true);
-            
-            out_extract.write(sec_extract+"\n");
-            out_creation.write(sec_creation+"\n");
-            
-            out_creation.close();
-            out_extract.close();
-        }catch(Exception e){
-            e.getStackTrace();
+            ArrayList<Integer> array = new ArrayList<>();
+            j = j + 500000;
+                for(int i = 0; i < j; i++){
+                array.add(r.nextInt());
+            }
+            System.out.println("Array size:" + array.size());
+            MinHeap<Integer> heap = new MinHeap<Integer>(array, compInt);
         }
 
-        // System.out.println("Before build min heap:");
-        // System.out.println(array.toString());
-        // System.out.println("Array size:"+array.size());
-        
-        // System.out.println("\n");
-
-        // MinHeap<Integer> heap = new MinHeap<Integer>(array, compInt);
-        // heap.buildMinHeap();
-        // System.out.println("After build min heap:");
-        // System.out.println(heap.toString());
-        // System.out.println("Heap size:"+heap.getHeapSize());
-        // System.out.println("Father of the " +array.get(0)+": " +heap.getFather(array, 0));
-        // System.out.println("Son Left of the "+array.get(0)+": "+heap.getLeftSon(array, 0));
-        // System.out.println("Son right of the "+array.get(0)+": "+heap.getRightSon(array, 0));
-        // System.out.println("Father of the "+array.get(1)+": "+heap.getFather(array, 1));
-        // System.out.println("Son left of the "+array.get(1)+": "+heap.getLeftSon(array, 1));
-        // System.out.println("Son right of the "+array.get(1)+": "+heap.getRightSon(array, 1));
-        // System.out.println("Father of the "+array.get(2)+": "+heap.getFather(array, 2));
-        // System.out.println("Son Left of the "+array.get(2)+": "+heap.getLeftSon(array, 2));
-        // System.out.println("Son right of the "+array.get(2)+": "+heap.getRightSon(array, 2));
-        
         // System.out.println("\n");
 
         // int x = -1;
@@ -159,6 +111,5 @@ public class Application {
         // System.out.println("Heap size:"+heap_str.getHeapSize());
 
         // System.out.println("");
-
     }
 }
