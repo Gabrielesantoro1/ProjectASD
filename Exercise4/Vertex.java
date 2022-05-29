@@ -2,7 +2,6 @@ package Exercise4;
 
 public class Vertex<T> {
     private T key;
-    private int index;
     
     public Vertex(){}
 
@@ -11,10 +10,6 @@ public class Vertex<T> {
     public T getValue() {return key;}
 
     public T getKey() {return key;}
-
-    public int getIndex() {return index;}
-
-    public void setIndex(int index) {this.index = index;}
 
     public void setKey(T key) {this.key = key;}
 
