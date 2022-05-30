@@ -62,6 +62,52 @@ public class Graph{
         return this.adjList.keySet();
     }
 
+    public void removeVertex(Vertex vertex){
+        this.adjList.remove(vertex);
+        int i = 0;
+
+        Collection<LinkedList<Edge>> coll = this.getEdges();
+        Iterator<LinkedList<Edge>> iter = coll.iterator();
+           
+        //devo controllare in ogni lista se c'è un edge in cui il nostro vertex da cancellare è la destinazione;
+        //se c'è, cancello l'arco corrispondente
+        
+    }
+
+    public boolean removeEdge(Edge edge, Vertex start){
+        boolean res = this.adjList.get(start).remove(edge);
+        
+        //dovrebbe essere così, ma non funziona AAAARGHHHHHHHH
+        if(!this.oriented){
+            Vertex end = edge.getDestination();
+            int Weight = edge.getWeight();
+            return res && this.adjList.get(end).remove(new Edge(end, start, Weight));
+        }
+
+        return res;
+    }
+
+    public int getVertexNum(){
+        return this.adjList.size();
+    }
+
+
+    public int getEdgesNum(){
+        Collection<LinkedList<Edge>> coll = this.getEdges();
+        Iterator<LinkedList<Edge>> iter = coll.iterator();
+        int edgesNum = 0;
+
+        while(iter.hasNext()){
+            if(this.oriented){
+                edgesNum += iter.next().size();
+            }/*else{
+                //cosa va verificato? Che non ci siano due archi con fine = inizio e viceversa e stesso peso
+                //va capita un attimo
+            }*/
+        }
+        return edgesNum;
+    }
+
     public boolean containVertex(Vertex vertex){
         return this.adjList.containsKey(vertex);
     }
