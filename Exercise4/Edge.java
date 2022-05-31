@@ -1,36 +1,36 @@
 package Exercise4;
 
-public class Edge {
-    private Vertex source;
-    private Vertex destination;
+public class Edge<T> {
+    private Node<T> source;
+    private Node<T> destination;
     private Integer weight;
 
     public Edge(){}
 
-    public Edge(Vertex source, Vertex destination){
+    public Edge(Node<T> source, Node<T> destination){
         this.source = source;
         this.destination = destination;
     }
 
-    public Edge(Vertex source, Vertex destination, Integer weight){
+    public Edge(Node<T> source, Node<T> destination, Integer weight){
         this.source = source;
         this.destination = destination;
         this.weight = weight;
     }
 
-    public Vertex getSource() {
+    public Node<T> getSource() {
         return source;
     }
 
-    public void setSource(Vertex source) {
+    public void setSource(Node<T> source) {
         this.source = source;
     }
 
-    public Vertex getDestination() {
+    public Node<T> getDestination() {
         return destination;
     }
 
-    public void setDestination(Vertex destination) {
+    public void setDestination(Node<T> destination) {
         this.destination = destination;
     }
 

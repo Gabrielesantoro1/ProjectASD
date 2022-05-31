@@ -1,11 +1,11 @@
 package Exercise4;
 
-public class Vertex<T> {
+public class Node<T>{
     private T key;
     
-    public Vertex(){}
+    public Node(){}
 
-    public Vertex(T key){this.key = key;}
+    public Node(T key){this.key = key;}
 
     public T getValue() {return key;}
 

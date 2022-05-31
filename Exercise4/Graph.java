@@ -1,50 +1,42 @@
 package Exercise4;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Set;
 
-
-public class Graph{
-    private int num_vertex;
-    private int num_edge;
+public class Graph<T>{
     private Boolean oriented = false;
-
-
-    private HashMap<Vertex, LinkedList<Edge>> adjList;
+    private HashMap<Node<T>, LinkedList<Edge<T>>> adjList;
 
     public Graph(){
         adjList = new HashMap<>();
-        num_vertex = 0;
     }
 
     public Graph(Boolean oriented){
         adjList = new HashMap<>();
         this.oriented = oriented; 
-        num_vertex = 0;
     }
 
-    public Graph(HashMap<Vertex, LinkedList<Edge>> adjList){
+    public Graph(HashMap<Node<T>, LinkedList<Edge<T>>> adjList){
         this.adjList = adjList;
     }
 
-    public void addVertex(Vertex vertex){
-        adjList.put(vertex, new LinkedList<Edge>());
+    public void addNode(Node<T> vertex){
+        adjList.put(vertex, new LinkedList<Edge<T>>());
     }
 
-    public void addEdge(Vertex start, Vertex end, Integer weight){
-        Edge edgeStart = new Edge(start,end,weight);
+    public void addEdge(Node<T> start, Node<T> end, Integer weight){
+        Edge<T> edgeStart = new Edge<>(start,end,weight);
         adjList.get(start).add(edgeStart);
         if(!this.isOriented()){
-            Edge edgeEnd = new Edge(end,start,weight);
+            Edge<T> edgeEnd = new Edge<T>(end,start,weight);
             adjList.get(end).add(edgeEnd);
         }
     }
 
-    public Collection<LinkedList<Edge>> getEdges(){
+    public Collection<LinkedList<Edge<T>>> getEdges(){
         return this.adjList.values();
     }
 
@@ -52,50 +44,40 @@ public class Graph{
     //solo le destizionazioni, non gli archi interi
     //però ci chiedono di farlo in 0(1) quindi
     //non possiamo fare scansione lineare.
-    public LinkedList<Edge> adj(Vertex vertex){
-        return this.adjList.get(vertex);
+    public LinkedList<Edge<T>> adj(Node<T> node){
+        return this.adjList.get(node);
     }
 
-    //Da rivedere: non mantiene l'ordine ma 
-    //sembra essere normale per le Set
-    public Set<Vertex> getVertex(){
+    public Set<Node<T>> getNode(){
         return this.adjList.keySet();
     }
 
-    /*Da rivedere:
-     *
-    public void removeVertex(Vertex vertex){
-        this.adjList.remove(vertex);
-
-        Collection<LinkedList<Edge>> coll = this.getEdges();
-        Iterator<LinkedList<Edge>> iter = coll.iterator();
-
-        while(iter.hasNext()){
-            LinkedList<Edge> tmp = iter.next();
-            
-        }
+    public void removeNode(Node<T> node){
+        this.adjList.remove(node);
+        
     }
-    */
 
-    /*
-    public boolean removeEdge(Vertex start, Vertex end, int weight){
+    /*Non funziona perchè la remove/contain/ecc sono operazioni che si basano 
+    * sulla equal di due oggetti; ma poiché noi gli passiamo un oggetto Edge nuovo
+    * non è verificata l'uguaglianza. Dobbiamo capire un attimo come fare.
+    */
+    public boolean removeEdge(Node<T> start, Node<T> end, int weight){
         boolean result = false;
         if(this.containEdge(start, end, weight)){
-            result = this.adjList.get(start).remove(new Edge(start,end,weight));
+            result = this.adjList.get(start).remove(new Edge<>(start,end,weight));
             if(!this.isOriented()){ //if not oriented
-            result = this.adjList.get(end).remove(new Edge(end,start,weight));
+            result = this.adjList.get(end).remove(new Edge<>(end,start,weight));
             }
         }
         return result;
     }
-    */
 
-    public int getVertexNum(){
+    public int getNodeNum(){
         return this.adjList.size();
     }
 
-    public int getEdgesNum(Vertex vertex){
-        if(this.containVertex(vertex)){
+    public int getEdgesNum(Node<T> vertex){
+        if(this.containNode(vertex)){
             return this.adjList.get(vertex).size();
         }else{
             System.err.println("The vertex given is not in the graph");
@@ -105,8 +87,8 @@ public class Graph{
     }
 
     public int getEdgesNum(){
-        Collection<LinkedList<Edge>> coll = this.getEdges();
-        Iterator<LinkedList<Edge>> iter = coll.iterator();
+        Collection<LinkedList<Edge<T>>> coll = this.getEdges();
+        Iterator<LinkedList<Edge<T>>> iter = coll.iterator();
         int edgesNum = 0;
 
         while(iter.hasNext()){
@@ -115,19 +97,19 @@ public class Graph{
         return edgesNum;
     }
 
-    public boolean containVertex(Vertex vertex){
+    public boolean containNode(Node<T> vertex){
         return this.adjList.containsKey(vertex);
     }
 
-    public boolean containEdge(Vertex start, Vertex end, Integer weight){
-        return this.adjList.get(start).contains(new Edge(start,end,weight));
+    public boolean containEdge(Node<T> start, Node<T> end, Integer weight){
+        return this.adjList.get(start).contains(new Edge<T>(start,end,weight));
     }
 
     private boolean isOriented(){return this.oriented;}
 
-    public void printVertex() {
-        Set<Vertex> set = this.getVertex();
-        Iterator<Vertex> iter = set.iterator();
+    public void printNodes() {
+        Set<Node<T>> set = this.getNode();
+        Iterator<Node<T>> iter = set.iterator();
 
         while(iter.hasNext()){
             iter.next().print();
@@ -135,14 +117,14 @@ public class Graph{
     }
 
     public void printEdges() {
-        Collection<LinkedList<Edge>> coll = this.getEdges();
-        Iterator<LinkedList<Edge>> iter = coll.iterator();
+        Collection<LinkedList<Edge<T>>> coll = this.getEdges();
+        Iterator<LinkedList<Edge<T>>> iter = coll.iterator();
         int counter = 0;
 
         while(iter.hasNext()){
             counter++;
             System.out.println("AdjList["+counter+"]");
-            LinkedList<Edge> tmpLL = iter.next();
+            LinkedList<Edge<T>> tmpLL = iter.next();
             for(int i = 0; i < tmpLL.size(); i++){
                 tmpLL.get(i).print();
             }
@@ -150,13 +132,6 @@ public class Graph{
         }
     }
 
-    public int getNum_vertex() {return num_vertex;}
-
-    public void setNum_vertex(int num_vertex) {this.num_vertex = num_vertex;}
-
-    public int getNum_edge() {return num_edge;}
-
-    public void setNum_edge(int num_edge) {this.num_edge = num_edge;}
 
 
 

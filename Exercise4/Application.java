@@ -1,72 +1,48 @@
 package Exercise4;
 
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Set;
+
 
 public class Application {
     public static void main(String[] args) {
-        Graph G = new Graph();
+        Graph<Integer> G = new Graph<>();
 
-        Vertex<Integer> v0 = new Vertex<>(0);
-        Vertex<Integer> v1 = new Vertex<>(1);
-        Vertex<Integer> v2 = new Vertex<>(2);
-        Vertex<Integer> v3 = new Vertex<>(3);
-        Vertex<Integer> v4 = new Vertex<>(4);
+        Node<Integer> v0 = new Node<>(0);
+        Node<Integer> v1 = new Node<>(1);
+        Node<Integer> v2 = new Node<>(2);
+        Node<Integer> v3 = new Node<>(3);
+        Node<Integer> v4 = new Node<>(4);
 
-        G.addVertex(v0);
-        G.addVertex(v1);
-        G.addVertex(v2);
-        G.addVertex(v3);
+        G.addNode(v0);
+        G.addNode(v1);
+        G.addNode(v2);
+        G.addNode(v3);
 
-       // G.addEdge(v0, v1, 0);
-        //G.addEdge(v0, v2, 0);
+        G.addEdge(v0, v1, 0);
+        G.addEdge(v0, v2, 0);
         G.addEdge(v1, v3, 0);
         G.addEdge(v2, v3, 0);
 
         //G.toString();
 
-        System.out.println(G.containVertex(v0));
-        System.out.println(G.containVertex(v1));
-        System.out.println(G.containVertex(v3));
-        System.out.println(G.containVertex(v4));
+        System.out.println(G.containNode(v0));
+        System.out.println(G.containNode(v1));
+        System.out.println(G.containNode(v3));
+        System.out.println(G.containNode(v4));
 
         System.out.println("");
 
-        LinkedList<Edge> tmp = G.adj(v0);
+        LinkedList<Edge<Integer>> tmp = G.adj(v0);
         for(int i = 0; i< tmp.size(); i++){
             tmp.get(i).print();
         }
 
-        //System.out.println("");
-        //System.out.println("Printing all vertices:");
-        //G.printVertex();
-        
-        //System.out.println("");
-        //System.out.println("Printing all edges:");
-        //G.printEdges();
-
-        //System.out.println("Number of vertexs : "+G.getVertexNum());
-        //System.out.println("Number of edges : "+G.getEdgesNum());
         System.out.println("Number of edges : "+G.getEdgesNum());
 
-        //System.out.println("Removing vertex 1: ");
-        //G.removeVertex(v0);
-        //System.out.println("Printing all vertices:");
-        //G.printVertex();
-        
-        //G.printEdges();
-        //System.out.println("Removing edge from v1 to v3 "+G.removeEdge(v1,v3,0));
-        //G.printEdges();
+        G.removeNode(v0);
 
-        //System.out.println("Removing edge from v1 to v3 "+G.removeEdge());
-        //System.out.println("Printing all edges:");
-        //G.printEdges();
-
-        //System.out.println("Removing edge from v1 to v3 "+G.removeEdge(new Edge(v2, v3, 0), v1));
-        //System.out.println("Printing all edges:");
-        //G.printEdges();
+        G.printNodes();
+        G.printEdges();
     
     }
 }
