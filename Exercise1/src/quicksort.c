@@ -4,6 +4,15 @@
 #include <time.h>
 #include "array.h"
 
+/**
+ * @brief Partition function for the pivot chosen as the last element
+ * 
+ * @param array_struct array to sort
+ * @param precedes comparasion criterion
+ * @param first first index of range
+ * @param last last index of range
+ * @return int 
+ */
 int LastPartition(Array_Struct *array_struct, int (*precedes)(void*,void*), long first, long last){
     void* pivot = array_struct->array[last];
     long i = first - 1;
@@ -21,6 +30,15 @@ int LastPartition(Array_Struct *array_struct, int (*precedes)(void*,void*), long
     return i+1;
 }
 
+/**
+ * @brief Partition function for the pivot chosen as the first element
+ * 
+ * @param array_struct array to sort
+ * @param precedes comparasion criterion
+ * @param first first index of range
+ * @param last last index of range
+ * @return int 
+ */
 int FirstPartition(Array_Struct *array_struct, int (*precedes)(void*,void*), long first, long last){
     void* pivot = array_struct->array[first];
     long i = last + 1;
@@ -38,6 +56,15 @@ int FirstPartition(Array_Struct *array_struct, int (*precedes)(void*,void*), lon
     return i-1;
 }
 
+/**
+ * @brief Partition function for the pivot chosen as random element
+ * 
+ * @param array_struct array to sort
+ * @param precedes comparasion criterion
+ * @param first first index of range
+ * @param last last index of range
+ * @return int 
+ */
 int RandomizedPartition(Array_Struct *array_struct, int (*precedes)(void*,void*), long first, long last){
     long pivot = (rand()%((last-first+1))+first);
     void *tmp = array_struct->array[last];
@@ -46,6 +73,15 @@ int RandomizedPartition(Array_Struct *array_struct, int (*precedes)(void*,void*)
     return LastPartition(array_struct,precedes,first,last);
 }
 
+/**
+ * @brief quicksort function
+ * 
+ * @param array_struct array to sort
+ * @param precedes comparasion criterion
+ * @param p fisrt index range of array
+ * @param r last index range of array
+ * @param crit pivot chosen (0:first - 1:last - 2:random)
+ */
 void quick_sort(Array_Struct *array_struct, int (*precedes)(void*,void*), long p, long r, long crit){
     long q;
     srand(time(NULL));

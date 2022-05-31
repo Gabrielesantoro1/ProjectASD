@@ -5,6 +5,12 @@
 
 #define INITIAL_CAPACITY 10
 
+/**
+ * @brief The function returns an integer value, interpreted as a Boolean indicating whether the array is empty or not
+ * 
+ * @param array_struct : array where to check
+ * @return int : 0(false) if array is not empty, 1(true) otherwise
+ */
 int array_is_empty(Array_Struct *array_struct){
   if(array_struct == NULL){
     fprintf(stderr,"array_is_empty: array_struct parameter cannot be NULL");
@@ -17,6 +23,11 @@ int array_is_empty(Array_Struct *array_struct){
     }
 }
 
+/**
+ * @brief creates the structure of the array, allocating the necessary memory and initializing the values ​​inside
+ * 
+ * @return Array_Struct* 
+ */
 Array_Struct *array_create(){
   Array_Struct *array_struct = (Array_Struct *)malloc(sizeof(Array_Struct));
   if(array_struct == NULL){
@@ -33,6 +44,11 @@ Array_Struct *array_create(){
   return array_struct;
 }
 
+/**
+ * @brief frees the memory dedicated to the array
+ * 
+ * @param array_struct 
+ */
 void array_free_memory(Array_Struct *array_struct){
    if(array_struct == NULL){
     fprintf(stderr, "The array cannot be null, array_free_memory");
@@ -43,6 +59,12 @@ void array_free_memory(Array_Struct *array_struct){
   }
 }
 
+/**
+ * @brief calculates the size of the array
+ * 
+ * @param array_struct 
+ * @return unsigned long size of the array 
+ */
 unsigned long array_size(Array_Struct *array_struct){
   if(array_struct == NULL){
     fprintf(stderr, "The array cannot be null, array_size");
@@ -52,6 +74,12 @@ unsigned long array_size(Array_Struct *array_struct){
   }
 }
 
+/**
+ * @brief adds an element to the array, reallocates memory if necessary, and increments the structure values
+ * 
+ * @param array_struct 
+ * @param element item to add
+ */
 void array_struct_add(Array_Struct *array_struct, void* element){
   if(array_struct == NULL){
     fprintf(stderr,"add_ordered_array_element: ordered_array parameter cannot be NULL");
@@ -74,6 +102,13 @@ void array_struct_add(Array_Struct *array_struct, void* element){
     (array_struct->el_num)++; 
 }
 
+/**
+ * @brief returns if it exists, the element in the indicated position
+ * 
+ * @param array_struct 
+ * @param i index of the desired element
+ * @return void* 
+ */
 void* array_get(Array_Struct *array_struct, unsigned long i){ 
   if(array_struct == NULL){
       fprintf(stderr,"array_get: array_struct cannot be NULL");

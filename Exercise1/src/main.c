@@ -14,6 +14,7 @@ struct record{
     float float_field;
 };
 
+//comparasion criterion for int values
 static int precedes_record_int_field(void* r1_p, void* r2_p){
     if(r1_p == NULL){
         fprintf(stderr,"precedes_record_int_field: the first parameter is a null pointer");
@@ -35,6 +36,7 @@ static int precedes_record_int_field(void* r1_p, void* r2_p){
   return(0);
 }
 
+//comparasion criterion for strings values
 static int precedes_record_string_field(void* r1_p,void* r2_p){
   if(r1_p == NULL){
     fprintf(stderr,"precedes_record_string_field: the first parameter is a null pointer");
@@ -56,6 +58,7 @@ static int precedes_record_string_field(void* r1_p,void* r2_p){
   return(0);
 }
 
+//comparasion criterion for float values
 static int precedes_record_float_field(void* r1_p, void* r2_p){
     if(r1_p == NULL){
         fprintf(stderr,"precedes_record_float_field: the first parameter is a null pointer");
@@ -77,6 +80,7 @@ static int precedes_record_float_field(void* r1_p, void* r2_p){
     return(0);
 }
 
+//frees the memory
 static void free_array(Array_Struct* array){
     unsigned long el_num = array_size(array);
     for(unsigned long i = 0;i<el_num;i++){
@@ -87,6 +91,7 @@ static void free_array(Array_Struct* array){
     array_free_memory(array);
 }
 
+//prints array elements
 static void print_array(Array_Struct* array){
     unsigned long el_num = array_size(array);
     struct record *array_element;
@@ -97,6 +102,7 @@ static void print_array(Array_Struct* array){
     }
 }
 
+//loads the element of a file in the array struct
 static void load_array(const char* file_name, Array_Struct* array){
   char *read_line_p;
   char buffer[1024];
@@ -142,6 +148,7 @@ static void load_array(const char* file_name, Array_Struct* array){
   fclose(fp);
 }
 
+//support function to facilitate testing
 void writeinfile(double sec){
     int i;
     char output[50];
@@ -154,26 +161,6 @@ void writeinfile(double sec){
         fputc('\n',fptr);
         fclose(fptr);
 }
-
-/*
-void array_infile(Array_Struct* array){
-    unsigned long el_num = array_size(array);
-    struct record *array_element;
-    char output[50];
-    FILE * fptr;
-    fptr = fopen("Ordered_array.txt","a");
-    printf("\nARRAY OF RECORDS\n");
-    for(unsigned long i=0;i<el_num;i++){
-        array_element = (struct record*)array_get(array,i);
-        snprintf(output,50,"%f",i);
-        for (unsigned long j = 0; j < strlen(output); j++) {
-            fputc(output[i], fptr);
-        }
-        fputc('\n', fptr);
-    }
-    fclose(fptr);
-}
-*/
 
 static void test_quicksort_with_comparison_function(const char* file_name, int (*compare)(void*,void*), long crit){
     Array_Struct* array = array_create();
@@ -271,8 +258,6 @@ int main(int argc){
     return (EXIT_SUCCESS);
 }
 */
-
-
 
 //TEST MAIN
 int main(int argc){
