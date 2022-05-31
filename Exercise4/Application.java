@@ -39,37 +39,34 @@ public class Application {
             tmp.get(i).print();
         }
 
-        System.out.println("");
-        System.out.println("Printing all vertices:");
-        G.printVertex();
+        //System.out.println("");
+        //System.out.println("Printing all vertices:");
+        //G.printVertex();
         
-        System.out.println("");
-        System.out.println("Printing all edges:");
-        G.printEdges();
+        //System.out.println("");
+        //System.out.println("Printing all edges:");
+        //G.printEdges();
 
-        System.out.println("Number of vertexs : "+G.getVertexNum());
+        //System.out.println("Number of vertexs : "+G.getVertexNum());
         //System.out.println("Number of edges : "+G.getEdgesNum());
         System.out.println("Number of edges : "+G.getEdgesNum());
 
-        System.out.println("Removing vertex 1: ");
-        G.removeVertex(v0);
-        System.out.println("Printing all vertices:");
-        G.printVertex();
+        //System.out.println("Removing vertex 1: ");
+        //G.removeVertex(v0);
+        //System.out.println("Printing all vertices:");
+        //G.printVertex();
         
+        //G.printEdges();
+        //System.out.println("Removing edge from v1 to v3 "+G.removeEdge(v1,v3,0));
+        //G.printEdges();
 
-        /* Per ora non funzionano
-        System.out.println("Removing edge from v1 to v3 "+G.removeEdge(new Edge(v1, v3, 0), v1));
-        System.out.println("Printing all edges:");
-        G.printEdges();
+        //System.out.println("Removing edge from v1 to v3 "+G.removeEdge());
+        //System.out.println("Printing all edges:");
+        //G.printEdges();
 
-        System.out.println("Removing edge from v1 to v3 "+G.removeEdge(new Edge(v1, v3, 0), v1));
-        System.out.println("Printing all edges:");
-        G.printEdges();
-
-        System.out.println("Removing edge from v1 to v3 "+G.removeEdge(new Edge(v2, v3, 0), v1));
-        System.out.println("Printing all edges:");
-        G.printEdges();
-        */
+        //System.out.println("Removing edge from v1 to v3 "+G.removeEdge(new Edge(v2, v3, 0), v1));
+        //System.out.println("Printing all edges:");
+        //G.printEdges();
     
     }
 }

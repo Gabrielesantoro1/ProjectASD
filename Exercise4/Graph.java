@@ -62,35 +62,47 @@ public class Graph{
         return this.adjList.keySet();
     }
 
+    /*Da rivedere:
+     *
     public void removeVertex(Vertex vertex){
         this.adjList.remove(vertex);
-        int i = 0;
 
         Collection<LinkedList<Edge>> coll = this.getEdges();
         Iterator<LinkedList<Edge>> iter = coll.iterator();
-           
-        //devo controllare in ogni lista se c'è un edge in cui il nostro vertex da cancellare è la destinazione;
-        //se c'è, cancello l'arco corrispondente
-        
-    }
 
-    public boolean removeEdge(Edge edge, Vertex start){
-        boolean res = this.adjList.get(start).remove(edge);
-        
-        //dovrebbe essere così, ma non funziona AAAARGHHHHHHHH
-        if(!this.oriented){
-            Vertex end = edge.getDestination();
-            int Weight = edge.getWeight();
-            return res && this.adjList.get(end).remove(new Edge(end, start, Weight));
+        while(iter.hasNext()){
+            LinkedList<Edge> tmp = iter.next();
+            
         }
-
-        return res;
     }
+    */
+
+    /*
+    public boolean removeEdge(Vertex start, Vertex end, int weight){
+        boolean result = false;
+        if(this.containEdge(start, end, weight)){
+            result = this.adjList.get(start).remove(new Edge(start,end,weight));
+            if(!this.isOriented()){ //if not oriented
+            result = this.adjList.get(end).remove(new Edge(end,start,weight));
+            }
+        }
+        return result;
+    }
+    */
 
     public int getVertexNum(){
         return this.adjList.size();
     }
 
+    public int getEdgesNum(Vertex vertex){
+        if(this.containVertex(vertex)){
+            return this.adjList.get(vertex).size();
+        }else{
+            System.err.println("The vertex given is not in the graph");
+            System.exit(1);
+        }
+        return -1;
+    }
 
     public int getEdgesNum(){
         Collection<LinkedList<Edge>> coll = this.getEdges();
@@ -98,12 +110,7 @@ public class Graph{
         int edgesNum = 0;
 
         while(iter.hasNext()){
-            if(this.oriented){
-                edgesNum += iter.next().size();
-            }/*else{
-                //cosa va verificato? Che non ci siano due archi con fine = inizio e viceversa e stesso peso
-                //va capita un attimo
-            }*/
+            edgesNum += iter.next().size();
         }
         return edgesNum;
     }
@@ -130,13 +137,16 @@ public class Graph{
     public void printEdges() {
         Collection<LinkedList<Edge>> coll = this.getEdges();
         Iterator<LinkedList<Edge>> iter = coll.iterator();
+        int counter = 0;
 
         while(iter.hasNext()){
-            System.out.println("");
+            counter++;
+            System.out.println("AdjList["+counter+"]");
             LinkedList<Edge> tmpLL = iter.next();
             for(int i = 0; i < tmpLL.size(); i++){
                 tmpLL.get(i).print();
             }
+            System.out.println("");
         }
     }
 
