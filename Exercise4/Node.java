@@ -14,7 +14,7 @@ public class Node<T>{
     public void setKey(T key) {this.key = key;}
 
     public void print(){
-        System.out.println("Vertex:"+(this.getKey()));
+        System.out.println("Node:"+(this.getKey()));
     }
     
 }

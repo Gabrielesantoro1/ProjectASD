@@ -1,5 +1,6 @@
 package Exercise4;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -23,16 +24,15 @@ public class Graph<T>{
         this.adjList = adjList;
     }
 
-    public void addNode(Node<T> vertex){
-        adjList.put(vertex, new LinkedList<Edge<T>>());
+    public void addNode(Node<T> node){
+        adjList.put(node, new LinkedList<Edge<T>>());
     }
 
-    public void addEdge(Node<T> start, Node<T> end, Integer weight){
-        Edge<T> edgeStart = new Edge<>(start,end,weight);
-        adjList.get(start).add(edgeStart);
+    public void addEdge(Edge<T> edge){
+        adjList.get(edge.getSource()).add(edge);
         if(!this.isOriented()){
-            Edge<T> edgeEnd = new Edge<T>(end,start,weight);
-            adjList.get(end).add(edgeEnd);
+            Edge<T> edgerev = new Edge<>(edge.getDestination(), edge.getSource(), edge.getWeight(),-edge.getIndex());
+            adjList.get(edge.getDestination()).add(edgerev);
         }
     }
 
@@ -40,33 +40,43 @@ public class Graph<T>{
         return this.adjList.values();
     }
 
-    //Da rivedere: dobbiamo tornare un'array con 
-    //solo le destizionazioni, non gli archi interi
-    //però ci chiedono di farlo in 0(1) quindi
-    //non possiamo fare scansione lineare.
-    public LinkedList<Edge<T>> adj(Node<T> node){
-        return this.adjList.get(node);
+    public ArrayList<Node<T>> adj(Node<T> node){
+        LinkedList<Edge<T>> tmp = this.adjList.get(node);
+        ArrayList<Node<T>> destination = new ArrayList<>();
+        for(int i = 0; i < tmp.size(); i++){
+            destination.add(tmp.get(i).getDestination());
+        }
+        return destination;
     }
 
-    public Set<Node<T>> getNode(){
+    public Set<Node<T>> getNodes(){
         return this.adjList.keySet();
     }
 
     public void removeNode(Node<T> node){
         this.adjList.remove(node);
         
+        Collection<LinkedList<Edge<T>>> coll = this.getEdges();
+        Iterator<LinkedList<Edge<T>>> iter = coll.iterator();
+
+        while(iter.hasNext()){
+            LinkedList<Edge<T>> tmpLL = iter.next();
+            for(int i = 0; i < tmpLL.size(); i++){
+                if(tmpLL.get(i).getDestination() == node){
+                    tmpLL.remove(i);
+                }
+            }
+        }
+        
     }
 
-    /*Non funziona perchè la remove/contain/ecc sono operazioni che si basano 
-    * sulla equal di due oggetti; ma poiché noi gli passiamo un oggetto Edge nuovo
-    * non è verificata l'uguaglianza. Dobbiamo capire un attimo come fare.
-    */
-    public boolean removeEdge(Node<T> start, Node<T> end, int weight){
+    public boolean removeEdge(Edge<T> edge){
         boolean result = false;
-        if(this.containEdge(start, end, weight)){
-            result = this.adjList.get(start).remove(new Edge<>(start,end,weight));
+        if(this.containEdge(edge)){
+            int indexrev = -edge.getIndex();
+            result = this.adjList.get(edge.getSource()).remove(edge);
             if(!this.isOriented()){ //if not oriented
-            result = this.adjList.get(end).remove(new Edge<>(end,start,weight));
+            this.adjList.get(edge.getDestination()).remove(indexrev);
             }
         }
         return result;
@@ -76,11 +86,11 @@ public class Graph<T>{
         return this.adjList.size();
     }
 
-    public int getEdgesNum(Node<T> vertex){
-        if(this.containNode(vertex)){
-            return this.adjList.get(vertex).size();
+    public int getEdgesNum(Node<T> node){
+        if(this.containNode(node)){
+            return this.adjList.get(node).size();
         }else{
-            System.err.println("The vertex given is not in the graph");
+            System.err.println("The node given is not in the graph");
             System.exit(1);
         }
         return -1;
@@ -97,18 +107,18 @@ public class Graph<T>{
         return edgesNum;
     }
 
-    public boolean containNode(Node<T> vertex){
-        return this.adjList.containsKey(vertex);
+    public boolean containNode(Node<T> node){
+        return this.adjList.containsKey(node);
     }
 
-    public boolean containEdge(Node<T> start, Node<T> end, Integer weight){
-        return this.adjList.get(start).contains(new Edge<T>(start,end,weight));
+    public boolean containEdge(Edge<T> edge){
+        return this.adjList.get(edge.getSource()).contains(edge);
     }
 
     private boolean isOriented(){return this.oriented;}
 
     public void printNodes() {
-        Set<Node<T>> set = this.getNode();
+        Set<Node<T>> set = this.getNodes();
         Iterator<Node<T>> iter = set.iterator();
 
         while(iter.hasNext()){
@@ -123,8 +133,8 @@ public class Graph<T>{
 
         while(iter.hasNext()){
             counter++;
-            System.out.println("AdjList["+counter+"]");
             LinkedList<Edge<T>> tmpLL = iter.next();
+            System.out.println("Adiacent list["+counter+"]");
             for(int i = 0; i < tmpLL.size(); i++){
                 tmpLL.get(i).print();
             }
