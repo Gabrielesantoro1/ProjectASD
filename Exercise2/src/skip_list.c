@@ -5,6 +5,11 @@
 
 #define MAX_HEIGHT 50
 
+/**
+ * @brief extracts a random value between 1 and MAX_HEIGHT
+ * 
+ * @return unsigned int 
+ */
 unsigned int randomLevel(){
     unsigned int lvl = 1;
     while(((float)rand()/(float)RAND_MAX) < 0.5 && lvl < MAX_HEIGHT){
@@ -13,6 +18,13 @@ unsigned int randomLevel(){
     return lvl;
 }
 
+/**
+ * @brief Create a Node object for the Skip List
+ * 
+ * @param I 
+ * @param level 
+ * @return Node* 
+ */
 Node* createNode(void* I, int level){
     Node *new = malloc(sizeof(Node));
     Node **arrayNode = malloc(sizeof(Node)*level);
@@ -26,6 +38,13 @@ Node* createNode(void* I, int level){
     return new;
 }
 
+/**
+ * @brief inserts an element in the correct position
+ * 
+ * @param skiplist 
+ * @param I 
+ * @return void* 
+ */
 void* insertSkipList(SkipList *skiplist, void* I){
     Node *new = createNode(I, randomLevel());
     if (new->size > skiplist->max_level){
@@ -45,6 +64,13 @@ void* insertSkipList(SkipList *skiplist, void* I){
     }
 }
 
+/**
+ * @brief inserts an element in the correct position - Modified Version
+ * 
+ * @param skiplist 
+ * @param I 
+ * @return void* 
+ */
 void* searchSkipList_modified(SkipList *skiplist, void* I){
     Node *x = skiplist->head;
     // loop invariant: x->item < I
@@ -79,6 +105,13 @@ void* searchSkipList_modified(SkipList *skiplist, void* I){
     }
 }
 
+/**
+ * @brief search for an item in the Skip List
+ * 
+ * @param skiplist 
+ * @param I 
+ * @return void* 
+ */
 void* searchSkipList(SkipList *skiplist, void* I){
     Node *x = skiplist->head;
     // loop invariant: x->item < I
@@ -104,6 +137,11 @@ void* searchSkipList(SkipList *skiplist, void* I){
     }
 }
 
+/**
+ * @brief create an empty Skip List
+ * 
+ * @return SkipList* 
+ */
 SkipList* emptySkipList(){
     SkipList *new = malloc(sizeof(SkipList));
     new->max_level = MAX_HEIGHT;
@@ -119,10 +157,22 @@ SkipList* emptySkipList(){
     return new;
 }
 
+/**
+ * @brief 
+ * 
+ * @param skiplist 
+ * @return int 
+ */
 int isemptySkipList(SkipList *skiplist){
     return skiplist->head->next[0] == NULL;
 }
 
+/**
+ * @brief return the Skip List size
+ * 
+ * @param skiplist 
+ * @return int 
+ */
 int sizeSkipList(SkipList *skiplist){
     unsigned int size = 0;
     Node *tmp = skiplist->head;
@@ -138,6 +188,11 @@ int sizeSkipList(SkipList *skiplist){
     }
 }
 
+/**
+ * @brief frees the memory of the Skip List
+ * 
+ * @param skiplist 
+ */
 void freeSkipList(SkipList *skiplist){
     if(isemptySkipList(skiplist)){
         return;
@@ -153,10 +208,15 @@ void freeSkipList(SkipList *skiplist){
                 }
             }
         }
-        //printf("\nSkiplist has been free\n");
+        printf("\nSkiplist has been free\n");
     }
 }
 
+/**
+ * @brief prints the Skip List
+ * 
+ * @param skiplist 
+ */
 void printSkipList(SkipList *skiplist){
     Node *tmp = skiplist->head;
     tmp = tmp->next[0];
