@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Map;
 
 import Exercise3.*;
 
@@ -35,8 +37,35 @@ public class ShortestPaths{
     System.out.println("\nData loaded\n");
     }
 
-    public static void Dijkstra(){
+    private static void initialize(Graph<String> graph){
+      for(int i = 0; i < graph.getNodesNum(); i++){
 
+      }
+    }
+
+    public static void Dijkstra(Graph<String> graph, String s, Float weight) throws GraphException{
+      //Call for the inizialize method to set for all the node in V:
+      //- the d(distance) value to MAX
+      //- the π(father) value to nil -> not necessary for us
+      
+      //now we have to create the min priority heap for the nodes in graph
+      MinHeap<String> Q = new MinHeap<>(new ArrayList<String>(graph.getNodes()),new ComparatorString());
+      
+      //S is a set the contains the nodes for which we already got the minimun distance path
+      ArrayList<String> S = new ArrayList<>();
+
+      //untile the minheap is not empty
+      while(!Q.getArray().isEmpty()){
+        //estraiamo il minimo
+        String u = Q.heapExtractMin();
+        S.add(u);
+
+        //for all the adiacent nodes of u
+        for (String string : graph.adj(u)) {
+          
+        }
+
+      }
     }
 
 }

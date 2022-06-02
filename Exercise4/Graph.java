@@ -9,18 +9,18 @@ import java.util.Set;
 
 public class Graph<T>{
     private Boolean oriented = false;
-    private HashMap<T, LinkedList<Edge<T>>> adjList;
+    private HashMap<Node<T>, LinkedList<Edge<T>>> adjList;
 
     public Graph(){
-        adjList = new HashMap<>();
+        this.adjList = new HashMap<>();
     }
 
     public Graph(Boolean oriented){
-        adjList = new HashMap<>();
+        this.adjList = new HashMap<>();
         this.oriented = oriented; 
     }
 
-    public Graph(HashMap<T, LinkedList<Edge<T>>> adjList, Boolean oriented){
+    public Graph(HashMap<Node<T>, LinkedList<Edge<T>>> adjList, Boolean oriented){
         if(adjList != null){
         this.adjList = adjList;
         this.oriented = oriented;
@@ -31,16 +31,15 @@ public class Graph<T>{
     /**
      * This function adds a node to the graph
      * 
-     * @param node The node to be added to the graph.
+     * @param t The node to be added to the graph.
      */
-    public void addNode(T node) throws GraphException{
+    public void addNode(Node<T> node) throws GraphException{
         if(node == null)
             throw new GraphException("addNode: node parameter is null");
         if(this.containNode(node))
             throw new GraphException("addNode: node parameter is already in the graph");
         this.adjList.put(node, new LinkedList<Edge<T>>());
     }
-
     /**
      * This function adds an edge to the graph
      * 
@@ -72,13 +71,13 @@ public class Graph<T>{
      * @param node the node to get the adjacent nodes of
      * @return An ArrayList of Nodes that are adjacent to the node passed in as a parameter.
      */
-    public ArrayList<T> adj(T node) throws GraphException{
+    public ArrayList<Node<T>> adj(Node<T> node) throws GraphException{
         if(node == null)
             throw new GraphException("adj: node parameter is null");
         if(!this.containNode(node))
             throw new GraphException("adj: the graph does not contain the node");
         LinkedList<Edge<T>> tmp = this.adjList.get(node);
-        ArrayList<T> destination = new ArrayList<>();
+        ArrayList<Node<T>> destination = new ArrayList<>();
         for(int i = 0; i < tmp.size(); i++){
             destination.add(tmp.get(i).getDestination());
         }
@@ -99,7 +98,7 @@ public class Graph<T>{
      * 
      * @return A set of nodes.
      */
-    public Set<T> getNodes(){
+    public Set<Node<T>> getNodes(){
         return this.adjList.keySet();
     }
 
@@ -109,7 +108,7 @@ public class Graph<T>{
      * @param node the node to be removed
      * @return A boolean value.
      */
-    public boolean removeNode(T node) throws GraphException{
+    public boolean removeNode(Node<T> node) throws GraphException{
         if(node == null)
             throw new GraphException("removeNode: node parameter is null");
         if(!this.containNode(node))
@@ -167,7 +166,7 @@ public class Graph<T>{
      * @param node the node whose edges we want to count
      * @return The number of edges connected to the node.
      */
-    public int getEdgesNum(T node) throws GraphException{
+    public int getEdgesNum(Node<T> node) throws GraphException{
         if(node == null)
             throw new GraphException("getEdgesNum: node parameter is null");
         if(!this.containNode(node))
@@ -202,16 +201,16 @@ public class Graph<T>{
             throw new GraphException("getWeight: edge parameter is null");
         if(!this.containEdge(edge))
             throw new GraphException("getWeight: the graph does not contain the edge");
-        T key = edge.getSource();
+        Node<T> key = edge.getSource();
         return this.adjList.get(key).get(edge.getIndex()).getWeight();        
     }
 
     /**
      * This function checks if the graph contains a node
      * 
-     * @param node the node to be checked
+     * @param t the node to be checked
      */
-    public boolean containNode(T node) throws GraphException{
+    public boolean containNode(Node<T> node) throws GraphException{
         if(node == null)
             throw new GraphException("containNode: node parameter is null");
         return this.adjList.containsKey(node);
@@ -241,8 +240,8 @@ public class Graph<T>{
      * This function prints all the nodes in the graph
      */
     public void printNodes() {
-        Set<T> set = this.getNodes();
-        Iterator<T> iter = set.iterator();
+        Set<Node<T>> set = this.getNodes();
+        Iterator<Node<T>> iter = set.iterator();
         while(iter.hasNext()){
             System.out.println(iter.next());
         }

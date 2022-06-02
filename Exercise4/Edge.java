@@ -1,27 +1,27 @@
 package Exercise4;
 
 public class Edge<T> {
-    private T source;
-    private T destination;
+    private Node<T> source;
+    private Node<T> destination;
     private Float weight;
     private int index = 0;
 
     public Edge(){}
 
-    public Edge(T source, T destination){
+    public Edge(Node<T> source, Node<T> destination){
         this.source = source;
         this.destination = destination;
         this.index = index++;
     }
 
-    public Edge(T source, T destination, Float weight){
+    public Edge(Node<T> source, Node<T> destination, Float weight){
         this.source = source;
         this.destination = destination;
         this.weight = weight;
         this.index = index++;
     }
 
-    public Edge(T source, T destination, Float weight, int index){
+    public Edge(Node<T> source, Node<T> destination, Float weight, int index){
         this.source = source;
         this.destination = destination;
         this.weight = weight;
@@ -29,19 +29,19 @@ public class Edge<T> {
     }
 
 
-    public T getSource() {
+    public Node<T> getSource() {
         return source;
     }
 
-    public void setSource(T source) {
+    public void setSource(Node<T> source) {
         this.source = source;
     }
 
-    public T getDestination() {
+    public Node<T> getDestination() {
         return destination;
     }
 
-    public void setDestination(T destination) {
+    public void setDestination(Node<T> destination) {
         this.destination = destination;
     }
 

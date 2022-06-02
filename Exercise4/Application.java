@@ -13,8 +13,8 @@ public class Application {
             System.out.println(e);
         }
 
-        System.out.println("Number of nodes"+graph.getEdgesNum());
-        System.out.println("Number of edges"+graph.getNodesNum());
+        System.out.println("Number of nodes: "+graph.getEdgesNum());
+        System.out.println("Number of edges: "+graph.getNodesNum());
         
         System.out.println("");
         System.out.println("");
