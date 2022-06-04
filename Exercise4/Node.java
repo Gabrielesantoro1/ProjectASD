@@ -1,6 +1,6 @@
 package Exercise4;
 
-public class Node<T>{
+public class Node<T> {
     private T key;
     private Float distance;
     
@@ -23,5 +23,4 @@ public class Node<T>{
     public void print(){
         System.out.println("Node:"+(this.getKey()));
     }
-    
 }

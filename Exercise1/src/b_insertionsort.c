@@ -3,6 +3,16 @@
 #include <string.h>
 #include "array.h"
 
+/**
+ * @brief binary search function
+ * 
+ * @param array_struct 
+ * @param item item to search
+ * @param low lowest range
+ * @param max higher range
+ * @param precedes comparison criterion
+ * @return long position of the element
+ */
 long b_search(Array_Struct *array_struct, void *item, long low, long max, int (*precedes)(void*, void*)){        
     if(low == max){
         if((precedes(item, array_struct->array[low])==1)){
@@ -20,6 +30,13 @@ long b_search(Array_Struct *array_struct, void *item, long low, long max, int (*
     }
 }
  
+/**
+ * @brief insertion sort function
+ * 
+ * @param array_struct array to sort
+ * @param precedes comparison criterion
+ * @return Array_Struct* ordered array
+ */
 Array_Struct* b_insertionsort(Array_Struct *array_struct, int (*precedes)(void*, void*)){
     long i, loc, k;
     long lenght = array_size(array_struct);

@@ -63,7 +63,7 @@ public class Edge<T> {
     }
 
     public void print(){
-        System.out.println(this.getSource().getKey()+"->"+this.getDestination().getKey());
+        System.out.println(this.getSource()+"->"+this.getDestination());
     }
 
     

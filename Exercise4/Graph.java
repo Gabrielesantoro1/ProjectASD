@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Set;
 
-
 public class Graph<T>{
     private Boolean oriented = false;
     private HashMap<Node<T>, LinkedList<Edge<T>>> adjList;
@@ -25,10 +24,11 @@ public class Graph<T>{
     }
 
     //Da rivedere
-    public Graph(HashMap<Node<T>, LinkedList<Edge<T>>> adjList){
+    public Graph(HashMap<Node<T>, LinkedList<Edge<T>>> adjList, Boolean oriented){
         nodesName = new ArrayList<>();
         if(adjList != null){
         this.adjList = adjList;
+        this.oriented = oriented;
         }
             System.err.println("adjList parameter is null");
     }
@@ -36,7 +36,7 @@ public class Graph<T>{
     /**
      * This function adds a node to the graph
      * 
-     * @param node The node to be added to the graph.
+     * @param t The node to be added to the graph.
      */
     public void addNode(Node<T> node) throws GraphException{
         if(node == null)
@@ -46,7 +46,6 @@ public class Graph<T>{
         this.adjList.put(node, new LinkedList<Edge<T>>());
         this.nodesName.add(node.getKey());
     }
-
     /**
      * This function adds an edge to the graph
      * 
@@ -62,12 +61,13 @@ public class Graph<T>{
         }
         if(this.containEdge(edge))
             throw new GraphException("addEdge: edge parameter is already in the graph");
-        adjList.get(edge.getSource()).add(edge);
+            
+            adjList.get(edge.getSource()).add(edge);
             if(!this.isOriented()){
                 Edge<T> edgerev = new Edge<>(edge.getDestination(), edge.getSource(), edge.getWeight(),edge.getIndex());
-                if(adjList.get(edge.getDestination()).add(edgerev));
+                adjList.get(edge.getDestination()).add(edgerev);
             }
-    }
+        }
 
     /**
      * This function returns an ArrayList of all the nodes that are adjacent to the node passed in as a
@@ -196,9 +196,24 @@ public class Graph<T>{
     }
 
     /**
+     * This function returns the weight of the edge
+     * 
+     * @param edge the edge whose weight is to be returned
+     * @return The weight of the edge.
+     */
+    public Float getWeight(Edge<T> edge) throws GraphException{
+        if(edge == null)
+            throw new GraphException("getWeight: edge parameter is null");
+        if(!this.containEdge(edge))
+            throw new GraphException("getWeight: the graph does not contain the edge");
+        Node<T> key = edge.getSource();
+        return this.adjList.get(key).get(edge.getIndex()).getWeight();        
+    }
+
+    /**
      * This function checks if the graph contains a node
      * 
-     * @param node the node to be checked
+     * @param t the node to be checked
      */
     public boolean containNode(Node<T> node) throws GraphException{
         if(node == null)
@@ -233,8 +248,7 @@ public class Graph<T>{
         Set<Node<T>> set = this.getNodes();
         Iterator<Node<T>> iter = set.iterator();
         while(iter.hasNext()){
-            iter.next().print();
-
+            System.out.println(iter.next());
         }
     }
 
@@ -255,8 +269,5 @@ public class Graph<T>{
             System.out.println("");
         }
     }
-
-
-
 
 }

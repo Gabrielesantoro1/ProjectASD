@@ -3,10 +3,22 @@
 #include <string.h>
 #include "list.h"
 
+/**
+ * @brief create an empty List
+ * 
+ * @return List* 
+ */
 List* empytList(){
     return NULL;
 }
 
+/**
+ * @brief insert an element in the list
+ * 
+ * @param list 
+ * @param item 
+ * @return List* 
+ */
 List* list_insert(List *list, void *item){
 	List *new_list = malloc(sizeof(List));
 	new_list->item = item;
@@ -15,6 +27,11 @@ List* list_insert(List *list, void *item){
 	return new_list;
 }
 
+/**
+ * @brief prints the List
+ * 
+ * @param list 
+ */
 void list_print(List *list){
 	if (list == NULL) {
 		printf("Empty list\n");
@@ -26,6 +43,11 @@ void list_print(List *list){
 	}
 }
 
+/**
+ * @brief frees the List's memory
+ * 
+ * @param list 
+ */
 void list_free(List *list){
 	if (list == NULL) {
 		//printf("\nCorrectme has been free.\n");
@@ -35,18 +57,42 @@ void list_free(List *list){
 	free(list);
 }
 
+/**
+ * @brief return if the list is empty
+ * 
+ * @param list 
+ * @return int 
+ */
 int list_is_empty(List *list){
 	return list == NULL;
 } 
 
+/**
+ * @brief returns the tail's list
+ * 
+ * @param list 
+ * @return List* 
+ */
 List* list_tail(List *list){
 	return list->next;
 }
 
+/**
+ * @brief returns the head's list
+ * 
+ * @param list 
+ * @return void* 
+ */
 void* list_head(List *list){
 	return list->item;
 }
 
+/**
+ * @brief return the list size
+ * 
+ * @param list 
+ * @return int 
+ */
 int list_size(List *list){
 	if(list_is_empty(list)){
 		return 0;
@@ -55,6 +101,12 @@ int list_size(List *list){
 	}
 }
 
+/**
+ * @brief reverse the list
+ * 
+ * @param list 
+ * @return List* 
+ */
 List* list_reverse(List *list){
 	List *m = NULL;
 	List *t = NULL;
