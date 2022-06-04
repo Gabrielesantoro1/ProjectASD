@@ -5,11 +5,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Set;
-
-import Exercise3.MinHeap;
-import Exercise4.MinHeapLibrary.*;
 
 public class ShortestPaths{
 
@@ -27,10 +22,7 @@ public class ShortestPaths{
         String destination = lineElements[1];
         Float distance = Float.valueOf(lineElements[2]);
 
-        Node<String> src = new Node<>(source);
-        Node<String> dst = new Node<>(destination);
-
-        Edge<String> edge = new Edge<>(src, dst, distance);
+        Edge<String> edge = new Edge<>(source, destination, distance);
         graph.addEdge(edge);
       }
       fileInputReader.close();
@@ -41,8 +33,9 @@ public class ShortestPaths{
     System.out.println("\nData loaded\n");
     }
 
+    /*
     private static void initialize(Graph<String> graph){
-      for (Node<String> node : graph.getNodes()) {
+      for (String node : graph.getNodes) {
         node.setDistance(Float.MAX_VALUE);
       }
     }
@@ -81,5 +74,5 @@ public class ShortestPaths{
       }
       return S;
     }
-
+    */
 }
