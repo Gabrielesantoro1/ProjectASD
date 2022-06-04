@@ -41,8 +41,6 @@ public class Graph<T>{
     public void addNode(Node<T> node) throws GraphException{
         if(node == null)
             throw new GraphException("addNode: node parameter is null");
-        if(this.containNode(node))
-            throw new GraphException("addNode: node parameter is already in the graph");
         this.adjList.put(node, new LinkedList<Edge<T>>());
         this.nodesName.add(node.getKey());
     }
@@ -54,15 +52,11 @@ public class Graph<T>{
     public void addEdge(Edge<T> edge) throws GraphException{
         if(edge == null)
             throw new GraphException("addEdge: edge parameter is null");
-        if(!this.containNode(edge.getSource())){
-            this.addNode(edge.getSource());
-        }if(!this.containNode(edge.getDestination())){
             this.addNode(edge.getDestination());
-        }
+            this.addNode(edge.getSource());
         if(this.containEdge(edge))
             throw new GraphException("addEdge: edge parameter is already in the graph");
-            
-            adjList.get(edge.getSource()).add(edge);
+        adjList.get(edge.getSource()).add(edge);
             if(!this.isOriented()){
                 Edge<T> edgerev = new Edge<>(edge.getDestination(), edge.getSource(), edge.getWeight(),edge.getIndex());
                 adjList.get(edge.getDestination()).add(edgerev);
@@ -269,5 +263,23 @@ public class Graph<T>{
             System.out.println("");
         }
     }
+
+    public HashMap<Node<T>, LinkedList<Edge<T>>> getAdjList() {
+        return adjList;
+    }
+
+    public void setAdjList(HashMap<Node<T>, LinkedList<Edge<T>>> adjList) {
+        this.adjList = adjList;
+    }
+
+    public ArrayList<T> getNodesName() {
+        return nodesName;
+    }
+
+    public void setNodesName(ArrayList<T> nodesName) {
+        this.nodesName = nodesName;
+    }
+
+    
 
 }

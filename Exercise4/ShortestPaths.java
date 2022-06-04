@@ -5,8 +5,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Set;
 
-import Exercise3.*;
+import Exercise3.MinHeap;
+import Exercise4.MinHeapLibrary.*;
 
 public class ShortestPaths{
 
@@ -39,36 +42,44 @@ public class ShortestPaths{
     }
 
     private static void initialize(Graph<String> graph){
-      for(int i = 0; i < graph.getNodesNum(); i++){
-
+      for (Node<String> node : graph.getNodes()) {
+        node.setDistance(Float.MAX_VALUE);
       }
     }
 
-    /*
-    public static void Dijkstra(Graph<String> graph, String s, Float weight) throws GraphException{
+    private static boolean relax(Node<String> minimum, Node<String> adiacent, Graph<String> graph, MinHeap<Node<String>> Q){
+      boolean relaxed = false;
+        //adiacent.getDistance() > minimum.getDistance + graph.getWeight(minimum -> adiacent))
+        //adiacent.setDistance(minimum.getDistance + graph.getWeight(minimum -> adiacent));
+        //Q.heapDecreaseKey(adiacent.getWeight, graph.getWeight(minimum -> adiacent)));
+      
+      return relaxed;
+    }
+
+    public static ArrayList<Node<String>> Dijkstra(Graph<String> graph, String s, Float weight) throws GraphException{
       //Call for the inizialize method to set for all the node in V:
       //- the d(distance) value to MAX
-      //- the π(father) value to nil -> not necessary for us
+      initialize(graph);
       
       //now we have to create the min priority heap for the nodes in graph
-      MinHeap<String> Q = new MinHeap<>(new ArrayList<String>(graph.getNodes()),new ComparatorString());
+      ComparatorNode comp = new ComparatorNode();
+      MinHeap<Node<String>> Q = new MinHeap<>(new ArrayList<>(graph.getNodes()),comp);
       
-      //S is a set the contains the nodes for which we already got the minimun distance path
-      ArrayList<String> S = new ArrayList<>();
+      //now we have to create the list that contains the nodes for which we already got the minimun distance path set
+      ArrayList<Node<String>> S = new ArrayList<>();
 
-      //untile the minheap is not empty
+
+      //now we have to glide all the minheap
       while(!Q.getArray().isEmpty()){
-        //estraiamo il minimo
-        String u = Q.heapExtractMin();
-        S.add(u);
-
+        //extract of the least Node (based on the distance value of the node)
+        Node<String> minimum = Q.heapExtractMin();
+        S.add(minimum);
         //for all the adiacent nodes of u
-        for (String string : graph.adj(u)) {
-          
+        for (Node<String> adiacent : graph.adj(minimum)) {  
+          relax(minimum, adiacent, graph, Q);
         }
-
       }
+      return S;
     }
-    */
 
 }
