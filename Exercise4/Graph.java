@@ -1,6 +1,5 @@
 package Exercise4;
 
-import java.nio.file.NotDirectoryException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -8,22 +7,26 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Set;
 
-import javax.security.auth.kerberos.KerberosCredMessage;
 
 public class Graph<T>{
     private Boolean oriented = false;
     private HashMap<Node<T>, LinkedList<Edge<T>>> adjList;
+    private ArrayList<T> nodesName;
 
     public Graph(){
         adjList = new HashMap<>();
+        nodesName = new ArrayList<>();
     }
 
     public Graph(Boolean oriented){
         adjList = new HashMap<>();
+        nodesName = new ArrayList<>();
         this.oriented = oriented; 
     }
 
+    //Da rivedere
     public Graph(HashMap<Node<T>, LinkedList<Edge<T>>> adjList){
+        nodesName = new ArrayList<>();
         if(adjList != null){
         this.adjList = adjList;
         }
@@ -41,6 +44,7 @@ public class Graph<T>{
         if(this.containNode(node))
             throw new GraphException("addNode: node parameter is already in the graph");
         this.adjList.put(node, new LinkedList<Edge<T>>());
+        this.nodesName.add(node.getKey());
     }
 
     /**
@@ -51,6 +55,11 @@ public class Graph<T>{
     public void addEdge(Edge<T> edge) throws GraphException{
         if(edge == null)
             throw new GraphException("addEdge: edge parameter is null");
+        if(!this.containNode(edge.getSource())){
+            this.addNode(edge.getSource());
+        }if(!this.containNode(edge.getDestination())){
+            this.addNode(edge.getDestination());
+        }
         if(this.containEdge(edge))
             throw new GraphException("addEdge: edge parameter is already in the graph");
         adjList.get(edge.getSource()).add(edge);
@@ -194,7 +203,7 @@ public class Graph<T>{
     public boolean containNode(Node<T> node) throws GraphException{
         if(node == null)
             throw new GraphException("containNode: node parameter is null");
-        return this.adjList.containsKey(node);
+        return this.nodesName.contains(node.getKey());
     }
 
     /**

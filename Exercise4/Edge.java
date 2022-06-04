@@ -3,7 +3,7 @@ package Exercise4;
 public class Edge<T> {
     private Node<T> source;
     private Node<T> destination;
-    private Integer weight;
+    private Float weight;
     private int index = 0;
 
     public Edge(){}
@@ -14,14 +14,14 @@ public class Edge<T> {
         this.index = index++;
     }
 
-    public Edge(Node<T> source, Node<T> destination, Integer weight){
+    public Edge(Node<T> source, Node<T> destination, Float weight){
         this.source = source;
         this.destination = destination;
         this.weight = weight;
         this.index = index++;
     }
 
-    public Edge(Node<T> source, Node<T> destination, Integer weight, int index){
+    public Edge(Node<T> source, Node<T> destination, Float weight, int index){
         this.source = source;
         this.destination = destination;
         this.weight = weight;
@@ -45,11 +45,11 @@ public class Edge<T> {
         this.destination = destination;
     }
 
-    public Integer getWeight() {
+    public Float getWeight() {
         return weight;
     }
 
-    public void setWeight(Integer weight) {
+    public void setWeight(Float weight) {
         this.weight = weight;
     }
 
