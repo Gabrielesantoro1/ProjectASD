@@ -24,7 +24,7 @@ public class Application {
                 array.add(r.nextInt());
             }
             System.out.println("Array size:" + array.size());
-            MinHeap<Integer> heap = new MinHeap<Integer>(array, compInt);
+            MinHeap<Integer> heap = new MinHeap<>(array, compInt);
         }
 
         // System.out.println("\n");

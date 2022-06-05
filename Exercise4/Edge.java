@@ -4,30 +4,20 @@ public class Edge<T> {
     private T source;
     private T destination;
     private Float weight;
-    private int index = 0;
+    private int index;
 
     public Edge(){}
 
     public Edge(T source, T destination){
         this.source = source;
         this.destination = destination;
-        this.index = index++;
     }
 
     public Edge(T source, T destination, Float weight){
         this.source = source;
         this.destination = destination;
         this.weight = weight;
-        this.index = index++;
     }
-
-    public Edge(T source, T destination, Float weight, int index){
-        this.source = source;
-        this.destination = destination;
-        this.weight = weight;
-        this.index = index;
-    }
-
 
     public T getSource() {
         return source;

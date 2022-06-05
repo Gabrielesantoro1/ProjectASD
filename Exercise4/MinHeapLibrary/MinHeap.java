@@ -1,32 +1,34 @@
-package Exercise3;
+package Exercise4.MinHeapLibrary;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import Exercise4.Node;
+import Exercise4.Graph;
 
-public class MinHeap<T>{
+public class MinHeap{
     private int length;
     private int heap_size;
-    private ArrayList<T> array;
-    private Comparator<? super T> comparator;
+    private ArrayList<String> array;
+    private Comparator<Float> comparator;
 
-    /**
-     * Empty constructor
-     */
-    public MinHeap(Comparator<? super T> comparator){
+    private Graph<String> graph;
+
+
+    public MinHeap(Comparator<Float> comparator, Graph<String> graph){
         array = new ArrayList<>();
         this.comparator = comparator;
+        this.graph = graph;
         length = array.size();
         heap_size = 0;
 
     }
 
-    public MinHeap(ArrayList<T> array, Comparator<? super T> comparator) {
+    public MinHeap(ArrayList<String> array, Comparator<Float> comparator, Graph<String> graph) {
         this.array = array;
         this.comparator = comparator;
         this.length = array.size();
         this.heap_size = 0; 
+        this.graph = graph;
     }
 
     private int parent(int i){
@@ -49,17 +51,17 @@ public class MinHeap<T>{
         }
     }
 
-    private void minHeapify(ArrayList<T> array, int i){
+    private void minHeapify(ArrayList<String> array, int i){
         int minimum = i;
         int l = left(i);
         int r = right(i);
 
         //System.out.println("minHeapify Minimum: "+ minimum+ " Left: "+l+" Right: "+r);
-        if(l < getHeapSize() && comparator.compare(array.get(l), array.get(minimum)) < 0){
+        if(l < getHeapSize() && comparator.compare(graph.getAdjList().get(array.get(l)).getDistance(),graph.getAdjList().get(array.get(minimum)).getDistance()) < 0){
             minimum = l;
             //System.out.println("minimum"+array.get(minimum));
         }
-        if(r < getHeapSize() && comparator.compare(array.get(r), array.get(minimum)) < 0){
+        if(r < getHeapSize() && comparator.compare(graph.getAdjList().get(array.get(r)).getDistance(),graph.getAdjList().get(array.get(minimum)).getDistance()) < 0){
             minimum = r;
             //System.out.println("minimum"+array.get(minimum));
         }
@@ -76,28 +78,41 @@ public class MinHeap<T>{
         }
     }
 
-    public void minHeapInsert(T key){
+    public void minHeapInsert(String key){
         setHeapSize(this.getHeapSize()+1);
         int i = getHeapSize();
         array.add(key);        
 
-        heapDecreaseKey(i-1, key);
+        heapDecreaseKey(array.get(i-1),graph.getAdjList().get(key).getDistance());
     }
 
-    public void heapDecreaseKey(int i, T key) {
-        if(comparator.compare(key, array.get(i)) > 0){
+    public int getIndex(String s){
+        int index = -1;
+        for(int i = 0; i < this.getHeapSize();i++){
+            if(array.get(i).equals(s)){
+                index = i;
+                return index;
+            }
+        }
+        return index;
+    }
+
+    public void heapDecreaseKey(String s, float key) {
+        System.out.println(s);
+        int i = getIndex(s);
+        if(comparator.compare(key, graph.getAdjList().get(array.get(i)).getDistance() ) > 0){
             System.out.println("Key value is bigger then the old one");
             return;
         }
-        array.set(i, key);
-        while(i > 0 && comparator.compare(array.get(i), array.get(parent(i))) < 0){
+        //graph.getAdjList().get(array.get(i)).setDistance(key); -> non dobbiamo settare la distanza ma cambiare l'elemento
+        while(i > 0 && comparator.compare(graph.getAdjList().get(array.get(i)).getDistance(),graph.getAdjList().get(array.get(parent(i))).getDistance()) < 0){
             swap(array, i, parent(i));
             i = parent(i);
         }
     }
 
-    public T heapExtractMin(){
-        T min;
+    public String heapExtractMin(){
+        String min;
         if(getHeapSize() < 0){
             System.out.println("Underflow of heap");
         }
@@ -110,40 +125,12 @@ public class MinHeap<T>{
         return min;
     }
 
-    private void swap(ArrayList<T> array, int i, int y){
-        T tmp = array.get(i);
+    private void swap(ArrayList<String> array, int i, int y){
+        String tmp = array.get(i);
         array.set(i, array.get(y));
         array.set(y, tmp);
     }
 
-    public T getFather(ArrayList<T> array, int i){
-        return array.get(parent(i));
-    }
-
-    public T getRightSon(ArrayList<T> array, int i){
-        int rightSonIndx = right(i);
-        if(rightSonIndx<getHeapSize() && rightSonIndx != i)
-            return array.get(rightSonIndx);
-        else
-            return null;
-    }
-
-    public T getLeftSon(ArrayList<T> array, int i){
-        int leftSonIndx=left(i);
-        if(leftSonIndx<getHeapSize() && leftSonIndx != i)
-            return array.get(leftSonIndx);
-        else
-            return null;
-    }
-
-    public int getIndexNode(Node<String> node){
-        for(int i = 0; i < this.getArray().size(); i++){
-            if(this.getArray().get(i) == node){
-                return i;
-            }
-        }
-        return -1;
-    }
 
     @Override
     public String toString() {return this.array.toString();}
@@ -156,7 +143,7 @@ public class MinHeap<T>{
 
     public void setHeapSize(Integer heap_size) {this.heap_size = heap_size;}
 
-    public ArrayList<T> getArray() {return array;}
+    public ArrayList<String> getArray() {return array;}
 
-    public void setArray(ArrayList<T> array) {this.array = array;}
+    public void setArray(ArrayList<String> array) {this.array = array;}
 }

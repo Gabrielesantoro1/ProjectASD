@@ -35,7 +35,7 @@ public class Graph<T>{
      * 
      * @param t The node to be added to the graph.
      */
-    public void addNode(T node, Float distance) throws GraphException{
+    public void addNode(T node, float distance) throws GraphException{
         if(node == null)
             throw new GraphException("addNode: node parameter is null");
         if(this.containNode(node))
@@ -58,9 +58,11 @@ public class Graph<T>{
         this.addNode(edge.getDestination());
         if(this.containEdge(edge))
             throw new GraphException("addEdge: edge parameter is already in the graph");
+        edge.setIndex(this.adjList.get(edge.getSource()).getEdges().size());
         adjList.get(edge.getSource()).getEdges().add(edge);
             if(!this.isOriented()){
-                Edge<T> edgerev = new Edge<>(edge.getDestination(), edge.getSource(), edge.getWeight(),edge.getIndex());
+                Edge<T> edgerev = new Edge<>(edge.getDestination(), edge.getSource(), edge.getWeight());
+                edge.setIndex(this.adjList.get(edge.getDestination()).getEdges().size());
                 adjList.get(edge.getDestination()).getEdges().add(edgerev);
             }
         }
@@ -204,7 +206,7 @@ public class Graph<T>{
      * @param edge the edge whose weight is to be returned
      * @return The weight of the edge.
      */
-    public Float getWeight(Edge<T> edge) throws GraphException{
+    public float getWeight(Edge<T> edge) throws GraphException{
         if(edge == null)
             throw new GraphException("getWeight: edge parameter is null");
         if(!this.containEdge(edge))
@@ -245,6 +247,15 @@ public class Graph<T>{
         return this.oriented;
     }
 
+    public Edge<T> getEdge(T source, T destination){
+        for(int i = 0; i < this.adjList.get(source).getEdges().size(); i++){
+            if(this.adjList.get(source).getEdges().get(i).getDestination() == destination){
+                return this.adjList.get(source).getEdges().get(i);
+            }
+        }
+        return null;
+    }
+
     /**
      * This function prints all the nodes in the graph
      */
@@ -252,7 +263,9 @@ public class Graph<T>{
         Set<T> set = this.getNodes();
         Iterator<T> iter = set.iterator();
         while(iter.hasNext()){
-            System.out.println(iter.next());
+            T node = iter.next();
+            System.out.println(node);
+            System.out.println("distance: "+this.adjList.get(node).getDistance());
         }
     }
 
@@ -273,6 +286,16 @@ public class Graph<T>{
             System.out.println("");
         }
     }
+
+    public Map<T, ValuesKey<T>> getAdjList() {
+        return adjList;
+    }
+
+    public void setAdjList(Map<T, ValuesKey<T>> adjList) {
+        this.adjList = adjList;
+    }
+
+    
     
 
 }

@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+
+import Exercise4.MinHeapLibrary.ComparatorFloat;
+import Exercise4.MinHeapLibrary.MinHeap;
 
 public class ShortestPaths{
 
@@ -31,48 +35,54 @@ public class ShortestPaths{
         System.out.println(e);
     }
     System.out.println("\nData loaded\n");
+    initialize(graph);
     }
 
-    /*
+    
     private static void initialize(Graph<String> graph){
-      for (String node : graph.getNodes) {
-        node.setDistance(Float.MAX_VALUE);
+      for (String node : graph.getNodes()) {
+        graph.getAdjList().get(node).setDistance(Float.MAX_VALUE);
       }
     }
 
-    private static boolean relax(Node<String> minimum, Node<String> adiacent, Graph<String> graph, MinHeap<Node<String>> Q){
+    private static boolean relax(String minimum, String adiacent, Graph<String> graph, MinHeap Q) throws GraphException{
       boolean relaxed = false;
-        //adiacent.getDistance() > minimum.getDistance + graph.getWeight(minimum -> adiacent))
-        //adiacent.setDistance(minimum.getDistance + graph.getWeight(minimum -> adiacent));
-        //Q.heapDecreaseKey(adiacent.getWeight, graph.getWeight(minimum -> adiacent)));
-      
+      float adiacent_distance = graph.getAdjList().get(adiacent).getDistance(); 
+      float minimum_distance =  graph.getAdjList().get(minimum).getDistance();
+      float edgeWeight = graph.getWeight(graph.getEdge(minimum, adiacent));
+      //System.out.println("Edge ("+minimum+"->"+adiacent+"): "+edgeWeight);
+
+        if(adiacent_distance > minimum_distance + edgeWeight){
+          graph.getAdjList().get(adiacent).setDistance(minimum_distance + edgeWeight);
+          Q.heapDecreaseKey(adiacent, edgeWeight);
+          relaxed = true;
+        }
       return relaxed;
     }
 
-    public static ArrayList<Node<String>> Dijkstra(Graph<String> graph, String s, Float weight) throws GraphException{
-      //Call for the inizialize method to set for all the node in V:
-      //- the d(distance) value to MAX
+    public static ArrayList<String> Dijkstra(Graph<String> graph, String s) throws GraphException{
+      //Call the inizialize method to set all the node in V
       initialize(graph);
-      
+      graph.getAdjList().get(s).setDistance((float) 0);
       //now we have to create the min priority heap for the nodes in graph
-      ComparatorNode comp = new ComparatorNode();
-      MinHeap<Node<String>> Q = new MinHeap<>(new ArrayList<>(graph.getNodes()),comp);
-      
-      //now we have to create the list that contains the nodes for which we already got the minimun distance path set
-      ArrayList<Node<String>> S = new ArrayList<>();
+      ComparatorFloat comparator = new ComparatorFloat();
 
+      MinHeap Q = new MinHeap(new ArrayList<String>(graph.getNodes()), comparator, graph);
+      Q.buildMinHeap();
+      System.out.println(Q.getHeapSize());
+      //now we have to create the list that contains the nodes for which we already got the minimun distance path set
+      ArrayList<String> S = new ArrayList<>();
 
       //now we have to glide all the minheap
       while(!Q.getArray().isEmpty()){
         //extract of the least Node (based on the distance value of the node)
-        Node<String> minimum = Q.heapExtractMin();
+        String minimum = Q.heapExtractMin();
         S.add(minimum);
         //for all the adiacent nodes of u
-        for (Node<String> adiacent : graph.adj(minimum)) {  
+        for (String adiacent : graph.adj(minimum)) { 
           relax(minimum, adiacent, graph, Q);
         }
       }
       return S;
     }
-    */
 }
