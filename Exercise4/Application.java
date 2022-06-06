@@ -1,35 +1,66 @@
 package Exercise4;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class Application {
+
+    public static void loadData(Graph<String,Float> graph, String filepath) throws IOException, GraphException, ShortestPathsException{
+        System.out.println("\nLoading data from file...\n");
+        
+        Path inputFilePath = Paths.get(filepath);
+        try(
+          BufferedReader fileInputReader = Files.newBufferedReader(inputFilePath)){
+          String line = null;
+          while((line = fileInputReader.readLine()) != null){    
+            String[] lineElements = line.split(",");
+            
+            String source = lineElements[0];
+            String destination = lineElements[1];
+            Float distance = Float.valueOf(lineElements[2]);
+            //to get the absolute (positive) value of distance
+            distance = Math.abs(distance);  
+    
+            Edge<String,Float> edge = new Edge<>(source, destination, distance);
+            graph.addEdge(edge);
+          }
+          fileInputReader.close();
+    
+        }catch(IOException | GraphException e){
+            System.out.println(e);
+        }
+        System.out.println("\nData loaded\n");
+    }
+
     public static void main(String[] args) {
         System.out.println("Reading distance values");
-        
-        Graph<String> graph = new Graph<>(true);
+
+        Graph<String,Float> graph = new Graph<>(true);
         try {
-        ShortestPaths.loadData(graph,"Exercise4\\italian_dist_graphTest.csv");
-        }catch (IOException | GraphException e){
+        loadData(graph,"Exercise4\\italian_dist_graphTest.csv");
+        }catch (IOException | GraphException | ShortestPathsException e){
             System.out.println(e);
         }
 
         System.out.println("Number of edges: "+graph.getEdgesNum());
         System.out.println("Number of nodes: "+graph.getNodesNum());
-        //graph.printEdges();
 
         System.out.println("");
-
+        
+        ArrayList<String> min = new ArrayList<>();
+        String source = "abadia a isola";
         try {
-            ArrayList<String> min = new ArrayList<>();
-            String s = "torrita";
-            min = ShortestPaths.Dijkstra(graph,s);
-            for(int i = 0; i < min.size(); i++){
-                System.out.println("["+i+"]Distance from: |"+s+"| to: |"+min.get(i)+"| -> "+graph.getAdjList().get(min.get(i)).getDistance());
-            }
-            System.out.println(graph.getNodesNum());
+            min = Dijkstra.dijkstra(graph,source);    
         } catch (GraphException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
+        }
+    
+        for(int i = 0; i < min.size(); i++){
+                System.out.println("["+i+"]Distance from: |"+source+"| to: |"+min.get(i)+"| -> "+graph.getAdjList().get(min.get(i)).getDistance());
         }
 
     }

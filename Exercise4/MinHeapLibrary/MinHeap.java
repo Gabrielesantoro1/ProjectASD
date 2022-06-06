@@ -5,16 +5,16 @@ import java.util.Comparator;
 
 import Exercise4.Graph;
 
-public class MinHeap{
+public class MinHeap<T,W>{
     private int length;
     private int heap_size;
-    private ArrayList<String> array;
-    private Comparator<Float> comparator;
+    private ArrayList<T> array;
+    private Comparator<W> comparator;
 
-    private Graph<String> graph;
+    private Graph<T,W> graph;
 
 
-    public MinHeap(Comparator<Float> comparator, Graph<String> graph){
+    public MinHeap(Comparator<W> comparator, Graph<T,W> graph){
         array = new ArrayList<>();
         this.comparator = comparator;
         this.graph = graph;
@@ -23,7 +23,7 @@ public class MinHeap{
 
     }
 
-    public MinHeap(ArrayList<String> array, Comparator<Float> comparator, Graph<String> graph) {
+    public MinHeap(ArrayList<T> array, Comparator<W> comparator, Graph<T,W> graph) {
         this.array = array;
         this.comparator = comparator;
         this.length = array.size();
@@ -51,7 +51,7 @@ public class MinHeap{
         }
     }
 
-    private void minHeapify(ArrayList<String> array, int i){
+    private void minHeapify(ArrayList<T> array, int i){
         int minimum = i;
         int l = left(i);
         int r = right(i);
@@ -78,7 +78,7 @@ public class MinHeap{
         }
     }
 
-    public void minHeapInsert(String key){
+    public void minHeapInsert(T key){
         setHeapSize(this.getHeapSize()+1);
         int i = getHeapSize();
         array.add(key);        
@@ -86,7 +86,7 @@ public class MinHeap{
         heapDecreaseKey(array.get(i-1),graph.getAdjList().get(key).getDistance());
     }
 
-    public int getIndex(String s){
+    public int getIndex(T s){
         int index = -1;
         for(int i = 0; i < this.getHeapSize();i++){
             if(array.get(i).equals(s)){
@@ -97,7 +97,7 @@ public class MinHeap{
         return index;
     }
 
-    public void heapDecreaseKey(String s, float key) {
+    public void heapDecreaseKey(T s, W key) {
         System.out.println(s);
         int i = getIndex(s);
         if(comparator.compare(key, graph.getAdjList().get(array.get(i)).getDistance() ) > 0){
@@ -111,8 +111,8 @@ public class MinHeap{
         }
     }
 
-    public String heapExtractMin(){
-        String min;
+    public T heapExtractMin(){
+        T min;
         if(getHeapSize() < 0){
             System.out.println("Underflow of heap");
         }
@@ -125,8 +125,8 @@ public class MinHeap{
         return min;
     }
 
-    private void swap(ArrayList<String> array, int i, int y){
-        String tmp = array.get(i);
+    private void swap(ArrayList<T> array, int i, int y){
+        T tmp = array.get(i);
         array.set(i, array.get(y));
         array.set(y, tmp);
     }
@@ -143,7 +143,7 @@ public class MinHeap{
 
     public void setHeapSize(Integer heap_size) {this.heap_size = heap_size;}
 
-    public ArrayList<String> getArray() {return array;}
+    public ArrayList<T> getArray() {return array;}
 
-    public void setArray(ArrayList<String> array) {this.array = array;}
+    public void setArray(ArrayList<T> array) {this.array = array;}
 }

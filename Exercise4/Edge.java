@@ -1,9 +1,9 @@
 package Exercise4;
 
-public class Edge<T> {
+public class Edge<T,W> {
     private T source;
     private T destination;
-    private Float weight;
+    private W label;
     private int index;
 
     public Edge(){}
@@ -13,10 +13,10 @@ public class Edge<T> {
         this.destination = destination;
     }
 
-    public Edge(T source, T destination, Float weight){
+    public Edge(T source, T destination, W label){
         this.source = source;
         this.destination = destination;
-        this.weight = weight;
+        this.label = label;
     }
 
     public T getSource() {
@@ -35,14 +35,13 @@ public class Edge<T> {
         this.destination = destination;
     }
 
-    public Float getWeight() {
-        return weight;
+    public W getLabel() {
+        return label;
     }
 
-    public void setWeight(Float weight) {
-        this.weight = weight;
+    public void setLabel(W label) {
+        this.label = label;
     }
-
 
     public int getIndex() {
         return index;
@@ -53,7 +52,7 @@ public class Edge<T> {
     }
 
     public void print(){
-        System.out.println("From:"+this.getSource()+"->"+this.getDestination()+":"+this.getWeight());
+        System.out.println("From:"+this.getSource()+"->"+this.getDestination()+":"+this.getLabel());
     }
 
     

@@ -6,15 +6,15 @@ import java.util.Random;
 import Exercise4.Edge;
 import Exercise4.Graph;
 import Exercise4.GraphException;
-import Exercise4.ShortestPaths;
+import Exercise4.Dijkstra;
 
 public class TestMinHeap {
     public static void main(String[] args) {
-        Graph<String> graph = new Graph<>(true);
+        Graph<String,Float> graph = new Graph<>(true);
 
-        Edge<String> e1 = new Edge<String>("C", "D", (float)1);  
-        Edge<String> e2 = new Edge<String>("A", "F", (float)2);
-        Edge<String> e3 = new Edge<String>("E", "B", (float)3);
+        Edge<String,Float> e1 = new Edge<>("C", "D", (float)1);  
+        Edge<String,Float> e2 = new Edge<>("A", "F", (float)2);
+        Edge<String,Float> e3 = new Edge<>("E", "B", (float)3);
 
         try {
             graph.addEdge(e1);
@@ -45,7 +45,7 @@ public class TestMinHeap {
         */
         
         try {
-            ArrayList<String> arr = ShortestPaths.Dijkstra(graph, "A");
+            ArrayList<String> arr = Dijkstra.dijkstra(graph, "A");
             for(int i = 0; i < arr.size(); i++){
                 System.out.println("Node "+arr.get(i)+":"+graph.getAdjList().get(arr.get(i)).getDistance());
             }
