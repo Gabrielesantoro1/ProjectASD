@@ -28,7 +28,11 @@ public class MinHeap<T>{
     }
 
     private int parent(int i){
-        return i/2;
+        if(i == 0){
+            return 0;
+        }else{
+            return (i-1)/2;
+        }
     }
 
     private int left(int i){

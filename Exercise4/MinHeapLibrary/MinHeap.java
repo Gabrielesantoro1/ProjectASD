@@ -89,23 +89,15 @@ public class MinHeap<T,W>{
     }
     
     public void heapDecreaseKey(T s, W key) {
-      System.out.println(s);
-      int i = -1;
-      try{
-        i = this.array.indexOf(s);
-      }catch(IndexOutOfBoundsException e){
-      }
-      if(i!=-1){
+      int i = this.array.indexOf(s);
         if(comparator.compare(key, graph.getAdjList().get(array.get(i)).getDistance() ) > 0){
           System.out.println("Key value is bigger then the old one");
           return;
         }
-      //graph.getAdjList().get(array.get(i)).setDistance(key); -> non dobbiamo settare la distanza ma cambiare l'elemento
         while(i > 0 && comparator.compare(graph.getAdjList().get(array.get(i)).getDistance(),graph.getAdjList().get(array.get(parent(i))).getDistance()) < 0){
           swap(array, i, parent(i));
           i = parent(i);
         }
-      }
     }
 
     public T heapExtractMin(){

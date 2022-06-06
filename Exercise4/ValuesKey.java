@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 public class ValuesKey<T,W>{
     private W distance;
+    private T predecessor;
     private LinkedList<Edge<T,W>> edges;
 
     public ValuesKey(){
@@ -18,6 +19,14 @@ public class ValuesKey<T,W>{
     public ValuesKey(W distance, LinkedList<Edge<T,W>> edges){
         this.distance = distance;
         this.edges = edges;
+    }
+
+    public T getPredecessor() {
+      return predecessor;
+    }
+
+    public void setPredecessor(T predecessor) {
+      this.predecessor = predecessor;
     }
 
     public W getDistance() {

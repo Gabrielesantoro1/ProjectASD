@@ -42,17 +42,16 @@ public class Application {
 
         Graph<String,Float> graph = new Graph<>(true);
         try {
-        loadData(graph,"Exercise4\\italian_dist_graph copy.csv");
+        loadData(graph,"Exercise4\\italian_dist_graph.csv");
         }catch (IOException | GraphException e){
             System.out.println(e);
         }
         System.out.println("Number of edges: "+graph.getEdgesNum());
         System.out.println("Number of nodes: "+graph.getNodesNum());
-        //graph.printNodes();
         System.out.println("");
         
         ArrayList<String> min = new ArrayList<>();
-        String source = "catania";
+        String source = "torino";
         Dijkstra dijkstra = new Dijkstra();
         try {
             min = dijkstra.dijkstra(graph, source);    
@@ -64,6 +63,5 @@ public class Application {
           System.out.println("["+i+"]Distance from: |"+source+"| to: |"+min.get(i)+"| -> "+graph.getAdjList().get(min.get(i)).getDistance());
           }
         }
-        System.out.println("Number of nodes: "+graph.getNodesNum());
       }
 }
