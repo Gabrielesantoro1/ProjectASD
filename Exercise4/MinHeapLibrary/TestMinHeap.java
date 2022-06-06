@@ -44,8 +44,9 @@ public class TestMinHeap {
         System.out.println(minus);
         */
         
+        Dijkstra dijkstra = new Dijkstra();
         try {
-            ArrayList<String> arr = Dijkstra.dijkstra(graph, "A");
+            ArrayList<String> arr = dijkstra.dijkstra(graph, "");
             for(int i = 0; i < arr.size(); i++){
                 System.out.println("Node "+arr.get(i)+":"+graph.getAdjList().get(arr.get(i)).getDistance());
             }

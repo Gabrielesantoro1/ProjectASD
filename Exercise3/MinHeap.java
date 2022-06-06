@@ -3,8 +3,6 @@ package Exercise3;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import Exercise4.Node;
-
 public class MinHeap<T>{
     private int length;
     private int heap_size;
@@ -54,14 +52,11 @@ public class MinHeap<T>{
         int l = left(i);
         int r = right(i);
 
-        //System.out.println("minHeapify Minimum: "+ minimum+ " Left: "+l+" Right: "+r);
         if(l < getHeapSize() && comparator.compare(array.get(l), array.get(minimum)) < 0){
             minimum = l;
-            //System.out.println("minimum"+array.get(minimum));
         }
         if(r < getHeapSize() && comparator.compare(array.get(r), array.get(minimum)) < 0){
             minimum = r;
-            //System.out.println("minimum"+array.get(minimum));
         }
         if(minimum != i){
             swap(array, i, minimum);
@@ -106,7 +101,6 @@ public class MinHeap<T>{
         array.remove(array.get(getHeapSize()-1));
         setHeapSize(getHeapSize()-1);
         minHeapify(array, 0);
-
         return min;
     }
 
@@ -134,15 +128,6 @@ public class MinHeap<T>{
             return array.get(leftSonIndx);
         else
             return null;
-    }
-
-    public int getIndexNode(Node<String> node){
-        for(int i = 0; i < this.getArray().size(); i++){
-            if(this.getArray().get(i) == node){
-                return i;
-            }
-        }
-        return -1;
     }
 
     @Override

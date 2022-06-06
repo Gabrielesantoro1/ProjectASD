@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class Application {
 
-    public static void loadData(Graph<String,Float> graph, String filepath) throws IOException, GraphException, ShortestPathsException{
+    public static void loadData(Graph<String,Float> graph, String filepath) throws IOException, GraphException{
         System.out.println("\nLoading data from file...\n");
         
         Path inputFilePath = Paths.get(filepath);
@@ -22,6 +22,7 @@ public class Application {
             String source = lineElements[0];
             String destination = lineElements[1];
             Float distance = Float.valueOf(lineElements[2]);
+
             //to get the absolute (positive) value of distance
             distance = Math.abs(distance);  
     
@@ -41,27 +42,28 @@ public class Application {
 
         Graph<String,Float> graph = new Graph<>(true);
         try {
-        loadData(graph,"Exercise4\\italian_dist_graphTest.csv");
-        }catch (IOException | GraphException | ShortestPathsException e){
+        loadData(graph,"Exercise4\\italian_dist_graph copy.csv");
+        }catch (IOException | GraphException e){
             System.out.println(e);
         }
-
         System.out.println("Number of edges: "+graph.getEdgesNum());
         System.out.println("Number of nodes: "+graph.getNodesNum());
-
+        //graph.printNodes();
         System.out.println("");
         
         ArrayList<String> min = new ArrayList<>();
-        String source = "abadia a isola";
+        String source = "catania";
+        Dijkstra dijkstra = new Dijkstra();
         try {
-            min = Dijkstra.dijkstra(graph,source);    
+            min = dijkstra.dijkstra(graph, source);    
         } catch (GraphException e) {
             e.printStackTrace();
         }
-    
         for(int i = 0; i < min.size(); i++){
-                System.out.println("["+i+"]Distance from: |"+source+"| to: |"+min.get(i)+"| -> "+graph.getAdjList().get(min.get(i)).getDistance());
+          if(graph.getAdjList().get(min.get(i)).getDistance() != Float.MAX_VALUE){  
+          System.out.println("["+i+"]Distance from: |"+source+"| to: |"+min.get(i)+"| -> "+graph.getAdjList().get(min.get(i)).getDistance());
+          }
         }
-
-    }
+        System.out.println("Number of nodes: "+graph.getNodesNum());
+      }
 }

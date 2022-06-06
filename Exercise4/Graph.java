@@ -21,27 +21,26 @@ public class Graph<T,W>{
         this.oriented = oriented; 
     }
 
-    public Graph(Map<T, ValuesKey<T,W>> adjList, Boolean oriented){
-        if(adjList != null){
+    public Graph(Map<T, ValuesKey<T,W>> adjList, Boolean oriented) throws GraphException{
+        if(adjList == null)
+          throw new GraphException("Graph: the adjList parameter is null");
         this.adjList = adjList;
         this.oriented = oriented;
-        }
-            System.err.println("adjList parameter is null");
     }
 
     public void addNode(T node, W distance) throws GraphException{
         if(node == null)
             throw new GraphException("addNode: node parameter is null");
-        if(this.containNode(node))
-            throw new GraphException("");
-        this.adjList.put(node, new ValuesKey<T,W>(distance));
+        if(!this.containNode(node)){
+          this.adjList.put(node, new ValuesKey<T,W>(distance));
+        }
     }
 
     public void addNode(T node) throws GraphException{
         if(node == null)
             throw new GraphException("addNode: node parameter is null");
         if(!this.containNode(node)){
-            this.adjList.put(node, new ValuesKey<T,W>());
+          this.adjList.put(node, new ValuesKey<T,W>());
         }
     }
 
@@ -75,87 +74,84 @@ public class Graph<T,W>{
     }
     
     public Collection<LinkedList<Edge<T,W>>> getEdges(){
-        Collection<LinkedList<Edge<T,W>>> coll = new ArrayList<>();
-        Iterator<T> iter = this.adjList.keySet().iterator();
-
+      Collection<LinkedList<Edge<T,W>>> coll = new ArrayList<>();
+      Iterator<T> iter = this.adjList.keySet().iterator();
         while(iter.hasNext()){
-            coll.add(this.adjList.get(iter.next()).getEdges());
+          coll.add(this.adjList.get(iter.next()).getEdges());
         }
-        return coll;
-
+      return coll;
     }
     
     public Set<T> getNodes(){
-        return this.adjList.keySet();
+      return this.adjList.keySet();
     }
 
     public boolean removeNode(T node) throws GraphException{
-        if(node == null)
-            throw new GraphException("removeNode: node parameter is null");
-        if(!this.containNode(node))
-            throw new GraphException("removeNode: the graph does not conatin the node");
-        boolean result = false;
-        this.adjList.remove(node);
+      if(node == null)
+        throw new GraphException("removeNode: node parameter is null");
+      if(!this.containNode(node))
+        throw new GraphException("removeNode: the graph does not contain the node");
+      boolean result = false;
+      this.adjList.remove(node);
         
-        Collection<LinkedList<Edge<T,W>>> coll = this.getEdges();
-        Iterator<LinkedList<Edge<T,W>>> iter = coll.iterator();
-            while(iter.hasNext()){
-                LinkedList<Edge<T,W>> tmpLL = iter.next();
-                for(int i = 0; i < tmpLL.size(); i++){
-                    if(tmpLL.get(i).getDestination() == node){
-                        tmpLL.remove(i);
-                    }
-                }
+      Collection<LinkedList<Edge<T,W>>> coll = this.getEdges();
+      Iterator<LinkedList<Edge<T,W>>> iter = coll.iterator();
+        while(iter.hasNext()){
+          LinkedList<Edge<T,W>> tmpLL = iter.next();
+          for(int i = 0; i < tmpLL.size(); i++){
+            if(tmpLL.get(i).getDestination() == node){
+              tmpLL.remove(i);
             }
-            result = true;
-        return result;
+          }
+        }
+      result = true;
+      return result;
     }
 
     public boolean removeEdge(Edge<T,W> edge) throws GraphException{
-        if(edge == null)
-            throw new GraphException("removeEdge: edge parameter is null");
-        if(!this.containEdge(edge))
-            throw new GraphException("removeEdge: the graph does not contain the edge");
-        boolean result = false;
-        int indexrev = edge.getIndex();
-        result = this.adjList.get(edge.getSource()).getEdges().remove(edge);
-            if(!this.isOriented()){
-            this.adjList.get(edge.getDestination()).getEdges().remove(indexrev);
-            }
-        return result;
-        
+      if(edge == null)
+        throw new GraphException("removeEdge: edge parameter is null");
+      if(!this.containEdge(edge))
+        throw new GraphException("removeEdge: the graph does not contain the edge");
+      boolean result = false;
+      int indexrev = edge.getIndex();
+      result = this.adjList.get(edge.getSource()).getEdges().remove(edge);
+        if(!this.isOriented()){
+          this.adjList.get(edge.getDestination()).getEdges().remove(indexrev);
+        }
+      return result;  
     }
+
     public int getNodesNum(){
-        return this.adjList.size();
+      return this.adjList.size();
     }
 
     public int getEdgesNum(T node) throws GraphException{
-        if(node == null)
-            throw new GraphException("getEdgesNum: node parameter is null");
-        if(!this.containNode(node))
-            throw new GraphException("getEdgesNum: the graph does not contain the node");
-        return this.adjList.get(node).getEdges().size();
+      if(node == null)
+        throw new GraphException("getEdgesNum: node parameter is null");
+      if(!this.containNode(node))
+        throw new GraphException("getEdgesNum: the graph does not contain the node");
+      return this.adjList.get(node).getEdges().size();
     }
 
     public int getEdgesNum(){
-        Collection<LinkedList<Edge<T,W>>> coll = this.getEdges();
-        Iterator<LinkedList<Edge<T,W>>> iter = coll.iterator();
-        int edgesNum = 0;
-
-        while(iter.hasNext()){
-            edgesNum += iter.next().size();
-        }
-        return edgesNum;
+      Collection<LinkedList<Edge<T,W>>> coll = this.getEdges();
+      Iterator<LinkedList<Edge<T,W>>> iter = coll.iterator();
+      int edgesNum = 0;
+      while(iter.hasNext()){
+        edgesNum += iter.next().size();
+      }
+      return edgesNum;
     }
 
     public W getWeight(Edge<T,W> edge) throws GraphException{
-        if(edge == null)
-            throw new GraphException("getWeight: edge parameter is null");
-        if(!this.containEdge(edge))
-            throw new GraphException("getWeight: the graph does not contain the edge");
-        T key = edge.getSource();
-        Edge<T,W> tmp = this.adjList.get(key).getEdges().get(edge.getIndex());
-        return tmp.getLabel();
+      if(edge == null)
+        throw new GraphException("getWeight: edge parameter is null");
+      if(!this.containEdge(edge))
+        throw new GraphException("getWeight: the graph does not contain the edge");
+      T key = edge.getSource();
+      Edge<T,W> tmp = this.adjList.get(key).getEdges().get(edge.getIndex());
+      return tmp.getLabel();
     }
 
     public boolean containNode(T node) throws GraphException{
@@ -182,6 +178,7 @@ public class Graph<T,W>{
         }
         return null;
     }
+
 
     public void printNodes() {
         Set<T> set = this.getNodes();
@@ -215,8 +212,4 @@ public class Graph<T,W>{
     public void setAdjList(Map<T, ValuesKey<T,W>> adjList) {
         this.adjList = adjList;
     }
-
-    
-    
-
 }
