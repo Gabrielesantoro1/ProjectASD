@@ -28,6 +28,13 @@ public class Graph<T,W>{
       this.oriented = oriented;
     }
 
+    /**
+     * This function adds a node to the graph
+     * 
+     * @param node The node to be added to the graph
+     * @param distance the distance from the node to the current node
+     * @throws GraphException
+     */
     public void addNode(T node, W distance) throws GraphException{
         if(node == null)
             throw new GraphException("addNode: node parameter is null");
@@ -36,6 +43,12 @@ public class Graph<T,W>{
         }
     }
 
+    /**
+     * This function adds a node to the graph
+     * 
+     * @param node The node to be added to the graph.
+     * @throws GraphException
+     */
     public void addNode(T node) throws GraphException{
       if(node == null)
         throw new GraphException("addNode: node parameter is null");
@@ -44,6 +57,12 @@ public class Graph<T,W>{
       }
     }
 
+    /**
+     * This function adds an edge to the graph
+     * 
+     * @param edge the edge to be added to the graph
+     * @throws GraphException
+     */
     public void addEdge(Edge<T,W> edge) throws GraphException{
       if(edge == null)
         throw new GraphException("addEdge: edge parameter is null");
@@ -61,6 +80,14 @@ public class Graph<T,W>{
       }
     }
 
+    /**
+     * This function returns an ArrayList of all the nodes that are adjacent to the node passed in as a
+     * parameter
+     * 
+     * @param node the node to get the adjacent nodes of
+     * @return An ArrayList of the nodes that are adjacent to the node passed in as a parameter.
+     * @throws GraphException
+     */
     public ArrayList<T> adj(T node) throws GraphException{
       if(node == null)
         throw new GraphException("adj: node parameter is null");
@@ -74,6 +101,11 @@ public class Graph<T,W>{
       return destination;
     }
     
+    /**
+     * This function returns a collection of all the edges in the graph
+     * 
+     * @return A collection of linked lists of edges.
+     */
     public Collection<LinkedList<Edge<T,W>>> getEdges(){
       Collection<LinkedList<Edge<T,W>>> coll = new ArrayList<>();
       Iterator<T> iter = this.adjList.keySet().iterator();
@@ -83,10 +115,22 @@ public class Graph<T,W>{
       return coll;
     }
     
+    /**
+     * This function returns a set of all the nodes in the graph
+     * 
+     * @return The set of nodes in the graph.
+     */
     public Set<T> getNodes(){
       return this.adjList.keySet();
     }
 
+    /**
+     * This function removes a node from the graph
+     * 
+     * @param node the node to be removed
+     * @return A boolean value.
+     * @throws GraphException
+     */
     public boolean removeNode(T node) throws GraphException{
       if(node == null)
         throw new GraphException("removeNode: node parameter is null");
@@ -109,6 +153,13 @@ public class Graph<T,W>{
       return result;
     }
 
+    /**
+     * This function removes an edge from the graph
+     * 
+     * @param edge the edge to be removed
+     * @return The method returns a boolean value.
+     * @throws GraphException
+     */
     public boolean removeEdge(Edge<T,W> edge) throws GraphException{
       if(edge == null)
         throw new GraphException("removeEdge: edge parameter is null");
@@ -124,10 +175,22 @@ public class Graph<T,W>{
       return result;  
     }
 
+    /**
+     * This method returns the number of Nodes in the graph
+     * 
+     * @return The number of nodes in the graph.
+     */
     public int getNodesNum(){
       return this.adjList.size();
     }
 
+    /**
+     * This function returns the number of edges that are connected to the node
+     * 
+     * @param node the node to get the number of edges from
+     * @return The number of edges that are connected to the node.
+     * @throws GraphException
+     */
     public int getEdgesNum(T node) throws GraphException{
       if(node == null)
         throw new GraphException("getEdgesNum: node parameter is null");
@@ -136,6 +199,11 @@ public class Graph<T,W>{
       return this.adjList.get(node).getEdges().size();
     }
 
+    /**
+     * This function returns the number of Edges in the graph
+     * 
+     * @return The number of edges in the graph.
+     */
     public int getEdgesNum(){
       Collection<LinkedList<Edge<T,W>>> coll = this.getEdges();
       Iterator<LinkedList<Edge<T,W>>> iter = coll.iterator();
@@ -146,6 +214,13 @@ public class Graph<T,W>{
       return edgesNum;
     }
 
+    /**
+     * This function returns the weight of the edge passed in as a parameter
+     * 
+     * @param edge the edge whose weight is to be returned
+     * @return The weight of the edge.
+     * @throws GraphException
+     */
     public W getWeight(Edge<T,W> edge) throws GraphException{
       if(edge == null)
         throw new GraphException("getWeight: edge parameter is null");
@@ -156,12 +231,26 @@ public class Graph<T,W>{
       return tmp.getLabel();
     }
 
+    /**
+     * This function checks if the graph contains the node passed as a parameter
+     * 
+     * @param node the node to be checked
+     * @throws GraphException
+     */
     public boolean containNode(T node) throws GraphException{
       if(node == null)
         throw new GraphException("containNode: node parameter is null");
       return this.adjList.containsKey(node);
     }
 
+    /**
+     * 
+     * 
+     * This function checks if the graph contains the edge passed as a parameter
+     * 
+     * @param edge the edge to be checked
+     * @throws GraphException
+     */
     public boolean containEdge(Edge<T,W> edge) throws GraphException{
         if(edge == null)
             throw new GraphException("containEdge: edge parameter is null");
@@ -172,10 +261,22 @@ public class Graph<T,W>{
         return this.adjList.get(edge.getSource()).getEdges().contains(edge);
     }
 
+    /**
+     * This function returns true if the graph is oriented, false otherwise
+     * 
+     * @return The boolean value of the variable oriented.
+     */
     public boolean isOriented(){
       return this.oriented;
     }
 
+    /**
+     * This function returns the edge between the source and destination vertices
+     * 
+     * @param source The source vertex
+     * @param destination The destination vertex of the edge
+     * @return The edge between the source and destination.
+     */
     public Edge<T,W> getEdge(T source, T destination){
       for(int i = 0; i < this.adjList.get(source).getEdges().size(); i++){
         if(this.adjList.get(source).getEdges().get(i).getDestination() == destination){
@@ -185,16 +286,22 @@ public class Graph<T,W>{
       return null;
     }
 
+    /**
+     * This function prints out all the nodes in the graph
+     */
     public void printNodes() {
       Set<T> set = this.getNodes();
       Iterator<T> iter = set.iterator();
         while(iter.hasNext()){
           T node = iter.next();
           System.out.println(node);
-          //System.out.println("distance: "+this.adjList.get(node).getDistance());
+          
         }
     }
 
+    /**
+     * It prints the edges of the graph
+     */
     public void printEdges() {
       Collection<LinkedList<Edge<T,W>>> coll = this.getEdges();
       Iterator<LinkedList<Edge<T,W>>> iter = coll.iterator();
