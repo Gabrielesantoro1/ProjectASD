@@ -1,7 +1,6 @@
 package Exercise3.src;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertArrayEquals;
 
 import org.junit.Test;
 import org.junit.Before;
