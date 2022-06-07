@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import Exercise4.Edge;
-import Exercise4.ValuesKey;
+import Exercise4.graph.*;
 
 import org.junit.Test;
 import org.junit.Before;

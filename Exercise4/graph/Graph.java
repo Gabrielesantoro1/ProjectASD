@@ -172,7 +172,7 @@ public class Graph<T,W>{
         return this.adjList.get(edge.getSource()).getEdges().contains(edge);
     }
 
-    private boolean isOriented(){
+    public boolean isOriented(){
       return this.oriented;
     }
 
