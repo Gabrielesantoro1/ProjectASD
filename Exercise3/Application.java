@@ -1,134 +1,112 @@
 package Exercise3;
 
+import java.util.ArrayList;
+import java.util.Random;
 
 import Exercise3.src.ComparatorInteger;
+import Exercise3.src.ComparatorString;
 import Exercise3.src.MinHeap;
+import Exercise3.src.MinHeapException;
 
 /**
- * Application class where it s possible to try our library MinHeap
- * 
+ * Application class where it is possible to try our library MinHeap
  */
 public class Application {
     public static void main(String[] args) {
         /**
          * MinHeap for Integer data
-         * 
          */
-
-        /*
         ComparatorInteger compInt = new ComparatorInteger();
-        int j = 0;
-        Random r = new Random(); 
+        Random r = new Random();
+
+        ArrayList<Integer> array = new ArrayList<>();
         for(int k = 0; k<135; k++){
-            ArrayList<Integer> array = new ArrayList<>();
-            j = j + 500000;
-                for(int i = 0; i < j; i++){
-                array.add(r.nextInt());
-            }
-            System.out.println("Array size:" + array.size());
-            MinHeap<Integer> heap = new MinHeap<>(array, compInt);
+          array.add(r.nextInt(200)+1);    
         }
-        */
 
+        System.out.println("Before build min heap:");
+        System.out.println(array.toString());
+        System.out.println("Array size:" + array.size());
+        System.out.println("\n");
 
+        try{
+        MinHeap<Integer> heap = new MinHeap<>(compInt);
+        heap.setArray(array);
 
+        int x = -1;
+        System.out.println("After insert new element:"+x);
+        heap.minHeapInsert(x);
+        System.out.println(heap.toString());
+        System.out.println("Heap size:"+heap.getHeapSize());
 
-        MinHeap<Integer> min2 = new MinHeap<>(new ComparatorInteger());
+        System.out.println("\n");
 
-        min2.minHeapInsert(22);
-        min2.minHeapInsert(7);
-        min2.minHeapInsert(17);
-        min2.minHeapInsert(12);
-        min2.minHeapInsert(18);
-        min2.minHeapInsert(5);
-        min2.minHeapInsert(6);
+        System.out.println("After decreased element in index:"+1);
+        heap.heapDecreaseKey(1, -1);
+        System.out.println(heap.toString());
+        System.out.println("Heap size:"+heap.getHeapSize());
 
-        System.out.println(min2.toString());
+        System.out.println("\n");
 
+        System.out.println("Extraction of the min value of the heap:");
+        System.out.println(heap.heapExtractMin());
+        System.out.println(heap.toString());
+        System.out.println("Heap size:"+heap.getHeapSize());
 
-        // System.out.println("\n");
+        }catch(MinHeapException e){
+          e.printStackTrace();
+        }
+        System.out.println("");
 
-        // int x = -1;
-        // System.out.println("After insert new element:"+x);
-        // heap.minHeapInsert(x);
-        // System.out.println(heap.toString());
-        // System.out.println("Heap size:"+heap.getHeapSize());
+        /**
+         * MinHeap for String data 
+         */
+        ComparatorString compStr = new ComparatorString();
+        ArrayList<String> array_str = new ArrayList<>();
+        array_str.add("AAABC");
+        array_str.add("SDFAD");
+        array_str.add("asdasd");
+        array_str.add("adhfdbs");
+        array_str.add("arrrra");
 
-        // System.out.println("\n");
+        System.out.println("Before build min heap:");
+        System.out.println(array_str.toString());
+        System.out.println("Array size:"+array_str.size());
 
-        // System.out.println("After decreased element in index:"+1);
-        // heap.heapDecreaseKey(1, -1);
-        // System.out.println(heap.toString());
-        // System.out.println("Heap size:"+heap.getHeapSize());
-
-        // System.out.println("\n");
-
-        // System.out.println("Extraction of the min value of the heap:");
-        // System.out.println(heap.heapExtractMin());
-        // System.out.println(heap.toString());
-        // System.out.println("Heap size:"+heap.getHeapSize());
-
-        // System.out.println("");
-
-        // System.out.println("Creation and adding of an minHeap empty:");
-        // MinHeap<Integer> heap2 = new MinHeap<>(compInt);
-        // System.out.println(heap2.toString());
-        // heap2.minHeapInsert(3);
-        // heap2.minHeapInsert(56);
-        // heap2.minHeapInsert(1);
-        // heap2.minHeapInsert(-3);
-        // heap2.minHeapInsert(6);
-        // System.out.println(heap2.toString());
-        // System.out.println("Heap size:"+heap.getHeapSize());
-
-        // System.out.println("");
-
-        // /**
-        //  * MinHeap for String data 
-        //  */
-        // ComparatorString compStr = new ComparatorString();
-        // ArrayList<String> array_str = new ArrayList<>();
-
-        // array_str.add("a");
-        // array_str.add("b");
-        // array_str.add("c");
-        // array_str.add("d");
-        // array_str.add("h");
-
-        // System.out.println("Before build min heap:");
-        // System.out.println(array_str.toString());
-        // System.out.println("Array size:"+array_str.size());
-
-        // System.out.println("");
-
-        // MinHeap<String> heap_str = new MinHeap<>(array_str, compStr);
-        // heap_str.buildMinHeap();
-        // System.out.println("After build min heap:");
-        // System.out.println(heap_str.toString());
-        // System.out.println("Heap size:"+heap_str.getHeapSize());
+        System.out.println("");
+        try{
+        MinHeap<String> heap_str = new MinHeap<>(compStr);
+        heap_str.setArray(array_str);
+        heap_str.buildMinHeap();
+        System.out.println("After build min heap:");
+        System.out.println(heap_str.toString());
+        System.out.println("Heap size:"+heap_str.getHeapSize());
         
-        // System.out.println("");
+        System.out.println("");
 
-        // String s = "z";
-        // System.out.println("After insert new element:"+s);
-        // heap_str.minHeapInsert(s);
-        // System.out.println(heap_str.toString());
-        // System.out.println("Heap size:"+heap_str.getHeapSize());
+        String s = "z";
+        System.out.println("After insert new element:"+s);
+        heap_str.minHeapInsert(s);
+        System.out.println(heap_str.toString());
+        System.out.println("Heap size:"+heap_str.getHeapSize());
 
-        // System.out.println("\n");
+        System.out.println("\n");
 
-        // System.out.println("After decreased element in index:"+1);
-        // heap_str.heapDecreaseKey(1, "f");
-        // System.out.println(heap_str.toString());
-        // System.out.println("Heap size:"+heap_str.getHeapSize());
+        System.out.println("After decreased element in index:"+1);
+        heap_str.heapDecreaseKey(1, "z");
+        System.out.println(heap_str.toString());
+        System.out.println("Heap size:"+heap_str.getHeapSize());
 
-        // System.out.println("\n");
+        System.out.println("\n");
 
-        // System.out.println("Extraction of the min value of the heap:");
-        // System.out.println(heap_str.heapExtractMin());
-        // System.out.println(heap_str.toString());
-        // System.out.println("Heap size:"+heap_str.getHeapSize());
-
-        // System.out.println("");
+        System.out.println("Extraction of the min value of the heap:");
+        System.out.println(heap_str.heapExtractMin());
+        System.out.println(heap_str.toString());
+        System.out.println("Heap size:"+heap_str.getHeapSize());
+        
+        }catch(MinHeapException e){
+          e.printStackTrace();
+        }
+        System.out.println("");
     }
 }
