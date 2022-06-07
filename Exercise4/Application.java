@@ -63,6 +63,7 @@ public class Application {
         if(graph.getAdjList().get(min.get(i)).getDistance() != Float.MAX_VALUE){  
         System.out.println("["+i+"]Distance from: |"+source+"| to: |"+min.get(i)+"| -> "+graph.getAdjList().get(min.get(i)).getDistance());
         }
+
       }
   }
 }
