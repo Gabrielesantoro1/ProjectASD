@@ -6,7 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-
 public class Application {
 
     public static void loadData(Graph<String,Float> graph, String filepath) throws IOException, GraphException{
@@ -63,5 +62,6 @@ public class Application {
           System.out.println("["+i+"]Distance from: |"+source+"| to: |"+min.get(i)+"| -> "+graph.getAdjList().get(min.get(i)).getDistance());
           }
         }
+
       }
 }

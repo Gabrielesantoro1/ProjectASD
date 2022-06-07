@@ -163,6 +163,10 @@ public class Graph<T,W>{
     public boolean containEdge(Edge<T,W> edge) throws GraphException{
         if(edge == null)
             throw new GraphException("containEdge: edge parameter is null");
+        if(!this.containNode(edge.getSource()))
+          throw new GraphException("containEdge: source node is null");
+        if(!this.containNode(edge.getDestination()))
+          throw new GraphException("containEdge: dest node is null");
         return this.adjList.get(edge.getSource()).getEdges().contains(edge);
     }
 
