@@ -1,19 +1,21 @@
 package Exercise3;
 
-import java.util.ArrayList;
-import java.util.Random;
+
+import Exercise3.src.ComparatorInteger;
+import Exercise3.src.MinHeap;
 
 /**
  * Application class where it s possible to try our library MinHeap
  * 
  */
 public class Application {
-    
     public static void main(String[] args) {
         /**
          * MinHeap for Integer data
          * 
          */
+
+        /*
         ComparatorInteger compInt = new ComparatorInteger();
         int j = 0;
         Random r = new Random(); 
@@ -26,6 +28,23 @@ public class Application {
             System.out.println("Array size:" + array.size());
             MinHeap<Integer> heap = new MinHeap<>(array, compInt);
         }
+        */
+
+
+
+
+        MinHeap<Integer> min2 = new MinHeap<>(new ComparatorInteger());
+
+        min2.minHeapInsert(22);
+        min2.minHeapInsert(7);
+        min2.minHeapInsert(17);
+        min2.minHeapInsert(12);
+        min2.minHeapInsert(18);
+        min2.minHeapInsert(5);
+        min2.minHeapInsert(6);
+
+        System.out.println(min2.toString());
+
 
         // System.out.println("\n");
 

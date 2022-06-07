@@ -3,7 +3,7 @@ package Exercise4.MinHeapLibrary;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import Exercise4.Graph;
+import Exercise4.graph.Graph;
 
 public class MinHeap<T,W>{
     private int length;

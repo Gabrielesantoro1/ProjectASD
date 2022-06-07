@@ -1,6 +1,4 @@
-package Exercise3;
-
-import Exercise3.ComparatorInteger;
+package Exercise3.src;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertArrayEquals;

@@ -1,4 +1,4 @@
-package Exercise3;
+package Exercise3.src;
 
 import java.util.Comparator;
 
