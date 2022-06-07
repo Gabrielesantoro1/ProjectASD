@@ -235,6 +235,7 @@ public class Graph<T,W>{
      * This function checks if the graph contains the node passed as a parameter
      * 
      * @param node the node to be checked
+     * @return true if the graph contains the node, false otherwise
      * @throws GraphException
      */
     public boolean containNode(T node) throws GraphException{
@@ -249,6 +250,7 @@ public class Graph<T,W>{
      * This function checks if the graph contains the edge passed as a parameter
      * 
      * @param edge the edge to be checked
+     * @return true if the edge is in the graph, false otherwise
      * @throws GraphException
      */
     public boolean containEdge(Edge<T,W> edge) throws GraphException{
