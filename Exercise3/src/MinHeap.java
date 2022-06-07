@@ -146,10 +146,8 @@ public class MinHeap<T>{
     public void heapDecreaseKey(int i, T key) throws MinHeapException {
       if(i < 0)
         throw new MinHeapException("heapDecreaseKey: i parameter is negative");
-      if(comparator.compare(key, array.get(i)) > 0){
-        System.out.println("Key value is bigger then the old one");
-        return;
-      }
+      if(comparator.compare(key, array.get(i)) > 0)
+        throw new MinHeapException("heapDecreaseKey: key value is minor then the precedent");
       array.set(i, key);
       while(i > 0 && comparator.compare(array.get(i), array.get(parent(i))) < 0){
         swap(array, i, parent(i));
@@ -164,16 +162,15 @@ public class MinHeap<T>{
      * @throws MinHeapException
      */
     public T heapExtractMin() throws MinHeapException{
-        T min;
-        if(getHeapSize() < 0){
-            System.out.println("Underflow of heap");
-        }
-        min = array.get(0);
-        array.set(0, array.get(getHeapSize()-1));
-        array.remove(array.get(getHeapSize()-1));
-        setHeapSize(getHeapSize()-1);
-        minHeapify(array, 0);
-        return min;
+      T min;
+      if(getHeapSize() < 0)
+        throw new MinHeapException("heapExcractMin: underflow of heap");
+      min = array.get(0);
+      array.set(0, array.get(getHeapSize()-1));
+      array.remove(array.get(getHeapSize()-1));
+      setHeapSize(getHeapSize()-1);
+      minHeapify(array, 0);
+      return min;
     }
 
     /**

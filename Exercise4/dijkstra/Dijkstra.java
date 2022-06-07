@@ -2,13 +2,13 @@ package Exercise4.dijkstra;
 
 import java.util.ArrayList;
 
+import Exercise4.MinHeapLib.*;
 import Exercise4.graph.Graph;
 import Exercise4.graph.GraphException;
-import Exercise4.MinHeapLibrary.*;
 
 public class Dijkstra{
 
-  public ArrayList<String> dijkstra(Graph<String,Float> graph, String s) throws GraphException{
+  public ArrayList<String> dijkstra(Graph<String,Float> graph, String s) throws GraphException, MinHeapException{
     initialize(graph);
     graph.getAdjList().get(s).setDistance((float)0);
 
@@ -37,7 +37,7 @@ public class Dijkstra{
     }
   }
 
-  private boolean relax(String minimum, String adiacent, Graph<String,Float> graph, MinHeap<String,Float> Q) throws GraphException{
+  private boolean relax(String minimum, String adiacent, Graph<String,Float> graph, MinHeap<String,Float> Q) throws GraphException, MinHeapException{
     boolean relaxed = false;
     float adiacent_distance = graph.getAdjList().get(adiacent).getDistance(); 
     float minimum_distance =  graph.getAdjList().get(minimum).getDistance();

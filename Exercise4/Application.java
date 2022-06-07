@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import Exercise4.MinHeapLib.MinHeapException;
 import Exercise4.dijkstra.Dijkstra;
 import Exercise4.graph.Edge;
 import Exercise4.graph.Graph;
@@ -56,7 +57,7 @@ public class Application {
       Dijkstra dijkstra = new Dijkstra();
       try {
         min = dijkstra.dijkstra(graph, source);    
-      } catch (GraphException e) {
+      } catch (GraphException | MinHeapException e) {
         e.printStackTrace();
       }
       for(int i = 0; i < min.size(); i++){
