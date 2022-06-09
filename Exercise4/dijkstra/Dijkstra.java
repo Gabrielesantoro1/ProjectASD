@@ -3,6 +3,7 @@ package Exercise4.dijkstra;
 import java.util.ArrayList;
 
 import Exercise4.MinHeapLib.*;
+import Exercise4.graph.Edge;
 import Exercise4.graph.Graph;
 import Exercise4.graph.GraphException;
 
@@ -76,6 +77,21 @@ public class Dijkstra{
       relaxed = true;
     }
     return relaxed;
+  }
+
+  public void shortestPath(String src, String dst, Graph<String,Float> graph) throws GraphException{
+    Graph<String,Float> shortestPathGraph = new Graph<>(true);
+    String destination = dst;
+    String predecessor = null;
+    Float totalDistance = graph.getAdjList().get(destination).getDistance();
+    while(!destination.equals(src)){
+      predecessor = graph.getAdjList().get(destination).getPredecessor();
+      System.out.println("destination: "+destination+" <- predecessor: "+predecessor);
+      shortestPathGraph.addEdge(new Edge<String,Float>(predecessor, destination));
+      destination = predecessor;
+    }
+    System.out.println("");
+    System.out.println(totalDistance/1000+" kilometers to get from "+src+" to " +dst);
   }
 
     

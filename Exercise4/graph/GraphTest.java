@@ -1,4 +1,4 @@
-package Exercise4;
+package Exercise4.graph;
 
 import static org.junit.Assert.assertTrue;
 
