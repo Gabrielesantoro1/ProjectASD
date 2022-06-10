@@ -7,24 +7,17 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import Exercise4.graph.*;
 
 import org.junit.Test;
 import org.junit.Before;
 
 public class GraphTest{
     private String s1, s2, s3, s4;
-    private Float f1, f2, f3, f4;
     private Graph<String, Float> orientedGraph;
     private Graph<String, Float> not_orientedGraph;
 
     @Before
     public void createGraph() throws Exception{
-        f1= 1f;
-        f2 = 2f;
-        f3 = 3f;
-        f4 = 4f;
-
         s1 = "a";
         s2 = "b";
         s3 = "c";

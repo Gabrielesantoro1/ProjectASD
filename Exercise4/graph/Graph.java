@@ -294,10 +294,11 @@ public class Graph<T,W>{
     public void printNodes() {
       Set<T> set = this.getNodes();
       Iterator<T> iter = set.iterator();
+      int counter = -1;
         while(iter.hasNext()){
           T node = iter.next();
-          System.out.println(node);
-          
+          System.out.println("node["+counter+"]: "+node);
+          counter++;
         }
     }
 

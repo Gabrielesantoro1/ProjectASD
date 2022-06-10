@@ -52,7 +52,7 @@ public class Edge<T,W> {
     }
 
     public void print(){
-        System.out.println("From:"+this.getSource()+"->"+this.getDestination()+":"+this.getLabel());
+        System.out.println("From:"+this.getSource()+"-> to: "+this.getDestination()+" distance: "+this.getLabel());
     }
 
     

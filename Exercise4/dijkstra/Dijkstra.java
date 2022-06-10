@@ -3,7 +3,6 @@ package Exercise4.dijkstra;
 import java.util.ArrayList;
 
 import Exercise4.MinHeapLib.*;
-import Exercise4.graph.Edge;
 import Exercise4.graph.Graph;
 import Exercise4.graph.GraphException;
 
@@ -19,7 +18,9 @@ public class Dijkstra{
    * @throws GraphException
    * @throws MinHeapException
    */
-  public ArrayList<String> dijkstra(Graph<String,Float> graph, String s) throws GraphException, MinHeapException{
+  public Graph<String,Float> dijkstra(Graph<String,Float> graph, String s) throws GraphException, MinHeapException{
+    Graph<String, Float> shortestPathGraph = new Graph<>(true);
+
     initialize(graph);
     graph.getAdjList().get(s).setDistance((float)0);
 
@@ -27,18 +28,17 @@ public class Dijkstra{
     MinHeap<String,Float> Q = new MinHeap<>(new ArrayList<String>(graph.getNodes()), comparator, graph);
     Q.buildMinHeap();
 
-    ArrayList<String> S = new ArrayList<>();
-    
     while(!Q.getArray().isEmpty()){
       String minimum = Q.heapExtractMin();
-      S.add(minimum);
       for (String adiacent : graph.adj(minimum)) {
         if(Q.getArray().contains(adiacent)){ 
-          relax(minimum, adiacent, graph, Q);
+          if(relax(minimum, adiacent, graph, Q)){
+            shortestPathGraph.addEdge(graph.getEdge(minimum,adiacent));
+          }
         }
       }
     }
-  return S;
+  return shortestPathGraph;
 }
 
   /**
@@ -79,15 +79,21 @@ public class Dijkstra{
     return relaxed;
   }
 
-  public void shortestPath(String src, String dst, Graph<String,Float> graph) throws GraphException{
-    Graph<String,Float> shortestPathGraph = new Graph<>(true);
+  /**
+   * This function prints the path from the source to the destination, and the total distance from the
+   * source to the destination
+   * 
+   * @param src the source node
+   * @param dst destination
+   * @param graph the graph object
+   */
+  public void printPath(String src, String dst, Graph<String,Float> graph) throws GraphException{
     String destination = dst;
     String predecessor = null;
     Float totalDistance = graph.getAdjList().get(destination).getDistance();
     while(!destination.equals(src)){
       predecessor = graph.getAdjList().get(destination).getPredecessor();
       System.out.println("destination: "+destination+" <- predecessor: "+predecessor);
-      shortestPathGraph.addEdge(new Edge<String,Float>(predecessor, destination));
       destination = predecessor;
     }
     System.out.println("");
