@@ -30,12 +30,11 @@ public class Dijkstra{
 
     while(!Q.getArray().isEmpty()){
       String minimum = Q.heapExtractMin();
+      graph.getAdjList().get(minimum).setFlag(false);
       for (String adiacent : graph.adj(minimum)) {
-        if(Q.getArray().contains(adiacent)){ 
-          if(relax(minimum, adiacent, graph, Q)){
+        if(graph.getAdjList().get(adiacent).isFlag())
+          if(relax(minimum, adiacent, graph, Q))
             shortestPathGraph.addEdge(graph.getEdge(minimum,adiacent));
-          }
-        }
       }
     }
   return shortestPathGraph;
