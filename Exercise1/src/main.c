@@ -166,7 +166,7 @@ static void test_quicksort_with_comparison_function(const char* file_name, int (
     Array_Struct* array = array_create();
     load_array(file_name, array);
     clock_t before = clock();
-    quick_sort(array, compare, 0 ,(array_size(array)-1),crit);
+    quick_sort_algo(array, compare, 0 ,(array_size(array)-1),crit);
     clock_t difference = clock() - before;
     double sec = ((double)difference) / CLOCKS_PER_SEC;
     
@@ -190,7 +190,6 @@ static void test_insertionsort_with_comparison_function(const char* file_name, i
 }
 
  //REAL MAIN
- /*
 int main(int argc){
     char* record;
     printf("Insert the reocord path to order: ");
@@ -257,8 +256,8 @@ int main(int argc){
     }
     return (EXIT_SUCCESS);
 }
-*/
 
+/*
 //TEST MAIN
 int main(int argc){
     DIR *d;
@@ -271,7 +270,8 @@ int main(int argc){
                 test_quicksort_with_comparison_function(dir->d_name,precedes_record_int_field,0);
             }
         }
-        closedir(d);
+        cbinlosedir(d);
     }
     return(0);
 }
+*/

@@ -1,5 +1,5 @@
-CC = gcc
-all: bin/main bin/array bin/array_tests
+CC  gcc
+all: bin/array bin/array_tests
 
 INCLUDES = src/*.h
 

@@ -138,7 +138,7 @@ static void test_quicksort_with_array_int(void){
   array_struct_add(array_struct,&i2);
   array_struct_add(array_struct,&i1);
   array_struct_add(array_struct,&i3);
-  quick_sort(array_struct,precedes_int,0,2,0);
+  quick_sort_algo(array_struct,precedes_int,0,2,0);
   int** act_arr = malloc(3*sizeof(int*));
   for(unsigned long i=0;i<3;i++)
     act_arr[i] = (int*)array_get(array_struct,i);
@@ -150,7 +150,7 @@ static void test_quicksort_with_array_float(void){
   array_struct_add(array_struct,&f1);
   array_struct_add(array_struct,&f3);
   array_struct_add(array_struct,&f2);
-  quick_sort(array_struct,precedes_float,0,2,0);
+  quick_sort_algo(array_struct,precedes_float,0,2,0);
   float** act_arr = malloc(3*sizeof(float*));
   for(unsigned long i=0;i<3;i++)
     act_arr[i] = (float*)array_get(array_struct,i);
@@ -163,7 +163,7 @@ static void test_quicksort_with_array_string(void){
   array_struct_add(array_struct,&s1);
   array_struct_add(array_struct,&s2);
   array_struct_add(array_struct,&s3);
-  quick_sort(array_struct,precedes_string,0,2,0);
+  quick_sort_algo(array_struct,precedes_string,0,2,0);
   char** act_arr = malloc(3*sizeof(char*));
   for(unsigned long i=0;i<3;i++)
     act_arr[i] = (char*)array_get(array_struct,i);

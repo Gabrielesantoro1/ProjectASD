@@ -115,7 +115,7 @@ void* array_get(Array_Struct *array_struct, unsigned long i){
       exit(EXIT_FAILURE);
     }
     if(i>=array_struct->el_num){
-      fprintf(stderr,"array_get: Index out of the array bounds",i);
+      fprintf(stderr,"array_get: Index out of the array bounds");
       exit(EXIT_FAILURE);
     }
     return(array_struct->array)[i];

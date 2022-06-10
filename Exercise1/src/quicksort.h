@@ -6,4 +6,4 @@ int FirstPartition(Array_Struct *array_struct, int (*precedes)(void*,void*), lon
 
 int RandomizedPartition(Array_Struct *array_struct, int (*precedes)(void*,void*), long first, long last);
 
-void quick_sort(Array_Struct *array_struct, int (*precedes)(void*,void*), long p, long r, long crit);
+void quick_sort_algo(Array_Struct *array_struct, int (*precedes)(void*,void*), long p, long r, long crit);

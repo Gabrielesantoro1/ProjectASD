@@ -82,7 +82,7 @@ int RandomizedPartition(Array_Struct *array_struct, int (*precedes)(void*,void*)
  * @param r last index range of array
  * @param crit pivot chosen (0:first - 1:last - 2:random)
  */
-void quick_sort(Array_Struct *array_struct, int (*precedes)(void*,void*), long p, long r, long crit){
+void quick_sort_algo(Array_Struct *array_struct, int (*precedes)(void*,void*), long p, long r, long crit){
     long q;
     srand(time(NULL));
     if(p<r){
@@ -91,20 +91,20 @@ void quick_sort(Array_Struct *array_struct, int (*precedes)(void*,void*), long p
         case 0:
             q = FirstPartition(array_struct, precedes, p, r);
             //printf("First %d - Last %d - Q %d\n",p,r,q);
-            quick_sort(array_struct, precedes, p, q-1, crit);
-            quick_sort(array_struct, precedes, q+1, r, crit);
+            quick_sort_algo(array_struct, precedes, p, q-1, crit);
+            quick_sort_algo(array_struct, precedes, q+1, r, crit);
             break;
         case 1:
             q = LastPartition(array_struct, precedes, p, r);
             //printf("First %d - Last %d - Q %d\n",p,r,q);
-            quick_sort(array_struct, precedes, p, q-1, crit);
-            quick_sort(array_struct, precedes, q+1, r, crit);
+            quick_sort_algo(array_struct, precedes, p, q-1, crit);
+            quick_sort_algo(array_struct, precedes, q+1, r, crit);
             break;
         case 2:
             q = RandomizedPartition(array_struct, precedes, p, r);
             //printf("First %d - Last %d - Q %d\n",p,r,q);
-            quick_sort(array_struct, precedes, p, q-1, crit);
-            quick_sort(array_struct, precedes, q+1, r, crit);
+            quick_sort_algo(array_struct, precedes, p, q-1, crit);
+            quick_sort_algo(array_struct, precedes, q+1, r, crit);
             break;
         default:
             fprintf(stderr,"ERRORE CRIT");

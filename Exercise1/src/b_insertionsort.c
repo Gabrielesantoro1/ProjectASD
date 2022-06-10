@@ -28,6 +28,7 @@ long b_search(Array_Struct *array_struct, void *item, long low, long max, int (*
             b_search(array_struct, item, mid+1, max, precedes);
         }
     }
+    return(EXIT_FAILURE);
 }
  
 /**
