@@ -179,8 +179,9 @@ int sizeSkipList(SkipList *skiplist){
     if(tmp->next[0] == NULL){
         return size;
     }else{
+        size = 1;
         tmp = tmp->next[0];
-        while(tmp != NULL){
+        while(tmp->next[0] != NULL){
             size = size + 1;
             tmp = tmp->next[0];
         }
@@ -208,7 +209,6 @@ void freeSkipList(SkipList *skiplist){
                 }
             }
         }
-        printf("\nSkiplist has been free\n");
     }
 }
 

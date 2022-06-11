@@ -61,21 +61,7 @@ static SkipList* load_dictionary(const char* file_name, int (*compare)(void*,voi
         free(read_line);
     }
     fclose(fp);
-    //printf("\nDictionary loaded.\n");
     return skiplist;
-}
-
-void writeinfile(double sec, char* filename){
-    int i;
-    char output[50];
-    snprintf(output, 50, "%f", sec);
-        FILE * fptr;        
-        fptr = fopen(filename, "a");
-        for (i = 0; i < strlen(output); i++) {
-            fputc(output[i], fptr);
-        }
-        fputc('\n',fptr);
-        fclose(fptr);
 }
 
 static char* cleaning_word(char *word){
@@ -124,7 +110,6 @@ static List* load_correctme(const char* file_name){
         }
     }
     fclose(fp);
-    //printf("\nCorrectme loaded.\n");
     return list_reverse(list);
 }
 
@@ -169,17 +154,10 @@ static void test_with_comparison_function(const char* dictionary_file_name, cons
     check_correctme(dictionary,correctme);
     clock_t after_nCheck = clock();
     double sec_nCheck = (double)(after_nCheck-before_nCheck) / CLOCKS_PER_SEC;
-    writeinfile(sec_nCheck, "correction_normal.txt");
-
-    clock_t before_mCheck = clock();
-    check_correctme_modified(dictionary,correctme);
-    clock_t after_mCheck = clock();
-    double sec_mCheck = (double)(after_mCheck-before_mCheck) / CLOCKS_PER_SEC;
 
     printf("The value of max height was: %d",dictionary->max_level);
     printf("\n");
-    
-    //Free of the memory section
+
     list_free(correctme);
     freeSkipList(dictionary);
     printf("Memory is free\n");
@@ -224,6 +202,5 @@ static void test_with_comparison_function_modified(const char* dictionary_file_n
 void main(int argc, char *argv[]){
     char* dictionary = argv[1];
     char* correctme = argv[2];
-    for(int i = 0; i<25; i++)
-        test_with_comparison_function(dictionary, correctme, precedes_string);
+    test_with_comparison_function(dictionary, correctme, precedes_string);
 }
