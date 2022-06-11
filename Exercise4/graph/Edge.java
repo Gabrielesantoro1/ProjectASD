@@ -1,4 +1,4 @@
-package Exercise4.graph;
+package graph;
 
 public class Edge<T,W> {
     private T source;

@@ -1,4 +1,4 @@
-package Exercise4.dijkstra;
+package dijkstra;
 
 public class DijkstraException extends Exception {
   public DijkstraException(String message){

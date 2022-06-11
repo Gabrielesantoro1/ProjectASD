@@ -4,11 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-import Exercise3.src.ComparatorInteger;
-import Exercise3.src.ComparatorString;
-import Exercise3.src.MinHeap;
-import Exercise3.src.MinHeapException;
-
 /**
  * Application class where it is possible to try our library MinHeap
  */
@@ -45,7 +40,7 @@ public class Application {
             while(choice){
               System.out.println("");
               System.out.println("What function of the heap would you like to try? The possible choices are:" );
-              System.out.println("- 'in' for insert; \n- 'ex' for extractMin; \n- 'dec' for DecreaseKey; \n- 'getp' for getFather; \n- 'getl' for GetLeft; \n- 'getr' for GetRight ");
+              System.out.println("in for insert; ex for extractMin; dec for DecreaseKey; getp for getFather; getl for GetLeft; getr for GetRight ");
               System.out.println("If you want to exit write exit");
               String fun = scannerStr.nextLine();
   

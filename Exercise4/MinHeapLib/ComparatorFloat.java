@@ -1,4 +1,4 @@
-package Exercise4.MinHeapLib;
+package MinHeapLib;
 
 import java.util.Comparator;
 

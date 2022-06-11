@@ -1,9 +1,9 @@
-package Exercise4.MinHeapLib;
+package MinHeapLib;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import Exercise4.graph.Graph;
+import graph.Graph;
 
 public class MinHeap<T,W>{
     private int length;

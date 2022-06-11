@@ -1,5 +1,3 @@
-package Exercise4;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -7,11 +5,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
-import Exercise4.MinHeapLib.MinHeapException;
-import Exercise4.dijkstra.Dijkstra;
-import Exercise4.graph.Edge;
-import Exercise4.graph.Graph;
-import Exercise4.graph.GraphException;
+import MinHeapLib.MinHeapException;
+import dijkstra.Dijkstra;
+import graph.Edge;
+import graph.Graph;
+import graph.GraphException;
 
 public class Application {
 
@@ -41,13 +39,16 @@ public class Application {
 
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
+    System.out.println("Hello, insert the path name of the dataset");
+    String pathname = scanner.nextLine();
+
     System.out.println("Hello, type the string name of the source:");
     String source = scanner.nextLine();
     System.out.println("Now the data are going to be loaded in the graph");
 
     Graph<String,Float> graph = new Graph<>(true);
     try {
-      loadData(graph,"Exercise4\\records\\italian_dist_graph.csv");
+      loadData(graph,pathname);
       }catch (IOException | GraphException e){
         System.out.println(e);
       }

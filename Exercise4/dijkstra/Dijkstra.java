@@ -1,10 +1,10 @@
-package Exercise4.dijkstra;
+package dijkstra;
 
 import java.util.ArrayList;
 
-import Exercise4.MinHeapLib.*;
-import Exercise4.graph.Graph;
-import Exercise4.graph.GraphException;
+import MinHeapLib.*;
+import graph.Graph;
+import graph.GraphException;
 
 public class Dijkstra{
 

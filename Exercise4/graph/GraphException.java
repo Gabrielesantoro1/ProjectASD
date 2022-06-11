@@ -1,4 +1,4 @@
-package Exercise4.graph;
+package graph;
 
 public class GraphException extends Exception {
 
