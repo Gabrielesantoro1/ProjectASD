@@ -1,43 +1,27 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+
 # Editor-based HTTP Client requests
 /httpRequests/
+
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
 
-#Compiled class
-*.class
-
 #Package files
-*.jar
 *.zip
-*.tar-gz
 
-#Records
-/records/
-
-#Test
-/Unity Test/
-/JUnit Test/
-
-#md file
-*.md
+#Directories
+records
+bin
+build
+classes
 
 #Others
 skiplist.png
 *.log
 *.json
 *.csv
-
-*.o
-*.exe
-Exercise1/fputc_test.txt
 *.txt
-Exercise1/build/main.o
-Exercise1/*.o
-Execrice1/*.exe
-Exercise2/.DS_Store
-.DS_Store
-Exercise2/bin/list
+*.md
