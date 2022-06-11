@@ -45,7 +45,7 @@ public class Application {
             while(choice){
               System.out.println("");
               System.out.println("What function of the heap would you like to try? The possible choices are:" );
-              System.out.println("in for insert; ex for extractMin; dec for DecreaseKey; getp for getFather; getl for GetLeft; getr for GetRight ");
+              System.out.println("- 'in' for insert; \n- 'ex' for extractMin; \n- 'dec' for DecreaseKey; \n- 'getp' for getFather; \n- 'getl' for GetLeft; \n- 'getr' for GetRight ");
               System.out.println("If you want to exit write exit");
               String fun = scannerStr.nextLine();
   
