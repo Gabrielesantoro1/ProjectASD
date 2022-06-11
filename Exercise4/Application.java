@@ -42,57 +42,62 @@ public class Application {
     System.out.println("Hello, insert the path name of the dataset");
     String pathname = scanner.nextLine();
 
-    System.out.println("Hello, type the string name of the source:");
+    System.out.println("Type the string name of the source:");
     String source = scanner.nextLine().toLowerCase();
     System.out.println("Now the data are going to be loaded in the graph");
 
     Graph<String,Float> graph = new Graph<>(true);
     try {
       loadData(graph,pathname);
-      }catch (IOException | GraphException e){
-        System.out.println(e);
+      System.out.println("Do you want to print the number of nodes in the graph? y/n");
+      String printNodes = scanner.nextLine();
+      if(printNodes.equals("y")){
+        System.out.println("Number of nodes: "+graph.getNodesNum());
       }
-    System.out.println("Do you want to print the number of nodes in the graph? y/n");
-    String printNodes = scanner.nextLine();
-    if(printNodes.equals("y")){
-      System.out.println("Number of nodes: "+graph.getNodesNum());
-    }
-    System.out.println("Do you want to print the number of edges in the graph y/n");
-    String printEdges = scanner.nextLine();
-    if(printEdges.equals("y")){
-    System.out.println("Number of edges: "+graph.getEdgesNum());
-    }
-    System.out.println("");
+
+      System.out.println("Do you want to print the number of edges in the graph y/n");
+      String printEdges = scanner.nextLine();
+      if(printEdges.equals("y")){
+      System.out.println("Number of edges: "+graph.getEdgesNum());
+      }
+
+      System.out.println("");
       
-    Graph<String,Float> min = new Graph<>(true);
-    Dijkstra dijkstra = new Dijkstra();
-    try {
-      min = dijkstra.dijkstra(graph, source);    
-    } catch (GraphException | MinHeapException e) {
-      e.printStackTrace();
-    }
-    System.out.println("Dijkstra algorithm has done calculating the shortest path from the source "+source);
-    System.out.println("");
+      Graph<String,Float> shortesPathGraph = new Graph<>(true);
+      Dijkstra dijkstra = new Dijkstra();
+      try {
+        shortesPathGraph = dijkstra.dijkstra(graph, source);    
+      } catch (GraphException | MinHeapException e) {
+        e.printStackTrace();
+      }
 
-    System.out.println("Do you want to print the number of nodes in the new graph returned by the algorithm? y/n");
-    String printNodesSPG = scanner.nextLine();
-    if(printNodesSPG.equals("y")){
-      min.printNodes();
-    }
+      System.out.println("Dijkstra algorithm has done calculating the shortest path from the source "+source);
+      System.out.println("");
 
-    System.out.println("Do you want to print the distances of the nodes? y/n");
-    String printDistances = scanner.nextLine();
-    if(printDistances.equals("y")){
-      min.printEdges();
-    }
+      System.out.println("Do you want to print the number of nodes in the new graph returned by the algorithm? y/n");
+      String printNodesSPG = scanner.nextLine();
+      if(printNodesSPG.equals("y")){
+        shortesPathGraph.printNodes();
+      }
+
+      System.out.println("Do you want to print the distances of the nodes? y/n");
+      String printDistances = scanner.nextLine();
+      if(printDistances.equals("y")){
+        shortesPathGraph.printEdges();
+      }
     
-    System.out.println("If you want to get the complete route from "+source+" to a destination type the destination:");
-    String destination = scanner.nextLine().toLowerCase();
-    try{
-      dijkstra.printPath(source, destination, graph);
-    }catch(GraphException e){
-      e.printStackTrace();
+      System.out.println("If you want to get the complete route from "+source+" to a destination type the destination:");
+      String destination = scanner.nextLine().toLowerCase();
+      try{
+        dijkstra.printPath(source, destination, graph);
+      }catch(GraphException e){
+        e.printStackTrace();
+      }
+
+    } catch (IOException | GraphException e){
+      System.out.println(e);
+    } finally {
+      scanner.close();
     }
-    scanner.close();
   }
 }

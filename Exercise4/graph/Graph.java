@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class Graph<T,W>{
-    private Boolean oriented = false;
+    private Boolean oriented;
     private Map<T,ValuesKey<T,W>> adjList;
 
     public Graph(){
