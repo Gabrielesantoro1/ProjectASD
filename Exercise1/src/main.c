@@ -189,7 +189,7 @@ static void test_insertionsort_with_comparison_function(const char* file_name, i
 }
 
  //REAL MAIN
-int main(int argc){
+int main(int argc, char *argv[]){
     char* record;
     printf("Insert the reocord path to order: ");
     scanf("%s", record);

@@ -67,7 +67,7 @@ static void test_array_struct_is_empty_zero_el(void){
 
 
 static void test_array_struct_is_empty_one_el(void){
-    array_struct_add(array_struct,(void*)i1);
+    array_struct_add(array_struct,&i1);
     TEST_ASSERT_FALSE(array_is_empty(array_struct));
 }
 
@@ -78,7 +78,7 @@ static void test_array_struct_size_zero_el(void){
 
 
 static void test_array_struct_size_one_el(void){
-    array_struct_add(array_struct,(void*)i1);
+    array_struct_add(array_struct,&i1);
     TEST_ASSERT_EQUAL_INT(1,array_size(array_struct));
 }
 
@@ -100,7 +100,7 @@ static void test_insertsort_with_array_int(void){
   array_struct_add(array_struct,&i2);
   array_struct_add(array_struct,&i1);
   array_struct_add(array_struct,&i3);
-  array_struct = b_insertionsort(array_struct,precedes_int);
+  b_insertionsort(array_struct,precedes_int);
   int** act_arr = malloc(3*sizeof(int*));
   for(unsigned long i=0;i<3;i++)
     act_arr[i] = (int*)array_get(array_struct,i);
@@ -113,7 +113,7 @@ static void test_insertsort_with_array_float(void){
   array_struct_add(array_struct,&f1);
   array_struct_add(array_struct,&f3);
   array_struct_add(array_struct,&f2);
-  array_struct = b_insertionsort(array_struct,precedes_float);
+  b_insertionsort(array_struct,precedes_float);
   float** act_arr = malloc(3*sizeof(float*));
   for(unsigned long i=0;i<3;i++)
     act_arr[i] = (float*)array_get(array_struct,i);
@@ -126,7 +126,7 @@ static void test_insertsort_with_array_string(void){
   array_struct_add(array_struct,&s2);
   array_struct_add(array_struct,&s1);
   array_struct_add(array_struct,&s3);
-  array_struct = b_insertionsort(array_struct,precedes_string);
+  b_insertionsort(array_struct,precedes_string);
   char** act_arr = malloc(3*sizeof(char*));
   for(unsigned long i=0;i<3;i++)
     act_arr[i] = (char*)array_get(array_struct,i);
