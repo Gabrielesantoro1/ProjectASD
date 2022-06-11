@@ -17,5 +17,4 @@ bin/skiplist_tests: build/skiplist_tests.o build/list.o build/skip_list.o build/
 bin/list_tests: build/list_tests.o build/list.o build/unity.o $(COMMON_DEPS)
 	$(CC) -o bin/list_tests build/list_tests.o build/list.o build/unity.o
 
-clean:
-	rm -f build/* bin/*
+clean: rm -f build/* bin/*

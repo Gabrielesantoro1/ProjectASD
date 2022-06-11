@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include <dirent.h>
 #include <limits.h>
 #include "array.h"
 #include "b_insertionsort.h"
@@ -104,6 +103,7 @@ static void print_array(Array_Struct* array){
 
 //loads the element of a file in the array struct
 static void load_array(const char* file_name, Array_Struct* array){
+    printf("Loading array...");
   char *read_line_p;
   char buffer[1024];
   int buf_size = 1024;
@@ -170,7 +170,6 @@ static void test_quicksort_with_comparison_function(const char* file_name, int (
     clock_t difference = clock() - before;
     double sec = ((double)difference) / CLOCKS_PER_SEC;
     
-    //writeinfile(array);
     print_array(array);
     printf("QuickSort took for %s : %f sec \n",file_name,sec);
     free_array(array);
@@ -180,7 +179,7 @@ static void test_insertionsort_with_comparison_function(const char* file_name, i
     Array_Struct* array = array_create();
     load_array(file_name, array);
     clock_t before = clock();
-    array = b_insertionsort(array, compare);
+    b_insertionsort(array, compare);
     clock_t difference = clock() - before;
     double sec = ((double)difference) / CLOCKS_PER_SEC;
 
@@ -234,12 +233,15 @@ int main(int argc){
         switch (crit)
         {
         case 1:
+            printf("I'm ordering...\n");
             test_insertionsort_with_comparison_function(record, precedes_record_int_field);
             break;
         case 2:
+            printf("I'm ordering...\n");
             test_insertionsort_with_comparison_function(record, precedes_record_float_field);
             break;
         case 3:
+            printf("I'm ordering...\n");
             test_insertionsort_with_comparison_function(record, precedes_record_string_field);
             break;
         default:
@@ -257,21 +259,3 @@ int main(int argc){
     return (EXIT_SUCCESS);
 }
 
-/*
-//TEST MAIN
-int main(int argc){
-    DIR *d;
-    struct dirent *dir;
-    d = opendir(".");
-    if(d){
-        while((dir = readdir(d)) != NULL){
-            if(dir->d_type == DT_REG && dir->d_name[0] != 'M'){
-                //printf("%s\n",dir->d_name);
-                test_quicksort_with_comparison_function(dir->d_name,precedes_record_int_field,0);
-            }
-        }
-        cbinlosedir(d);
-    }
-    return(0);
-}
-*/
