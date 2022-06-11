@@ -43,7 +43,7 @@ public class Application {
     String pathname = scanner.nextLine();
 
     System.out.println("Hello, type the string name of the source:");
-    String source = scanner.nextLine();
+    String source = scanner.nextLine().toLowerCase();
     System.out.println("Now the data are going to be loaded in the graph");
 
     Graph<String,Float> graph = new Graph<>(true);
@@ -87,7 +87,7 @@ public class Application {
     }
     
     System.out.println("If you want to get the complete route from "+source+" to a destination type the destination:");
-    String destination = scanner.nextLine();
+    String destination = scanner.nextLine().toLowerCase();
     try{
       dijkstra.printPath(source, destination, graph);
     }catch(GraphException e){
