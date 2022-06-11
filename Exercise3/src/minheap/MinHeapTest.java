@@ -1,4 +1,5 @@
-package Exercise3.src;
+package minheap;
+
 
 import static org.junit.Assert.assertEquals;
 

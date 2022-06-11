@@ -1,4 +1,4 @@
-package Exercise3.src;
+package minheap;
 
 import java.util.Comparator;
 

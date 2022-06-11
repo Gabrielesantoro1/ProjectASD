@@ -1,4 +1,5 @@
-package Exercise3.src;
+package minheap;
+
 
 public class MinHeapException extends Exception{
   public MinHeapException(String message){
