@@ -42,12 +42,12 @@ public class Application {
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
     System.out.println("Hello, type the string name of the source:");
-    String source = scanner.nextLine();
+    String source = scanner.nextLine().toLowerCase();
     System.out.println("Now the data are going to be loaded in the graph");
 
     Graph<String,Float> graph = new Graph<>(true);
     try {
-      loadData(graph,"Exercise4\\records\\italian_dist_graph.csv");
+      loadData(graph,"Exercise4/italian_dist_graph.csv");
       }catch (IOException | GraphException e){
         System.out.println(e);
       }
@@ -86,7 +86,7 @@ public class Application {
     }
     
     System.out.println("If you want to get the complete route from "+source+" to a destination type the destination:");
-    String destination = scanner.nextLine();
+    String destination = scanner.nextLine().toLowerCase();
     try{
       dijkstra.printPath(source, destination, graph);
     }catch(GraphException e){
