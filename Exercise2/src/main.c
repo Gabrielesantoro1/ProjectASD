@@ -146,7 +146,7 @@ void check_correctme_modified(SkipList *skiplist, List *list){
 
 static void test_with_comparison_function(const char* dictionary_file_name, const char* correctme_file_name, int (*compare)(void*,void*)){
     srand(time(0));
-    //printf("\nLoading data...\n");
+    printf("\nLoading data...\n");
 
     clock_t befor_loading = clock();
     SkipList *dictionary = load_dictionary(dictionary_file_name,compare);
@@ -155,18 +155,15 @@ static void test_with_comparison_function(const char* dictionary_file_name, cons
     }
     clock_t after_loading = clock();
     double sec_loading = (double)(after_loading-befor_loading) / CLOCKS_PER_SEC;
-    writeinfile(sec_loading, "loading_normal.txt");
-    
-    //printSkipList(dictionary);
+    printSkipList(dictionary);
 
     List *correctme = load_correctme(correctme_file_name);
     if(correctme == NULL){
         fprintf(stderr, "The correctme file is NULL\n");
     }
-
-    //list_print(correctme);
+    list_print(correctme);
     
-    //printf("\nChecking the correctme file...\n");
+    printf("\nChecking the correctme file...\n");
 
     clock_t before_nCheck = clock();
     check_correctme(dictionary,correctme);
@@ -178,9 +175,6 @@ static void test_with_comparison_function(const char* dictionary_file_name, cons
     check_correctme_modified(dictionary,correctme);
     clock_t after_mCheck = clock();
     double sec_mCheck = (double)(after_mCheck-before_mCheck) / CLOCKS_PER_SEC;
-    writeinfile(sec_mCheckm, "correction_modified.txt");
-
-
 
     printf("The value of max height was: %d",dictionary->max_level);
     printf("\n");
@@ -188,32 +182,29 @@ static void test_with_comparison_function(const char* dictionary_file_name, cons
     //Free of the memory section
     list_free(correctme);
     freeSkipList(dictionary);
-    printf("Memories free\n");
+    printf("Memory is free\n");
 }
 
 static void test_with_comparison_function_modified(const char* dictionary_file_name, const char* correctme_file_name, int (*compare)(void*,void*)){
     srand(time(0));
-    //printf("\nLoading data...\n");
+    printf("\nLoading data...\n");
 
     clock_t befor_loading = clock();
-    SkipList *dictionary = load_dictionary_modified(dictionary_file_name,compare);
+    SkipList *dictionary = load_dictionary(dictionary_file_name,compare);
     if(dictionary == NULL){
         fprintf(stderr, "The dictionary file is NULL\n");
     }
     clock_t after_loading = clock();
     double sec_loading = (double)(after_loading-befor_loading) / CLOCKS_PER_SEC;
-    writeinfile(sec_loading, "loading_modified.txt");
-    
-    //printSkipList(dictionary);
+    printSkipList(dictionary);
 
     List *correctme = load_correctme(correctme_file_name);
     if(correctme == NULL){
         fprintf(stderr, "The correctme file is NULL\n");
     }
-
-    //list_print(correctme);
+    list_print(correctme);
     
-    //printf("\nChecking the correctme file...\n");
+    printf("\nChecking the correctme file...\n");
 
     clock_t before = clock();
     check_correctme(dictionary,correctme);
@@ -221,14 +212,13 @@ static void test_with_comparison_function_modified(const char* dictionary_file_n
     double sec = (double)(after-before) / CLOCKS_PER_SEC;
 
     printf("\n");
-    writeinfile(sec, "correction_modified.txt");
     printf("Time take to check the correctme file was: %f;\nThe value of max height was: %d",sec, dictionary->max_level);
     printf("\n");
     
     //Free of the memory section
     list_free(correctme);
     freeSkipList(dictionary);
-    printf("Memories free\n");
+    printf("Memory is free\n");
 }
 
 void main(int argc, char *argv[]){

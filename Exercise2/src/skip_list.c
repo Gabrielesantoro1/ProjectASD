@@ -223,8 +223,7 @@ void printSkipList(SkipList *skiplist){
     int count = 1;
     for(;tmp != NULL; tmp = tmp->next[0]){
         printf("\n");
-        //printf("\nElem[%i]:%s",count,tmp->item);
-        printf("\nSize:%i",tmp->size);
+        printf("\nElem[%i]:%s",count,tmp->item);
         count++;
     }
 }
