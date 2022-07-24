@@ -13,7 +13,7 @@ struct record{
     float float_field;
 };
 
-//comparasion criterion for int values
+//comparison criterion for int values
 static int precedes_record_int_field(void* r1_p, void* r2_p){
     if(r1_p == NULL){
         fprintf(stderr,"precedes_record_int_field: the first parameter is a null pointer");
@@ -35,7 +35,7 @@ static int precedes_record_int_field(void* r1_p, void* r2_p){
   return(0);
 }
 
-//comparasion criterion for strings values
+//comparison criterion for strings values
 static int precedes_record_string_field(void* r1_p,void* r2_p){
   if(r1_p == NULL){
     fprintf(stderr,"precedes_record_string_field: the first parameter is a null pointer");
@@ -57,7 +57,7 @@ static int precedes_record_string_field(void* r1_p,void* r2_p){
   return(0);
 }
 
-//comparasion criterion for float values
+//comparison criterion for float values
 static int precedes_record_float_field(void* r1_p, void* r2_p){
     if(r1_p == NULL){
         fprintf(stderr,"precedes_record_float_field: the first parameter is a null pointer");
@@ -148,20 +148,6 @@ static void load_array(const char* file_name, Array_Struct* array){
   fclose(fp);
 }
 
-//support function to facilitate testing
-void writeinfile(double sec){
-    int i;
-    char output[50];
-    snprintf(output, 50, "%f", sec);
-        FILE * fptr;        
-        fptr = fopen("fputc_test.txt", "a");
-        for (i = 0; i < strlen(output); i++) {
-            fputc(output[i], fptr);
-        }
-        fputc('\n',fptr);
-        fclose(fptr);
-}
-
 static void test_quicksort_with_comparison_function(const char* file_name, int (*compare)(void*,void*), long crit){
     Array_Struct* array = array_create();
     load_array(file_name, array);
@@ -188,10 +174,9 @@ static void test_insertionsort_with_comparison_function(const char* file_name, i
     free_array(array);
 }
 
- //REAL MAIN
 int main(int argc, char *argv[]){
     char* record;
-    printf("Insert the reocord path to order: ");
+    printf("Insert the record path to order: ");
     scanf("%s", record);
 
     printf("\nChoose the algorithm you want to use:\n 1 - QuickSort\n 2 - BinaryInsertionSort\n");
@@ -226,7 +211,7 @@ int main(int argc, char *argv[]){
             break;
         }
         break;
-
+    //BINARY INSERTION SORT
     case 2:
         printf("Select the sorting criterion:\n 1 - Integer\n 2 - Float\n 3 - String\n");
         scanf("%d",&crit);
